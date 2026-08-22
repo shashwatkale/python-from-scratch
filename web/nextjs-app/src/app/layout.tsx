@@ -5,13 +5,17 @@ import { Header } from "@/components/Header";
 
 export const metadata: Metadata = {
   title: {
-    template: "%s | Python / From Scratch",
-    default: "Python / From Scratch",
+    template: "%s | Python From Scratch",
+    default: "Python From Scratch — Learn Python by Building",
   },
   description:
     "Learn Python from your first print() statement to production-ready applications. Free, open-source, project-based.",
+  icons: {
+    icon: "/favicon.png",
+    apple: "/favicon.png",
+  },
   openGraph: {
-    siteName: "Python / From Scratch",
+    siteName: "Python From Scratch",
     type: "website",
   },
 };
