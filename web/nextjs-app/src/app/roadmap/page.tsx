@@ -1,58 +1,103 @@
 import type { Metadata } from "next";
 import { PHASES } from "@/lib/curriculum";
-import { ArrowDown } from "lucide-react";
 
 export const metadata: Metadata = {
   title: "Roadmap",
-  description: "Python From Scratch learning roadmap and build status.",
+  description: "Python From Scratch learning roadmap — 21 phases from beginner to advanced.",
 };
 
-const STATUS = {
-  complete: { label: "Complete", color: "bg-emerald-500" },
-  progress: { label: "In Progress", color: "bg-amber-500" },
-  planned: { label: "Planned", color: "bg-zinc-300 dark:bg-zinc-600" },
+const DIFF_COLOR: Record<string, string> = {
+  beginner: "var(--color-accent-text)",
+  intermediate: "#d97706",
+  advanced: "#dc2626",
 };
 
-function phaseStatus(phase: { lessons: unknown[] }) {
-  if (phase.lessons.length > 0) return "progress";
-  return "planned";
+function phaseStatus(lessons: unknown[]): "active" | "planned" {
+  return lessons.length > 0 ? "active" : "planned";
 }
 
 export default function RoadmapPage() {
   return (
-    <div className="max-w-2xl mx-auto px-4 py-12">
-      <h1 className="text-3xl font-bold text-zinc-900 dark:text-zinc-100 mb-2">Roadmap</h1>
-      <p className="text-zinc-500 mb-10">Learning path and current build status.</p>
+    <div style={{ maxWidth: "900px", margin: "0 auto", padding: "3rem 1.5rem" }}>
+      {/* Header */}
+      <div style={{ marginBottom: "2.5rem", paddingBottom: "1.25rem", borderBottom: "1px solid var(--color-border)" }}>
+        <p style={{ fontFamily: "var(--font-mono)", fontSize: "0.65rem", textTransform: "uppercase", letterSpacing: "0.1em", color: "var(--color-ink-3)", marginBottom: "0.5rem" }}>
+          Learning Path
+        </p>
+        <h1 style={{ fontFamily: "var(--font-display)", fontSize: "2.5rem", fontWeight: 700, textTransform: "uppercase", color: "var(--color-ink)", lineHeight: 1.05, marginBottom: "0.75rem" }}>
+          Roadmap
+        </h1>
+        <p style={{ fontFamily: "var(--font-body)", fontSize: "1rem", color: "var(--color-ink-3)", maxWidth: "480px" }}>
+          {PHASES.length} phases from absolute beginner to production Python.
+        </p>
+      </div>
 
-      <div className="flex flex-col items-center">
-        {PHASES.map((phase, i) => {
-          const s = phaseStatus(phase);
-          const statusInfo = STATUS[s];
+      {/* Legend */}
+      <div style={{ display: "flex", gap: "1.5rem", marginBottom: "2rem" }}>
+        {[
+          { dot: "var(--color-accent)", label: "In Progress" },
+          { dot: "var(--color-border-2)", label: "Planned" },
+        ].map(({ dot, label }) => (
+          <div key={label} style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
+            <span style={{ width: "8px", height: "8px", backgroundColor: dot, display: "inline-block" }} />
+            <span style={{ fontFamily: "var(--font-mono)", fontSize: "0.6rem", textTransform: "uppercase", letterSpacing: "0.08em", color: "var(--color-ink-3)" }}>
+              {label}
+            </span>
+          </div>
+        ))}
+      </div>
+
+      {/* Phase list */}
+      <div style={{ border: "1px solid var(--color-border)", backgroundColor: "var(--color-surface)" }}>
+        {/* Header row */}
+        <div style={{ display: "grid", gridTemplateColumns: "2.5rem 0.5rem 1fr 7rem 5rem", gap: "1rem", alignItems: "center", padding: "0.5rem 1.25rem", borderBottom: "1px solid var(--color-border)", backgroundColor: "var(--color-surface-2)" }}>
+          {["#", "", "Phase", "Difficulty", "Status"].map((h, i) => (
+            <span key={i} style={{ fontFamily: "var(--font-mono)", fontSize: "0.6rem", textTransform: "uppercase", letterSpacing: "0.1em", color: "var(--color-ink-3)" }}>
+              {h}
+            </span>
+          ))}
+        </div>
+
+        {PHASES.map((phase) => {
+          const status = phaseStatus(phase.lessons);
           return (
-            <div key={phase.slug} className="flex flex-col items-center w-full">
-              <div className="w-full border border-zinc-200 dark:border-zinc-800 rounded-lg px-5 py-4 flex items-center gap-4">
-                <div className={`w-2.5 h-2.5 rounded-full shrink-0 ${statusInfo.color}`} />
-                <div className="flex-1">
-                  <div className="flex items-center gap-2">
-                    <span className="text-xs font-mono text-zinc-400">
-                      Phase {String(phase.order).padStart(2, "0")}
-                    </span>
-                    <span className="text-xs text-zinc-400">·</span>
-                    <span className="text-xs text-zinc-400">{statusInfo.label}</span>
-                  </div>
-                  <p className="font-medium text-zinc-900 dark:text-zinc-100">{phase.title}</p>
-                </div>
-                {phase.lessons.length > 0 && (
-                  <span className="text-xs text-zinc-400 shrink-0">
-                    {phase.lessons.length} lessons
-                  </span>
-                )}
+            <div
+              key={phase.slug}
+              style={{
+                display: "grid",
+                gridTemplateColumns: "2.5rem 0.5rem 1fr 7rem 5rem",
+                gap: "1rem",
+                alignItems: "center",
+                padding: "0.875rem 1.25rem",
+                borderBottom: "1px solid var(--color-border)",
+              }}
+            >
+              <span style={{ fontFamily: "var(--font-mono)", fontSize: "0.7rem", color: "var(--color-ink-3)", fontWeight: 600 }}>
+                {String(phase.order).padStart(2, "0")}
+              </span>
+              <span
+                style={{
+                  width: "8px",
+                  height: "8px",
+                  backgroundColor: status === "active" ? "var(--color-accent)" : "var(--color-border-2)",
+                  display: "inline-block",
+                  flexShrink: 0,
+                }}
+              />
+              <div>
+                <p style={{ fontFamily: "var(--font-mono)", fontSize: "0.78rem", fontWeight: 600, color: "var(--color-ink)", textTransform: "uppercase", letterSpacing: "0.04em", marginBottom: "0.15rem" }}>
+                  {phase.title}
+                </p>
+                <p style={{ fontFamily: "var(--font-body)", fontSize: "0.75rem", color: "var(--color-ink-3)" }}>
+                  {phase.description}
+                </p>
               </div>
-              {i < PHASES.length - 1 && (
-                <div className="py-1 text-zinc-300 dark:text-zinc-700">
-                  <ArrowDown size={16} />
-                </div>
-              )}
+              <span style={{ fontFamily: "var(--font-mono)", fontSize: "0.6rem", textTransform: "uppercase", letterSpacing: "0.06em", color: DIFF_COLOR[phase.difficulty] }}>
+                {phase.difficulty}
+              </span>
+              <span style={{ fontFamily: "var(--font-mono)", fontSize: "0.6rem", textTransform: "uppercase", letterSpacing: "0.06em", color: status === "active" ? "var(--color-accent-text)" : "var(--color-ink-3)" }}>
+                {status === "active" ? `${phase.lessons.length} lessons` : "Planned"}
+              </span>
             </div>
           );
         })}

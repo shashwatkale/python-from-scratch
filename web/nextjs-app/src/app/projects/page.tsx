@@ -6,50 +6,57 @@ export const metadata: Metadata = {
   description: "Build real Python projects from beginner to advanced.",
 };
 
-const DIFFICULTY_COLOR = {
-  beginner: "bg-emerald-100 text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-400",
-  intermediate: "bg-amber-100 text-amber-700 dark:bg-amber-900/30 dark:text-amber-400",
-  advanced: "bg-rose-100 text-rose-700 dark:bg-rose-900/30 dark:text-rose-400",
+const DIFF_COLOR: Record<string, string> = {
+  beginner: "var(--color-accent-text)",
+  intermediate: "#d97706",
+  advanced: "#dc2626",
 };
 
 export default function ProjectsPage() {
   return (
-    <div className="max-w-4xl mx-auto px-4 py-12">
-      <h1 className="text-3xl font-bold text-zinc-900 dark:text-zinc-100 mb-2">Projects</h1>
-      <p className="text-zinc-500 mb-10">
-        {PROJECTS.length} project{PROJECTS.length !== 1 ? "s" : ""} · build real things
-      </p>
+    <div style={{ maxWidth: "900px", margin: "0 auto", padding: "3rem 1.5rem" }}>
+      <div style={{ marginBottom: "2rem", paddingBottom: "1.25rem", borderBottom: "1px solid var(--color-border)" }}>
+        <p style={{ fontFamily: "var(--font-mono)", fontSize: "0.65rem", textTransform: "uppercase", letterSpacing: "0.1em", color: "var(--color-ink-3)", marginBottom: "0.5rem" }}>
+          Projects · {PROJECTS.length} Available
+        </p>
+        <h1 style={{ fontFamily: "var(--font-display)", fontSize: "2.5rem", fontWeight: 700, textTransform: "uppercase", color: "var(--color-ink)", lineHeight: 1.05 }}>
+          Projects
+        </h1>
+      </div>
 
-      <div className="space-y-3">
-        {PROJECTS.map((project) => (
+      <div style={{ border: "1px solid var(--color-border)", backgroundColor: "var(--color-surface)" }}>
+        {PROJECTS.map((project, i) => (
           <div
             key={project.slug}
             id={project.slug}
-            className="border border-zinc-200 dark:border-zinc-800 rounded-lg px-5 py-4"
+            style={{
+              display: "grid",
+              gridTemplateColumns: "2.5rem 1fr auto",
+              gap: "1rem",
+              alignItems: "start",
+              padding: "1.25rem",
+              borderBottom: i < PROJECTS.length - 1 ? "1px solid var(--color-border)" : "none",
+            }}
           >
-            <div className="flex items-start justify-between gap-4">
-              <div>
-                <div className="flex items-center gap-2 mb-1">
-                  <span className="text-sm font-mono text-zinc-400">
-                    {String(project.order).padStart(2, "0")}
-                  </span>
-                  <span className="font-medium text-zinc-900 dark:text-zinc-100">
-                    {project.title}
-                  </span>
-                  <span className={`text-xs px-2 py-0.5 rounded-full font-medium ${DIFFICULTY_COLOR[project.difficulty]}`}>
-                    {project.difficulty}
-                  </span>
-                </div>
-                <p className="text-sm text-zinc-500 mb-2">{project.description}</p>
-                <div className="flex flex-wrap gap-1">
-                  {project.concepts.map((c) => (
-                    <span key={c} className="text-xs font-mono bg-zinc-100 dark:bg-zinc-800 text-zinc-500 px-1.5 py-0.5 rounded">
-                      {c}
-                    </span>
-                  ))}
-                </div>
+            <span style={{ fontFamily: "var(--font-mono)", fontSize: "0.7rem", color: "var(--color-ink-3)", fontWeight: 600, paddingTop: "0.1rem" }}>
+              {String(project.order).padStart(2, "0")}
+            </span>
+            <div>
+              <p style={{ fontFamily: "var(--font-mono)", fontSize: "0.8rem", fontWeight: 600, color: "var(--color-ink)", textTransform: "uppercase", letterSpacing: "0.04em", marginBottom: "0.3rem" }}>
+                {project.title}
+              </p>
+              <p style={{ fontFamily: "var(--font-body)", fontSize: "0.85rem", color: "var(--color-ink-3)", marginBottom: "0.75rem" }}>
+                {project.description}
+              </p>
+              <div style={{ display: "flex", flexWrap: "wrap", gap: "0.3rem" }}>
+                {project.concepts.map((c) => (
+                  <span key={c} className="tag">{c}</span>
+                ))}
               </div>
             </div>
+            <span style={{ fontFamily: "var(--font-mono)", fontSize: "0.6rem", textTransform: "uppercase", letterSpacing: "0.06em", color: DIFF_COLOR[project.difficulty], border: `1px solid ${DIFF_COLOR[project.difficulty]}`, padding: "0.2rem 0.5rem", flexShrink: 0 }}>
+              {project.difficulty}
+            </span>
           </div>
         ))}
       </div>

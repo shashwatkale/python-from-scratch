@@ -6,59 +6,66 @@ export const metadata: Metadata = {
   description: "Practice Python with exercises from beginner to interview level.",
 };
 
-const DIFFICULTY_COLOR = {
-  beginner: "bg-emerald-100 text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-400",
-  easy: "bg-sky-100 text-sky-700 dark:bg-sky-900/30 dark:text-sky-400",
-  medium: "bg-amber-100 text-amber-700 dark:bg-amber-900/30 dark:text-amber-400",
-  hard: "bg-rose-100 text-rose-700 dark:bg-rose-900/30 dark:text-rose-400",
-  interview: "bg-purple-100 text-purple-700 dark:bg-purple-900/30 dark:text-purple-400",
+const DIFF_COLOR: Record<string, string> = {
+  beginner: "var(--color-accent-text)",
+  easy: "#059669",
+  medium: "#d97706",
+  hard: "#dc2626",
+  interview: "#7c3aed",
 };
 
 const DIFFICULTIES = ["beginner", "easy", "medium", "hard", "interview"] as const;
 
 export default function ExercisesPage() {
   return (
-    <div className="max-w-4xl mx-auto px-4 py-12">
-      <h1 className="text-3xl font-bold text-zinc-900 dark:text-zinc-100 mb-2">Exercises</h1>
-      <p className="text-zinc-500 mb-10">
-        {EXERCISES.length} exercises · beginner to interview level
-      </p>
+    <div style={{ maxWidth: "900px", margin: "0 auto", padding: "3rem 1.5rem" }}>
+      <div style={{ marginBottom: "2rem", paddingBottom: "1.25rem", borderBottom: "1px solid var(--color-border)" }}>
+        <p style={{ fontFamily: "var(--font-mono)", fontSize: "0.65rem", textTransform: "uppercase", letterSpacing: "0.1em", color: "var(--color-ink-3)", marginBottom: "0.5rem" }}>
+          Catalog · {EXERCISES.length} Exercises
+        </p>
+        <h1 style={{ fontFamily: "var(--font-display)", fontSize: "2.5rem", fontWeight: 700, textTransform: "uppercase", color: "var(--color-ink)", lineHeight: 1.05 }}>
+          Exercises
+        </h1>
+      </div>
 
       {DIFFICULTIES.map((diff) => {
         const items = EXERCISES.filter((e) => e.difficulty === diff);
         if (items.length === 0) return null;
         return (
-          <section key={diff} className="mb-10">
-            <h2 className="text-sm font-semibold uppercase tracking-wider text-zinc-400 mb-3">
+          <section key={diff} style={{ marginBottom: "2.5rem" }}>
+            <p style={{ fontFamily: "var(--font-mono)", fontSize: "0.6rem", textTransform: "uppercase", letterSpacing: "0.1em", color: DIFF_COLOR[diff], marginBottom: "0.75rem", paddingBottom: "0.5rem", borderBottom: "1px solid var(--color-border)" }}>
               {diff}
-            </h2>
-            <div className="space-y-2">
-              {items.map((ex) => (
+            </p>
+            <div style={{ border: "1px solid var(--color-border)", backgroundColor: "var(--color-surface)" }}>
+              {items.map((ex, i) => (
                 <div
                   key={ex.slug}
                   id={ex.slug}
-                  className="border border-zinc-200 dark:border-zinc-800 rounded-lg px-5 py-4"
+                  style={{
+                    display: "grid",
+                    gridTemplateColumns: "1fr auto",
+                    gap: "1rem",
+                    alignItems: "center",
+                    padding: "0.875rem 1.25rem",
+                    borderBottom: i < items.length - 1 ? "1px solid var(--color-border)" : "none",
+                  }}
                 >
-                  <div className="flex items-start justify-between gap-4">
-                    <div>
-                      <div className="flex items-center gap-2 mb-1">
-                        <span className="font-medium text-zinc-900 dark:text-zinc-100">
-                          {ex.title}
-                        </span>
-                        <span className={`text-xs px-2 py-0.5 rounded-full font-medium ${DIFFICULTY_COLOR[ex.difficulty]}`}>
-                          {ex.difficulty}
-                        </span>
-                      </div>
-                      <p className="text-sm text-zinc-500">{ex.description}</p>
-                      <div className="flex flex-wrap gap-1 mt-2">
-                        {ex.tags.map((tag) => (
-                          <span key={tag} className="text-xs font-mono bg-zinc-100 dark:bg-zinc-800 text-zinc-500 px-1.5 py-0.5 rounded">
-                            {tag}
-                          </span>
-                        ))}
-                      </div>
+                  <div>
+                    <p style={{ fontFamily: "var(--font-mono)", fontSize: "0.78rem", fontWeight: 600, color: "var(--color-ink)", marginBottom: "0.2rem" }}>
+                      {ex.title}
+                    </p>
+                    <p style={{ fontFamily: "var(--font-body)", fontSize: "0.8rem", color: "var(--color-ink-3)", marginBottom: "0.5rem" }}>
+                      {ex.description}
+                    </p>
+                    <div style={{ display: "flex", flexWrap: "wrap", gap: "0.3rem" }}>
+                      {ex.tags.map((tag) => (
+                        <span key={tag} className="tag">{tag}</span>
+                      ))}
                     </div>
                   </div>
+                  <span style={{ fontFamily: "var(--font-mono)", fontSize: "0.6rem", textTransform: "uppercase", letterSpacing: "0.06em", color: DIFF_COLOR[diff], border: `1px solid ${DIFF_COLOR[diff]}`, padding: "0.2rem 0.5rem", flexShrink: 0 }}>
+                    {diff}
+                  </span>
                 </div>
               ))}
             </div>

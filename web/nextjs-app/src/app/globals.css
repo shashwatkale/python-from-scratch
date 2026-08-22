@@ -2,90 +2,565 @@
 @tailwind components;
 @tailwind utilities;
 
+/* ─── Google Fonts ─────────────────────────────────────────── */
+@import url("https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;1,400&family=JetBrains+Mono:wght@400;500;600&family=Barlow+Condensed:wght@500;600;700&display=swap");
+
+/* ─── Design Tokens ─────────────────────────────────────────── */
 @layer base {
   :root {
-    --bg: 255 255 255;
-    --fg: 15 15 15;
-    --muted: 107 114 128;
-    --border: 229 231 235;
-    --code-bg: 243 244 246;
-    --accent: 99 102 241;
+    /* Light mode */
+    --color-bg:          #f7f5f0;
+    --color-surface:     #faf9f6;
+    --color-surface-2:   #f0ede6;
+    --color-ink:         #111110;
+    --color-ink-2:       #3d3c38;
+    --color-ink-3:       #7a7870;
+    --color-border:      #dedad2;
+    --color-border-2:    #c8c4bb;
+    --color-accent:      #1a56db;
+    --color-accent-soft: #e8f0fe;
+    --color-accent-text: #1a56db;
+    --color-dot:         #c8c4bb;
+
+    /* Fonts */
+    --font-body:    "Lora", Georgia, serif;
+    --font-mono:    "JetBrains Mono", ui-monospace, monospace;
+    --font-display: "Barlow Condensed", "Lora", Georgia, serif;
   }
 
   .dark {
-    --bg: 15 15 15;
-    --fg: 237 237 237;
-    --muted: 156 163 175;
-    --border: 38 38 38;
-    --code-bg: 24 24 27;
-    --accent: 129 140 248;
+    --color-bg:          #0f0f0e;
+    --color-surface:     #161614;
+    --color-surface-2:   #1e1e1b;
+    --color-ink:         #f0ede6;
+    --color-ink-2:       #c8c4bb;
+    --color-ink-3:       #7a7870;
+    --color-border:      #2a2a26;
+    --color-border-2:    #3a3a35;
+    --color-accent:      #4d7fff;
+    --color-accent-soft: #0d1f3c;
+    --color-accent-text: #7aabff;
+    --color-dot:         #2a2a26;
+  }
+
+  * {
+    border-color: var(--color-border);
+  }
+
+  html {
+    scroll-behavior: smooth;
   }
 
   body {
-    @apply bg-white dark:bg-zinc-950 text-zinc-900 dark:text-zinc-100;
-    font-feature-settings: "rlig" 1, "calt" 1;
+    background-color: var(--color-bg);
+    color: var(--color-ink);
+    font-family: var(--font-body);
+    font-size: 1rem;
+    line-height: 1.7;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   }
 
-  code {
-    @apply font-mono text-sm;
+  /* Dot grid background on main pages */
+  .dot-grid-bg {
+    background-image: radial-gradient(circle, var(--color-dot) 1px, transparent 1px);
+    background-size: 24px 24px;
   }
 
-  pre {
-    @apply overflow-x-auto;
+  /* Selection */
+  ::selection {
+    background-color: var(--color-accent);
+    color: #fff;
   }
 }
 
-/* Syntax highlighting overrides for dark mode */
-.dark .hljs {
-  background: rgb(24 24 27);
-  color: #e4e4e7;
+/* ─── Typography Utilities ──────────────────────────────────── */
+@layer utilities {
+  .font-display {
+    font-family: var(--font-display);
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    text-transform: uppercase;
+  }
+
+  .font-mono-ui {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+
+  .text-ink    { color: var(--color-ink); }
+  .text-ink-2  { color: var(--color-ink-2); }
+  .text-ink-3  { color: var(--color-ink-3); }
+  .text-accent { color: var(--color-accent); }
+  .bg-surface  { background-color: var(--color-surface); }
+  .bg-surface-2 { background-color: var(--color-surface-2); }
+  .border-token { border-color: var(--color-border); }
 }
 
-/* Prose styles for lesson content */
-.prose-lesson h2 {
-  @apply text-xl font-semibold mt-8 mb-3 text-zinc-900 dark:text-zinc-100;
+/* ─── Scrollbar ─────────────────────────────────────────────── */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--color-border-2); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: var(--color-ink-3); }
+
+/* ─── Lesson Prose ──────────────────────────────────────────── */
+.lesson-prose {
+  font-family: var(--font-body);
+  color: var(--color-ink-2);
+  line-height: 1.8;
 }
 
-.prose-lesson h3 {
-  @apply text-lg font-medium mt-6 mb-2 text-zinc-800 dark:text-zinc-200;
+.lesson-prose h1 {
+  font-family: var(--font-display);
+  font-size: 2.25rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: -0.01em;
+  color: var(--color-ink);
+  margin-bottom: 0.5rem;
+  line-height: 1.1;
 }
 
-.prose-lesson p {
-  @apply leading-7 mb-4 text-zinc-700 dark:text-zinc-300;
+.lesson-prose h2 {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--color-ink-3);
+  margin-top: 3rem;
+  margin-bottom: 1rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid var(--color-border);
 }
 
-.prose-lesson ul {
-  @apply list-disc list-inside mb-4 space-y-1 text-zinc-700 dark:text-zinc-300;
+.lesson-prose h3 {
+  font-family: var(--font-body);
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--color-ink);
+  margin-top: 2rem;
+  margin-bottom: 0.75rem;
 }
 
-.prose-lesson ol {
-  @apply list-decimal list-inside mb-4 space-y-1 text-zinc-700 dark:text-zinc-300;
+.lesson-prose p {
+  margin-bottom: 1.25rem;
+  color: var(--color-ink-2);
 }
 
-.prose-lesson table {
-  @apply w-full text-sm border-collapse mb-4;
+.lesson-prose ul,
+.lesson-prose ol {
+  margin-bottom: 1.25rem;
+  padding-left: 1.5rem;
 }
 
-.prose-lesson th {
-  @apply text-left px-3 py-2 border border-zinc-200 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-900 font-medium;
+.lesson-prose li {
+  margin-bottom: 0.4rem;
+  color: var(--color-ink-2);
 }
 
-.prose-lesson td {
-  @apply px-3 py-2 border border-zinc-200 dark:border-zinc-700;
+.lesson-prose ul li { list-style-type: disc; }
+.lesson-prose ol li { list-style-type: decimal; }
+
+.lesson-prose strong {
+  font-weight: 600;
+  color: var(--color-ink);
 }
 
-.prose-lesson pre {
-  @apply rounded-lg bg-zinc-100 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 p-4 mb-4 text-sm;
+.lesson-prose em {
+  font-style: italic;
 }
 
-.prose-lesson code:not(pre code) {
-  @apply bg-zinc-100 dark:bg-zinc-800 px-1.5 py-0.5 rounded text-sm text-indigo-600 dark:text-indigo-400;
+.lesson-prose code:not(pre code) {
+  font-family: var(--font-mono);
+  font-size: 0.85em;
+  background-color: var(--color-surface-2);
+  color: var(--color-accent-text);
+  padding: 0.1em 0.4em;
+  border: 1px solid var(--color-border);
 }
 
-.prose-lesson a {
-  @apply text-indigo-600 dark:text-indigo-400 underline underline-offset-2;
+.lesson-prose pre {
+  margin-bottom: 1.5rem;
+  border: 1px solid var(--color-border);
+  overflow-x: auto;
 }
 
-.prose-lesson blockquote {
-  @apply border-l-4 border-indigo-400 pl-4 italic text-zinc-600 dark:text-zinc-400 mb-4;
+.lesson-prose blockquote {
+  border-left: 3px solid var(--color-accent);
+  padding-left: 1.25rem;
+  margin: 1.5rem 0;
+  font-style: italic;
+  color: var(--color-ink-3);
+}
+
+.lesson-prose table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 1.5rem;
+  font-size: 0.9rem;
+}
+
+.lesson-prose th {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  font-weight: 600;
+  text-align: left;
+  padding: 0.6rem 0.75rem;
+  background-color: var(--color-surface-2);
+  border: 1px solid var(--color-border);
+  color: var(--color-ink-3);
+}
+
+.lesson-prose td {
+  padding: 0.6rem 0.75rem;
+  border: 1px solid var(--color-border);
+  color: var(--color-ink-2);
+}
+
+.lesson-prose a {
+  color: var(--color-accent-text);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.lesson-prose hr {
+  border: none;
+  border-top: 1px solid var(--color-border);
+  margin: 2.5rem 0;
+}
+
+/* ─── Code Block ────────────────────────────────────────────── */
+.code-block-wrapper {
+  border: 1px solid var(--color-border);
+  background-color: var(--color-surface);
+  margin-bottom: 1.5rem;
+  overflow: hidden;
+}
+
+.code-block-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.4rem 0.75rem;
+  background-color: var(--color-surface-2);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.code-block-lang {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--color-ink-3);
+  font-weight: 600;
+}
+
+.code-block-copy {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--color-ink-3);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+  padding: 0.2rem 0.5rem;
+  border: 1px solid var(--color-border);
+  background: transparent;
+  transition: color 0.15s, border-color 0.15s;
+}
+
+.code-block-copy:hover {
+  color: var(--color-accent);
+  border-color: var(--color-accent);
+}
+
+.code-block-pre {
+  padding: 1rem 1.25rem;
+  overflow-x: auto;
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  line-height: 1.7;
+  background-color: var(--color-surface);
+  color: var(--color-ink-2);
+}
+
+/* ─── Phase Modal ───────────────────────────────────────────── */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(2px);
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+}
+
+.modal-box {
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border-2);
+  width: 100%;
+  max-width: 680px;
+  max-height: 90vh;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.25);
+}
+
+.modal-body {
+  overflow-y: auto;
+  flex: 1;
+  padding: 1.5rem 2rem;
+}
+
+.modal-footer {
+  padding: 1rem 2rem;
+  border-top: 1px solid var(--color-border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+/* ─── Lesson Sidebar ────────────────────────────────────────── */
+.lesson-sidebar {
+  width: 240px;
+  flex-shrink: 0;
+  position: sticky;
+  top: 3.5rem;
+  height: calc(100vh - 3.5rem);
+  overflow-y: auto;
+  border-right: 1px solid var(--color-border);
+  padding: 1.5rem 0;
+}
+
+.lesson-toc {
+  width: 200px;
+  flex-shrink: 0;
+  position: sticky;
+  top: 3.5rem;
+  height: calc(100vh - 3.5rem);
+  overflow-y: auto;
+  border-left: 1px solid var(--color-border);
+  padding: 1.5rem 0;
+}
+
+/* ─── Callout Boxes ─────────────────────────────────────────── */
+.callout {
+  border-left: 3px solid var(--color-accent);
+  background-color: var(--color-accent-soft);
+  padding: 1rem 1.25rem;
+  margin-bottom: 1.5rem;
+}
+
+.callout-warning {
+  border-left-color: #d97706;
+  background-color: #fffbeb;
+}
+
+.dark .callout-warning {
+  background-color: #1c1500;
+}
+
+.callout-tip {
+  border-left-color: #059669;
+  background-color: #f0fdf4;
+}
+
+.dark .callout-tip {
+  background-color: #001a0a;
+}
+
+/* ─── Btn ───────────────────────────────────────────────────── */
+.btn-primary {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  background-color: var(--color-accent);
+  color: #fff;
+  padding: 0.6rem 1.25rem;
+  border: 1px solid var(--color-accent);
+  cursor: pointer;
+  transition: opacity 0.15s;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.btn-primary:hover { opacity: 0.88; }
+
+.btn-ghost {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  background: transparent;
+  color: var(--color-ink-2);
+  padding: 0.6rem 1.25rem;
+  border: 1px solid var(--color-border-2);
+  cursor: pointer;
+  transition: border-color 0.15s, color 0.15s;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.btn-ghost:hover {
+  border-color: var(--color-accent);
+  color: var(--color-accent);
+}
+
+/* ─── Nav ───────────────────────────────────────────────────── */
+.nav-link {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  color: var(--color-ink-3);
+  transition: color 0.15s;
+  padding: 0.25rem 0;
+  border-bottom: 1px solid transparent;
+}
+
+.nav-link:hover {
+  color: var(--color-ink);
+  border-bottom-color: var(--color-accent);
+}
+
+.nav-link-active {
+  color: var(--color-accent);
+  border-bottom-color: var(--color-accent);
+}
+
+/* ─── Phase Row ─────────────────────────────────────────────── */
+.phase-row {
+  display: grid;
+  grid-template-columns: 3rem 1fr auto auto;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.875rem 1.25rem;
+  border-bottom: 1px solid var(--color-border);
+  cursor: pointer;
+  transition: background-color 0.12s;
+}
+
+.phase-row:hover {
+  background-color: var(--color-surface-2);
+}
+
+.phase-row:hover .phase-row-title {
+  color: var(--color-accent);
+}
+
+/* ─── Lesson Row in Modal ───────────────────────────────────── */
+.lesson-row {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem 0;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.lesson-row:last-child {
+  border-bottom: none;
+}
+
+/* ─── Sidebar Nav Item ──────────────────────────────────────── */
+.sidebar-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.35rem 1rem;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  color: var(--color-ink-3);
+  cursor: pointer;
+  transition: color 0.12s, background-color 0.12s;
+  text-decoration: none;
+  line-height: 1.4;
+}
+
+.sidebar-item:hover {
+  color: var(--color-ink);
+  background-color: var(--color-surface-2);
+}
+
+.sidebar-item-active {
+  color: var(--color-accent);
+  background-color: var(--color-accent-soft);
+  font-weight: 600;
+}
+
+/* ─── Divider ───────────────────────────────────────────────── */
+.divider {
+  border: none;
+  border-top: 1px solid var(--color-border);
+  margin: 2rem 0;
+}
+
+/* ─── Tag ───────────────────────────────────────────────────── */
+.tag {
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  padding: 0.15rem 0.5rem;
+  border: 1px solid var(--color-border-2);
+  color: var(--color-ink-3);
+  background-color: var(--color-surface-2);
+}
+
+.tag-accent {
+  border-color: var(--color-accent);
+  color: var(--color-accent-text);
+  background-color: var(--color-accent-soft);
+}
+
+/* ─── Progress Bar ──────────────────────────────────────────── */
+.progress-track {
+  height: 2px;
+  background-color: var(--color-border-2);
+  width: 100%;
+}
+
+.progress-fill {
+  height: 100%;
+  background-color: var(--color-accent);
+  transition: width 0.4s ease;
+}
+
+/* ─── Checkbox ──────────────────────────────────────────────── */
+.check-box {
+  width: 1rem;
+  height: 1rem;
+  border: 1px solid var(--color-border-2);
+  background: transparent;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  cursor: pointer;
+  transition: border-color 0.12s, background-color 0.12s;
+}
+
+.check-box:hover {
+  border-color: var(--color-accent);
+}
+
+.check-box-done {
+  border-color: var(--color-accent);
+  background-color: var(--color-accent);
 }

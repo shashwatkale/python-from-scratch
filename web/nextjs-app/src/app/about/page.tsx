@@ -8,49 +8,38 @@ export const metadata: Metadata = {
 
 export default function AboutPage() {
   return (
-    <div className="max-w-2xl mx-auto px-4 py-12">
-      <h1 className="text-3xl font-bold text-zinc-900 dark:text-zinc-100 mb-6">About</h1>
+    <div style={{ maxWidth: "680px", margin: "0 auto", padding: "3rem 1.5rem" }}>
+      <div style={{ marginBottom: "2rem", paddingBottom: "1.25rem", borderBottom: "1px solid var(--color-border)" }}>
+        <h1 style={{ fontFamily: "var(--font-display)", fontSize: "2.5rem", fontWeight: 700, textTransform: "uppercase", color: "var(--color-ink)", lineHeight: 1.05 }}>
+          About
+        </h1>
+      </div>
 
-      <div className="space-y-6 text-zinc-600 dark:text-zinc-400 leading-7">
+      <div className="lesson-prose">
         <p>
-          <strong className="text-zinc-900 dark:text-zinc-100">Python From Scratch</strong> is a
-          free, open-source Python curriculum built for people who want to learn Python by
-          actually writing code.
+          <strong>Python / From Scratch</strong> is a free, open-source Python curriculum built for
+          people who want to learn Python by actually writing code.
         </p>
-
         <p>
           Every lesson follows a consistent structure: concept, explanation, syntax, example,
           real-world use, common mistakes, exercises, and interview questions. No lesson is
           purely theoretical.
         </p>
-
         <p>
           The goal is to take a complete beginner from their first{" "}
-          <code className="font-mono text-sm bg-zinc-100 dark:bg-zinc-800 px-1.5 py-0.5 rounded text-indigo-600 dark:text-indigo-400">
-            print()
-          </code>{" "}
-          statement to building production-quality Python applications.
+          <code>print()</code> statement to building production-quality Python applications —
+          covering web APIs, databases, async programming, testing, DSA, and real-world projects.
         </p>
-
         <p>
           The entire project — curriculum, code, exercises, projects, and this website — is
           open source under the MIT license.
         </p>
-
-        <div className="flex gap-4 pt-2">
-          <a
-            href="https://github.com/your-username/python-from-scratch"
-            className="text-sm font-medium text-indigo-600 dark:text-indigo-400 hover:underline"
-          >
-            GitHub →
-          </a>
-          <Link
-            href="/contributing/"
-            className="text-sm font-medium text-indigo-600 dark:text-indigo-400 hover:underline"
-          >
-            Contributing →
-          </Link>
-        </div>
+        <hr />
+        <p>
+          <a href="https://github.com/shashwatkale/python-from-scratch">GitHub →</a>
+          {"  "}
+          <Link href="/contributing/">Contributing →</Link>
+        </p>
       </div>
     </div>
   );

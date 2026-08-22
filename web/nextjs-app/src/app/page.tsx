@@ -1,136 +1,312 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { PHASES, STATS } from "@/lib/curriculum";
-import { SearchBar } from "@/components/SearchBar";
-import { ArrowRight, BookOpen, Code2, FolderGit2, Github } from "lucide-react";
+import { HomeCurriculumList } from "@/components/HomeCurriculumList";
 
 export const metadata: Metadata = {
-  title: "Python From Scratch — Learn Python by Building",
+  title: "Python / From Scratch — Learn Python by Building",
   description:
-    "An open-source, hands-on Python curriculum from your first print() statement to production-ready applications.",
+    "Learn Python from your first print() statement to production-ready applications. Free, open-source, project-based.",
 };
 
-const DIFFICULTY_COLOR = {
-  beginner: "text-emerald-600 dark:text-emerald-400",
-  intermediate: "text-amber-600 dark:text-amber-400",
-  advanced: "text-rose-600 dark:text-rose-400",
-};
+const CLONE_CMD = `git clone https://github.com/shashwatkale/python-from-scratch.git
+cd python-from-scratch
+python -m venv .venv
+source .venv/bin/activate  # Windows: .venv\\Scripts\\activate
+pip install -r requirements.txt`;
 
 export default function HomePage() {
   return (
-    <div className="min-h-screen">
-      {/* Hero */}
-      <section className="max-w-4xl mx-auto px-4 pt-20 pb-16 text-center">
-        <div className="inline-flex items-center gap-2 text-xs font-mono bg-indigo-50 dark:bg-indigo-950/50 text-indigo-600 dark:text-indigo-400 border border-indigo-200 dark:border-indigo-800 rounded-full px-3 py-1 mb-6">
-          <span className="w-1.5 h-1.5 rounded-full bg-indigo-500 animate-pulse" />
-          Free &amp; Open Source
-        </div>
-
-        <h1 className="text-4xl sm:text-5xl font-bold tracking-tight text-zinc-900 dark:text-zinc-100 mb-4">
-          Learn Python From Scratch.
-        </h1>
-
-        <p className="text-lg text-zinc-600 dark:text-zinc-400 max-w-2xl mx-auto mb-8">
-          An open-source, hands-on Python curriculum from your first{" "}
-          <code className="font-mono text-indigo-600 dark:text-indigo-400">print()</code>{" "}
-          statement to production-ready applications.
-        </p>
-
-        <div className="flex flex-wrap items-center justify-center gap-3 mb-10">
-          <Link
-            href="/curriculum/00-getting-started/"
-            className="inline-flex items-center gap-2 bg-indigo-600 hover:bg-indigo-700 text-white px-5 py-2.5 rounded-lg text-sm font-medium transition-colors"
+    <div style={{ backgroundColor: "var(--color-bg)" }}>
+      {/* ── Hero ─────────────────────────────────────────────── */}
+      <section
+        className="dot-grid-bg"
+        style={{
+          borderBottom: "1px solid var(--color-border)",
+          padding: "5rem 1.5rem 4rem",
+        }}
+      >
+        <div style={{ maxWidth: "900px", margin: "0 auto" }}>
+          {/* Eyebrow */}
+          <p
+            style={{
+              fontFamily: "var(--font-mono)",
+              fontSize: "0.65rem",
+              textTransform: "uppercase",
+              letterSpacing: "0.12em",
+              color: "var(--color-accent-text)",
+              marginBottom: "1.25rem",
+              display: "flex",
+              alignItems: "center",
+              gap: "0.5rem",
+            }}
           >
-            Start Learning <ArrowRight size={16} />
-          </Link>
-          <Link
-            href="/curriculum/"
-            className="inline-flex items-center gap-2 border border-zinc-200 dark:border-zinc-700 hover:border-zinc-400 dark:hover:border-zinc-500 text-zinc-700 dark:text-zinc-300 px-5 py-2.5 rounded-lg text-sm font-medium transition-colors"
-          >
-            View Curriculum
-          </Link>
-          <a
-            href="https://github.com/your-username/python-from-scratch"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 border border-zinc-200 dark:border-zinc-700 hover:border-zinc-400 dark:hover:border-zinc-500 text-zinc-700 dark:text-zinc-300 px-5 py-2.5 rounded-lg text-sm font-medium transition-colors"
-          >
-            <Github size={16} /> GitHub
-          </a>
-        </div>
+            <span
+              style={{
+                display: "inline-block",
+                width: "6px",
+                height: "6px",
+                backgroundColor: "var(--color-accent)",
+              }}
+            />
+            Free · Open Source · Project-Based
+          </p>
 
-        {/* Stats — derived from curriculum data */}
-        <div className="flex flex-wrap justify-center gap-8 text-center">
-          {[
-            { label: "Phases", value: STATS.phases, icon: BookOpen },
-            { label: "Lessons", value: STATS.lessons, icon: Code2 },
-            { label: "Exercises", value: STATS.exercises, icon: Code2 },
-            { label: "Projects", value: STATS.projects, icon: FolderGit2 },
-          ].map(({ label, value, icon: Icon }) => (
-            <div key={label}>
-              <div className="text-2xl font-bold text-zinc-900 dark:text-zinc-100">{value}</div>
-              <div className="text-sm text-zinc-500 flex items-center gap-1 justify-center">
-                <Icon size={13} /> {label}
+          {/* Title */}
+          <h1
+            style={{
+              fontFamily: "var(--font-display)",
+              fontSize: "clamp(3.5rem, 10vw, 7rem)",
+              fontWeight: 700,
+              textTransform: "uppercase",
+              letterSpacing: "-0.02em",
+              lineHeight: 0.95,
+              color: "var(--color-ink)",
+              marginBottom: "1.5rem",
+            }}
+          >
+            Python
+            <br />
+            <span style={{ color: "var(--color-accent)" }}>From Scratch</span>
+          </h1>
+
+          {/* Subtitle */}
+          <p
+            style={{
+              fontFamily: "var(--font-body)",
+              fontSize: "1.125rem",
+              color: "var(--color-ink-2)",
+              maxWidth: "560px",
+              lineHeight: 1.7,
+              marginBottom: "2.5rem",
+            }}
+          >
+            Learn Python from your first{" "}
+            <code
+              style={{
+                fontFamily: "var(--font-mono)",
+                fontSize: "0.95em",
+                backgroundColor: "var(--color-surface-2)",
+                color: "var(--color-accent-text)",
+                padding: "0.1em 0.4em",
+                border: "1px solid var(--color-border)",
+              }}
+            >
+              print()
+            </code>{" "}
+            statement to production-ready applications.
+          </p>
+
+          {/* CTA Buttons */}
+          <div style={{ display: "flex", flexWrap: "wrap", gap: "0.75rem", marginBottom: "3rem" }}>
+            <Link href="/curriculum/00-getting-started/" className="btn-primary">
+              Start Learning →
+            </Link>
+            <Link href="/roadmap/" className="btn-ghost">
+              View Roadmap
+            </Link>
+            <a
+              href="https://github.com/shashwatkale/python-from-scratch"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn-ghost"
+            >
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z" />
+              </svg>
+              GitHub
+            </a>
+          </div>
+
+          {/* Stats — derived from data */}
+          <div
+            style={{
+              display: "flex",
+              flexWrap: "wrap",
+              gap: "2rem",
+              paddingTop: "2rem",
+              borderTop: "1px solid var(--color-border)",
+            }}
+          >
+            {[
+              { value: STATS.phases, label: "Phases" },
+              { value: STATS.lessons, label: "Lessons" },
+              { value: STATS.exercises, label: "Exercises" },
+              { value: STATS.projects, label: "Projects" },
+            ].map(({ value, label }) => (
+              <div key={label}>
+                <div
+                  style={{
+                    fontFamily: "var(--font-display)",
+                    fontSize: "2rem",
+                    fontWeight: 700,
+                    color: "var(--color-ink)",
+                    lineHeight: 1,
+                  }}
+                >
+                  {value}
+                </div>
+                <div
+                  style={{
+                    fontFamily: "var(--font-mono)",
+                    fontSize: "0.6rem",
+                    textTransform: "uppercase",
+                    letterSpacing: "0.1em",
+                    color: "var(--color-ink-3)",
+                    marginTop: "0.25rem",
+                  }}
+                >
+                  {label}
+                </div>
               </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── Features strip ───────────────────────────────────── */}
+      <section
+        style={{
+          borderBottom: "1px solid var(--color-border)",
+          backgroundColor: "var(--color-surface)",
+        }}
+      >
+        <div
+          style={{
+            maxWidth: "900px",
+            margin: "0 auto",
+            padding: "0 1.5rem",
+            display: "grid",
+            gridTemplateColumns: "repeat(auto-fit, minmax(160px, 1fr))",
+          }}
+        >
+          {[
+            { label: "Beginner Friendly", desc: "Start from zero, no experience needed" },
+            { label: "Project-Based", desc: "Build real things at every phase" },
+            { label: "Interview Ready", desc: "DSA, algorithms, and common questions" },
+            { label: "Production Python", desc: "FastAPI, databases, async, testing" },
+          ].map((f) => (
+            <div
+              key={f.label}
+              style={{
+                padding: "1.5rem 1.25rem",
+                borderRight: "1px solid var(--color-border)",
+              }}
+            >
+              <p
+                style={{
+                  fontFamily: "var(--font-mono)",
+                  fontSize: "0.65rem",
+                  fontWeight: 600,
+                  textTransform: "uppercase",
+                  letterSpacing: "0.08em",
+                  color: "var(--color-ink)",
+                  marginBottom: "0.35rem",
+                }}
+              >
+                {f.label}
+              </p>
+              <p
+                style={{
+                  fontFamily: "var(--font-body)",
+                  fontSize: "0.8rem",
+                  color: "var(--color-ink-3)",
+                  lineHeight: 1.5,
+                }}
+              >
+                {f.desc}
+              </p>
             </div>
           ))}
         </div>
       </section>
 
-      {/* Search */}
-      <section className="max-w-2xl mx-auto px-4 pb-12 flex justify-center">
-        <SearchBar />
-      </section>
+      {/* ── Curriculum list ──────────────────────────────────── */}
+      <section style={{ maxWidth: "900px", margin: "0 auto", padding: "3rem 1.5rem" }}>
+        <div
+          style={{
+            display: "flex",
+            alignItems: "baseline",
+            justifyContent: "space-between",
+            marginBottom: "1.5rem",
+            paddingBottom: "0.75rem",
+            borderBottom: "1px solid var(--color-border)",
+          }}
+        >
+          <h2
+            style={{
+              fontFamily: "var(--font-display)",
+              fontSize: "1.5rem",
+              fontWeight: 700,
+              textTransform: "uppercase",
+              color: "var(--color-ink)",
+            }}
+          >
+            Curriculum
+          </h2>
+          <span
+            style={{
+              fontFamily: "var(--font-mono)",
+              fontSize: "0.65rem",
+              textTransform: "uppercase",
+              letterSpacing: "0.08em",
+              color: "var(--color-ink-3)",
+            }}
+          >
+            {PHASES.length} Phases
+          </span>
+        </div>
 
-      {/* Learning Path */}
-      <section className="max-w-5xl mx-auto px-4 pb-20">
-        <h2 className="text-xl font-semibold text-zinc-900 dark:text-zinc-100 mb-6">
-          Your Python Learning Path
-        </h2>
+        <HomeCurriculumList phases={PHASES} />
 
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-3">
-          {PHASES.map((phase) => (
-            <Link
-              key={phase.slug}
-              href={`/curriculum/${phase.slug}/`}
-              className="group block border border-zinc-200 dark:border-zinc-800 rounded-lg p-4 hover:border-indigo-300 dark:hover:border-indigo-700 transition-colors"
-            >
-              <div className="flex items-start justify-between mb-2">
-                <span className="text-xs font-mono text-zinc-400">
-                  Phase {String(phase.order).padStart(2, "0")}
-                </span>
-                <span className={`text-xs font-medium ${DIFFICULTY_COLOR[phase.difficulty]}`}>
-                  {phase.difficulty}
-                </span>
-              </div>
-              <h3 className="font-medium text-zinc-900 dark:text-zinc-100 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors mb-1">
-                {phase.title}
-              </h3>
-              <p className="text-xs text-zinc-500 line-clamp-2">{phase.description}</p>
-              {phase.lessons.length > 0 && (
-                <p className="text-xs text-zinc-400 mt-2">{phase.lessons.length} lessons</p>
-              )}
-            </Link>
-          ))}
+        <div style={{ marginTop: "1.5rem" }}>
+          <Link href="/curriculum/" className="btn-ghost">
+            View Full Curriculum →
+          </Link>
         </div>
       </section>
 
-      {/* Start Here callout */}
-      <section className="max-w-3xl mx-auto px-4 pb-20">
-        <div className="border border-indigo-200 dark:border-indigo-800 rounded-lg p-6 bg-indigo-50/50 dark:bg-indigo-950/20">
-          <h2 className="font-semibold text-zinc-900 dark:text-zinc-100 mb-2">
-            Never written Python before?
-          </h2>
-          <p className="text-sm text-zinc-600 dark:text-zinc-400 mb-4">
-            Start with Phase 00. It walks you through installing Python, setting up your editor,
-            and running your first program — step by step.
-          </p>
-          <Link
-            href="/curriculum/00-getting-started/"
-            className="inline-flex items-center gap-2 text-sm font-medium text-indigo-600 dark:text-indigo-400 hover:underline"
+      {/* ── Setup block ──────────────────────────────────────── */}
+      <section
+        style={{
+          borderTop: "1px solid var(--color-border)",
+          backgroundColor: "var(--color-surface)",
+          padding: "3rem 1.5rem",
+        }}
+      >
+        <div style={{ maxWidth: "900px", margin: "0 auto" }}>
+          <p
+            style={{
+              fontFamily: "var(--font-mono)",
+              fontSize: "0.65rem",
+              textTransform: "uppercase",
+              letterSpacing: "0.1em",
+              color: "var(--color-ink-3)",
+              marginBottom: "0.75rem",
+            }}
           >
-            Start Here <ArrowRight size={14} />
-          </Link>
+            Quick Start
+          </p>
+          <h2
+            style={{
+              fontFamily: "var(--font-display)",
+              fontSize: "1.5rem",
+              fontWeight: 700,
+              textTransform: "uppercase",
+              color: "var(--color-ink)",
+              marginBottom: "1.25rem",
+            }}
+          >
+            Get the Repository
+          </h2>
+          <div className="code-block-wrapper" style={{ maxWidth: "600px" }}>
+            <div className="code-block-header">
+              <span className="code-block-lang">bash</span>
+            </div>
+            <pre className="code-block-pre" style={{ color: "var(--color-ink-2)" }}>
+              {CLONE_CMD}
+            </pre>
+          </div>
         </div>
       </section>
     </div>
