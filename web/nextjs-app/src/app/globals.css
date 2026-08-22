@@ -1,0 +1,91 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --bg: 255 255 255;
+    --fg: 15 15 15;
+    --muted: 107 114 128;
+    --border: 229 231 235;
+    --code-bg: 243 244 246;
+    --accent: 99 102 241;
+  }
+
+  .dark {
+    --bg: 15 15 15;
+    --fg: 237 237 237;
+    --muted: 156 163 175;
+    --border: 38 38 38;
+    --code-bg: 24 24 27;
+    --accent: 129 140 248;
+  }
+
+  body {
+    @apply bg-white dark:bg-zinc-950 text-zinc-900 dark:text-zinc-100;
+    font-feature-settings: "rlig" 1, "calt" 1;
+  }
+
+  code {
+    @apply font-mono text-sm;
+  }
+
+  pre {
+    @apply overflow-x-auto;
+  }
+}
+
+/* Syntax highlighting overrides for dark mode */
+.dark .hljs {
+  background: rgb(24 24 27);
+  color: #e4e4e7;
+}
+
+/* Prose styles for lesson content */
+.prose-lesson h2 {
+  @apply text-xl font-semibold mt-8 mb-3 text-zinc-900 dark:text-zinc-100;
+}
+
+.prose-lesson h3 {
+  @apply text-lg font-medium mt-6 mb-2 text-zinc-800 dark:text-zinc-200;
+}
+
+.prose-lesson p {
+  @apply leading-7 mb-4 text-zinc-700 dark:text-zinc-300;
+}
+
+.prose-lesson ul {
+  @apply list-disc list-inside mb-4 space-y-1 text-zinc-700 dark:text-zinc-300;
+}
+
+.prose-lesson ol {
+  @apply list-decimal list-inside mb-4 space-y-1 text-zinc-700 dark:text-zinc-300;
+}
+
+.prose-lesson table {
+  @apply w-full text-sm border-collapse mb-4;
+}
+
+.prose-lesson th {
+  @apply text-left px-3 py-2 border border-zinc-200 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-900 font-medium;
+}
+
+.prose-lesson td {
+  @apply px-3 py-2 border border-zinc-200 dark:border-zinc-700;
+}
+
+.prose-lesson pre {
+  @apply rounded-lg bg-zinc-100 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 p-4 mb-4 text-sm;
+}
+
+.prose-lesson code:not(pre code) {
+  @apply bg-zinc-100 dark:bg-zinc-800 px-1.5 py-0.5 rounded text-sm text-indigo-600 dark:text-indigo-400;
+}
+
+.prose-lesson a {
+  @apply text-indigo-600 dark:text-indigo-400 underline underline-offset-2;
+}
+
+.prose-lesson blockquote {
+  @apply border-l-4 border-indigo-400 pl-4 italic text-zinc-600 dark:text-zinc-400 mb-4;
+}
