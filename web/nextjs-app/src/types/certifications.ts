@@ -66,10 +66,10 @@ export interface CertificationAssessment {
   trackId: string;
   title: string;
   type: "diagnostic" | "mock";
-  questionsCount: number;
+  questionsCount?: number;
   timeLimitMin: number;
   passingScore: number;
-  description: string;
+  description?: string;
   questions: AssessmentQuestion[];
 }
 
