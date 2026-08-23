@@ -566,6 +566,12 @@
 }
 
 /* ─── Roadmap Animations & Accessibility ────────────────────── */
+@media (max-width: 768px) {
+  .engine-grid {
+    grid-template-columns: 1fr !important;
+  }
+}
+
 @media (max-width: 1024px) {
   .roadmap-workspace {
     grid-template-columns: 1fr !important;

@@ -1,35 +1,18 @@
-// src/types/glossary.ts — Strict types for Python Glossary
-
+// src/types/glossary.ts — Strict types for Python & AI Glossary
 export type GlossaryCategory =
-  | "basics"
-  | "data-types"
-  | "control-flow"
-  | "functions"
-  | "oop"
-  | "dunder-methods"
-  | "decorators"
-  | "iterators-generators"
-  | "descriptors"
-  | "context-managers"
-  | "exceptions"
-  | "modules-packages"
-  | "virtual-environments"
-  | "type-system"
-  | "dataclasses"
-  | "collections"
-  | "functional"
-  | "memory-internals"
-  | "concurrency"
-  | "async"
-  | "files-io"
-  | "regex"
-  | "testing"
-  | "databases"
-  | "fastapi"
-  | "cli"
-  | "data-python"
-  | "tooling"
-  | "advanced";
+  | "math-training"
+  | "models-inference"
+  | "data-representations"
+  | "retrieval-generation"
+  | "prompting-context"
+  | "agents-tools"
+  | "evaluation-safety"
+  | "ai-native-development"
+  | "infrastructure-serving"
+  | "reliability-operations"
+  | "security-governance"
+  | "multimodal-systems"
+  | string;
 
 export type TermDifficulty = "beginner" | "intermediate" | "advanced";
 
@@ -51,19 +34,27 @@ export interface TermComparison {
 
 export interface GlossaryTerm {
   slug: string;
+  refNumber?: string; // e.g. "REF 001"
   term: string;
   category: GlossaryCategory;
   categoryLabel: string;
   difficulty: TermDifficulty;
   definition: string;
   explanation?: string;
+  whyItMatters: string;
+  inPractice?: string;
   syntax?: string;
   example?: string;
   output?: string;
-  whyItMatters: string;
   comparison?: TermComparison;
-  relatedTerms: string[]; // slugs
+  relatedTerms: string[];
   relatedLessons: RelatedLessonRef[];
   tags: string[];
 }
 
+export interface GlossaryCategoryInfo {
+  id: GlossaryCategory;
+  label: string;
+  description?: string;
+  count?: number;
+}

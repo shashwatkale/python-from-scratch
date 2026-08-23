@@ -1,136 +1,102 @@
-// src/data/glossary/index.ts — Master Glossary Aggregator
-import type { GlossaryTerm, GlossaryCategory } from "@/types";
-import { BASICS_TERMS } from "./basics";
-import { DATA_TYPES_TERMS } from "./data-types";
-import { CONTROL_FLOW_TERMS } from "./control-flow";
-import { FUNCTIONS_TERMS } from "./functions";
-import { OOP_TERMS } from "./oop";
-import { DUNDER_METHODS_TERMS } from "./dunder-methods";
-import { DECORATORS_TERMS } from "./decorators";
-import { ITERATORS_GENERATORS_TERMS } from "./iterators-generators";
-import { DESCRIPTORS_TERMS } from "./descriptors";
-import { CONTEXT_MANAGERS_TERMS } from "./context-managers";
-import { EXCEPTIONS_TERMS } from "./exceptions";
-import { MODULES_PACKAGES_TERMS } from "./modules-packages";
-import { VIRTUAL_ENVIRONMENTS_TERMS } from "./virtual-environments";
-import { TYPE_SYSTEM_TERMS } from "./type-system";
-import { DATACLASSES_TERMS } from "./dataclasses";
-import { COLLECTIONS_TERMS } from "./collections";
-import { FUNCTIONAL_TERMS } from "./functional";
-import { MEMORY_INTERNALS_TERMS } from "./memory-internals";
-import { CONCURRENCY_TERMS } from "./concurrency";
-import { ASYNC_PYTHON_TERMS } from "./async-python";
-import { FILES_IO_TERMS } from "./files-io";
-import { REGEX_TERMS } from "./regex";
-import { TESTING_TERMS } from "./testing";
-import { DATABASES_TERMS } from "./databases";
-import { FASTAPI_TERMS } from "./fastapi";
-import { CLI_TERMS } from "./cli";
-import { DATA_PYTHON_TERMS } from "./data-python";
-import { TOOLING_TERMS } from "./tooling";
-import { ADVANCED_TERMS } from "./advanced";
+// src/data/glossary/index.ts — Master Python & AI Engineering Glossary Aggregator
+import type { GlossaryTerm, GlossaryCategoryInfo } from "@/types/glossary";
+
+import { MATH_TRAINING_TERMS } from "./areas/math-training";
+import { MODELS_INFERENCE_TERMS } from "./areas/models-inference";
+import { DATA_REPRESENTATIONS_TERMS } from "./areas/data-representations";
+import { RETRIEVAL_GENERATION_TERMS } from "./areas/retrieval-generation";
+import { PROMPTING_CONTEXT_TERMS } from "./areas/prompting-context";
+import { AGENTS_TOOLS_TERMS } from "./areas/agents-tools";
+import { EVALUATION_SAFETY_TERMS } from "./areas/evaluation-safety";
+import { AI_NATIVE_DEV_TERMS } from "./areas/ai-native-development";
+import { INFRASTRUCTURE_SERVING_TERMS } from "./areas/infrastructure-serving";
+import { RELIABILITY_OPERATIONS_TERMS } from "./areas/reliability-operations";
+import { SECURITY_GOVERNANCE_TERMS } from "./areas/security-governance";
+import { MULTIMODAL_SYSTEMS_TERMS } from "./areas/multimodal-systems";
+
+export const GLOSSARY_LEARNING_AREAS: GlossaryCategoryInfo[] = [
+  { id: "math-training", label: "Math & training", count: 42 },
+  { id: "models-inference", label: "Models & inference", count: 29 },
+  { id: "data-representations", label: "Data & representations", count: 13 },
+  { id: "retrieval-generation", label: "Retrieval & generation", count: 14 },
+  { id: "prompting-context", label: "Prompting & context", count: 15 },
+  { id: "agents-tools", label: "Agents & tools", count: 20 },
+  { id: "evaluation-safety", label: "Evaluation & safety", count: 17 },
+  { id: "ai-native-development", label: "AI-native development", count: 23 },
+  { id: "infrastructure-serving", label: "Infrastructure & serving", count: 18 },
+  { id: "reliability-operations", label: "Reliability & operations", count: 17 },
+  { id: "security-governance", label: "Security & governance", count: 20 },
+  { id: "multimodal-systems", label: "Multimodal systems", count: 15 },
+];
+
+export const GLOSSARY_CATEGORIES = GLOSSARY_LEARNING_AREAS;
 
 export const GLOSSARY_TERMS: GlossaryTerm[] = [
-  ...BASICS_TERMS,
-  ...DATA_TYPES_TERMS,
-  ...CONTROL_FLOW_TERMS,
-  ...FUNCTIONS_TERMS,
-  ...OOP_TERMS,
-  ...DUNDER_METHODS_TERMS,
-  ...DECORATORS_TERMS,
-  ...ITERATORS_GENERATORS_TERMS,
-  ...DESCRIPTORS_TERMS,
-  ...CONTEXT_MANAGERS_TERMS,
-  ...EXCEPTIONS_TERMS,
-  ...MODULES_PACKAGES_TERMS,
-  ...VIRTUAL_ENVIRONMENTS_TERMS,
-  ...TYPE_SYSTEM_TERMS,
-  ...DATACLASSES_TERMS,
-  ...COLLECTIONS_TERMS,
-  ...FUNCTIONAL_TERMS,
-  ...MEMORY_INTERNALS_TERMS,
-  ...CONCURRENCY_TERMS,
-  ...ASYNC_PYTHON_TERMS,
-  ...FILES_IO_TERMS,
-  ...REGEX_TERMS,
-  ...TESTING_TERMS,
-  ...DATABASES_TERMS,
-  ...FASTAPI_TERMS,
-  ...CLI_TERMS,
-  ...DATA_PYTHON_TERMS,
-  ...TOOLING_TERMS,
-  ...ADVANCED_TERMS,
-].sort((a, b) => a.term.localeCompare(b.term));
-
-export const GLOSSARY_CATEGORIES: { id: GlossaryCategory; label: string }[] = [
-  { id: "basics", label: "Basics" },
-  { id: "data-types", label: "Data Types" },
-  { id: "control-flow", label: "Control Flow" },
-  { id: "functions", label: "Functions" },
-  { id: "oop", label: "OOP" },
-  { id: "dunder-methods", label: "Dunder Methods" },
-  { id: "decorators", label: "Decorators" },
-  { id: "iterators-generators", label: "Iterators & Generators" },
-  { id: "descriptors", label: "Descriptors" },
-  { id: "context-managers", label: "Context Managers" },
-  { id: "exceptions", label: "Exceptions" },
-  { id: "modules-packages", label: "Modules & Packages" },
-  { id: "virtual-environments", label: "Virtual Environments" },
-  { id: "type-system", label: "Type System" },
-  { id: "dataclasses", label: "Dataclasses" },
-  { id: "collections", label: "Collections" },
-  { id: "functional", label: "Functional" },
-  { id: "memory-internals", label: "Memory & Internals" },
-  { id: "concurrency", label: "Concurrency & GIL" },
-  { id: "async", label: "Async Python" },
-  { id: "files-io", label: "Files & I/O" },
-  { id: "regex", label: "Regex" },
-  { id: "testing", label: "Testing" },
-  { id: "databases", label: "Databases & Backend" },
-  { id: "fastapi", label: "FastAPI" },
-  { id: "cli", label: "CLI & Automation" },
-  { id: "data-python", label: "Python for Data" },
-  { id: "tooling", label: "Developer Tooling" },
-  { id: "advanced", label: "Advanced Python" },
+  ...MATH_TRAINING_TERMS,
+  ...MODELS_INFERENCE_TERMS,
+  ...DATA_REPRESENTATIONS_TERMS,
+  ...RETRIEVAL_GENERATION_TERMS,
+  ...PROMPTING_CONTEXT_TERMS,
+  ...AGENTS_TOOLS_TERMS,
+  ...EVALUATION_SAFETY_TERMS,
+  ...AI_NATIVE_DEV_TERMS,
+  ...INFRASTRUCTURE_SERVING_TERMS,
+  ...RELIABILITY_OPERATIONS_TERMS,
+  ...SECURITY_GOVERNANCE_TERMS,
+  ...MULTIMODAL_SYSTEMS_TERMS,
 ];
 
-export const POPULAR_TERM_SLUGS = [
-  "generator",
-  "decorator",
-  "iterator",
-  "descriptor",
-  "context-manager",
-  "closure",
-  "dataclass",
-  "lambda",
-  "list-comprehension",
-  "async-await",
-  "gil",
-  "pytest",
-];
-
+// Helper to look up term by slug
 export function getGlossaryTermBySlug(slug: string): GlossaryTerm | undefined {
   return GLOSSARY_TERMS.find((t) => t.slug === slug);
 }
 
-export function getPopularGlossaryTerms(): GlossaryTerm[] {
-  return POPULAR_TERM_SLUGS.map((slug) => getGlossaryTermBySlug(slug)).filter(
-    (t): t is GlossaryTerm => t !== undefined
-  );
+// Helper to get terms by category
+export function getGlossaryTermsByCategory(category: string): GlossaryTerm[] {
+  if (category === "all") return GLOSSARY_TERMS;
+  return GLOSSARY_TERMS.filter((t) => t.category === category);
 }
 
-export function getGlossaryAlphabeticalGroups(): Record<string, GlossaryTerm[]> {
+// Helper for popular terms row
+export function getPopularGlossaryTerms(): GlossaryTerm[] {
+  const popularSlugs = [
+    "activation-checkpointing",
+    "adamw-optimizer",
+    "retrieval-augmented-generation-rag",
+    "flashattention",
+    "lora-low-rank-adaptation",
+    "pagedattention",
+    "vector-database",
+    "autonomous-ai-agent",
+    "function-calling",
+    "chain-of-thought-cot",
+    "pydantic-validation-ai",
+    "llm-as-a-judge",
+  ];
+  return popularSlugs
+    .map((s) => getGlossaryTermBySlug(s))
+    .filter((t): t is GlossaryTerm => t !== undefined);
+}
+
+// Helper to group terms alphabetically
+export function getGlossaryAlphabeticalGroups(
+  terms: GlossaryTerm[] = GLOSSARY_TERMS
+): Record<string, GlossaryTerm[]> {
   const groups: Record<string, GlossaryTerm[]> = {};
-  for (const term of GLOSSARY_TERMS) {
-    let firstLetter = term.term.charAt(0).toUpperCase();
-    if (firstLetter === "_" || firstLetter === "@") {
-      firstLetter = "_";
+
+  for (const term of terms) {
+    const letter = term.term.charAt(0).toUpperCase();
+    const key = letter >= "A" && letter <= "Z" ? letter : "#";
+    if (!groups[key]) {
+      groups[key] = [];
     }
-    if (!groups[firstLetter]) {
-      groups[firstLetter] = [];
-    }
-    groups[firstLetter].push(term);
+    groups[key].push(term);
   }
+
+  // Sort within groups
+  for (const key in groups) {
+    groups[key].sort((a, b) => a.term.localeCompare(b.term));
+  }
+
   return groups;
 }
-

@@ -1,7 +1,10 @@
+// src/app/page.tsx — Python / From Scratch Home Page with CPython Engine Animation
 import type { Metadata } from "next";
 import Link from "next/link";
 import { PHASES, STATS } from "@/lib/curriculum";
 import { HomeCurriculumList } from "@/components/HomeCurriculumList";
+import { HeroPythonEngineAnimation } from "@/components/HeroPythonEngineAnimation";
+import { HeroTerminalBox } from "@/components/HeroTerminalBox";
 
 export const metadata: Metadata = {
   title: "Python / From Scratch — Learn Python by Building",
@@ -9,122 +12,217 @@ export const metadata: Metadata = {
     "Learn Python from your first print() statement to production-ready applications. Free, open-source, project-based.",
 };
 
-const CLONE_CMD = `git clone https://github.com/shashwatkale/python-from-scratch.git
-cd python-from-scratch
-python -m venv .venv
-source .venv/bin/activate  # Windows: .venv\\Scripts\\activate
-pip install -r requirements.txt`;
-
 export default function HomePage() {
   return (
     <div style={{ backgroundColor: "var(--color-bg)" }}>
-      {/* ── Hero ─────────────────────────────────────────────── */}
+      {/* ── Technical Hero ────────────────────────────────────── */}
       <section
         className="dot-grid-bg"
         style={{
           borderBottom: "1px solid var(--color-border)",
-          padding: "5rem 1.5rem 4rem",
+          padding: "2.5rem 1.5rem 4rem",
         }}
       >
-        <div style={{ maxWidth: "900px", margin: "0 auto" }}>
-          {/* Eyebrow */}
-          <p
+        <div style={{ maxWidth: "1280px", margin: "0 auto" }}>
+          {/* Top Metadata Row */}
+          <div
             style={{
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
+              marginBottom: "2rem",
+              paddingBottom: "0.75rem",
+              borderBottom: "1px solid var(--color-border)",
               fontFamily: "var(--font-mono)",
-              fontSize: "0.65rem",
+              fontSize: "0.62rem",
               textTransform: "uppercase",
               letterSpacing: "0.12em",
               color: "var(--color-accent-text)",
-              marginBottom: "1.25rem",
-              display: "flex",
-              alignItems: "center",
-              gap: "0.5rem",
             }}
           >
-            <span
-              style={{
-                display: "inline-block",
-                width: "6px",
-                height: "6px",
-                backgroundColor: "var(--color-accent)",
-              }}
-            />
-            Free · Open Source · Project-Based
-          </p>
-
-          {/* Title */}
-          <h1
-            style={{
-              fontFamily: "var(--font-display)",
-              fontSize: "clamp(3.5rem, 10vw, 7rem)",
-              fontWeight: 700,
-              textTransform: "uppercase",
-              letterSpacing: "-0.02em",
-              lineHeight: 0.95,
-              color: "var(--color-ink)",
-              marginBottom: "1.5rem",
-            }}
-          >
-            Python
-            <br />
-            <span style={{ color: "var(--color-accent)" }}>From Scratch</span>
-          </h1>
-
-          {/* Subtitle */}
-          <p
-            style={{
-              fontFamily: "var(--font-body)",
-              fontSize: "1.125rem",
-              color: "var(--color-ink-2)",
-              maxWidth: "560px",
-              lineHeight: 1.7,
-              marginBottom: "2.5rem",
-            }}
-          >
-            Learn Python from your first{" "}
-            <code
-              style={{
-                fontFamily: "var(--font-mono)",
-                fontSize: "0.95em",
-                backgroundColor: "var(--color-surface-2)",
-                color: "var(--color-accent-text)",
-                padding: "0.1em 0.4em",
-                border: "1px solid var(--color-border)",
-              }}
-            >
-              print()
-            </code>{" "}
-            statement to production-ready applications.
-          </p>
-
-          {/* CTA Buttons */}
-          <div style={{ display: "flex", flexWrap: "wrap", gap: "0.75rem", marginBottom: "3rem" }}>
-            <Link href="/curriculum/00-getting-started/" className="btn-primary">
-              Start Learning →
-            </Link>
-            <Link href="/roadmap/" className="btn-ghost">
-              View Roadmap
-            </Link>
-            <a
-              href="https://github.com/shashwatkale/python-from-scratch"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="btn-ghost"
-            >
-              <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z" />
-              </svg>
-              GitHub
-            </a>
+            <div style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
+              <span
+                style={{
+                  display: "inline-block",
+                  width: "6px",
+                  height: "6px",
+                  backgroundColor: "var(--color-accent)",
+                }}
+              />
+              <span>FIG_000 · CURRICULUM V1.0 · 2026</span>
+            </div>
+            <span>OPEN SOURCE · MIT LICENSE</span>
           </div>
 
-          {/* Stats — derived from data */}
+          {/* 2-Column Hero Workspace */}
+          <div
+            style={{
+              display: "grid",
+              gridTemplateColumns: "repeat(auto-fit, minmax(320px, 1fr))",
+              gap: "3rem",
+              alignItems: "center",
+            }}
+          >
+            {/* ── Left Column: Technical Pitch & Actions ───────── */}
+            <div>
+              {/* Title */}
+              <h1
+                style={{
+                  fontFamily: "var(--font-display)",
+                  fontSize: "clamp(2.8rem, 6vw, 4.8rem)",
+                  fontWeight: 700,
+                  textTransform: "uppercase",
+                  letterSpacing: "-0.01em",
+                  lineHeight: 0.95,
+                  color: "var(--color-ink)",
+                  marginBottom: "1.25rem",
+                }}
+              >
+                Python Engineering
+                <br />
+                <span style={{ color: "var(--color-accent)" }}>From Scratch</span>
+              </h1>
+
+              {/* Lead Paragraph */}
+              <p
+                style={{
+                  fontFamily: "var(--font-body)",
+                  fontSize: "1.1rem",
+                  color: "var(--color-ink)",
+                  lineHeight: 1.6,
+                  marginBottom: "0.5rem",
+                  fontWeight: 500,
+                }}
+              >
+                100+ lessons. 21 phases. Every concept built from raw fundamentals before a single framework gets imported.
+              </p>
+
+              {/* Subtext */}
+              <p
+                style={{
+                  fontFamily: "var(--font-body)",
+                  fontSize: "0.9rem",
+                  color: "var(--color-ink-3)",
+                  fontStyle: "italic",
+                  marginBottom: "1.5rem",
+                }}
+              >
+                100% Free &amp; Open Source technical learning platform. Run on your own machine.
+              </p>
+
+              {/* GitHub Button */}
+              <div
+                style={{
+                  display: "flex",
+                  flexWrap: "wrap",
+                  gap: "0.6rem",
+                  marginBottom: "1.25rem",
+                }}
+              >
+                <a
+                  href="https://github.com/shashwatkale/python-from-scratch"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  style={{
+                    fontFamily: "var(--font-mono)",
+                    fontSize: "0.65rem",
+                    fontWeight: 600,
+                    textTransform: "uppercase",
+                    letterSpacing: "0.06em",
+                    padding: "0.4rem 0.85rem",
+                    backgroundColor: "var(--color-surface)",
+                    color: "var(--color-ink)",
+                    border: "1px solid var(--color-border-2)",
+                    textDecoration: "none",
+                    display: "inline-flex",
+                    alignItems: "center",
+                    gap: "0.5rem",
+                    transition: "border-color 0.12s",
+                  }}
+                  className="hover:border-accent"
+                >
+                  <span style={{ color: "#eab308" }}>★</span>
+                  <span>Star on GitHub</span>
+                </a>
+
+                <a
+                  href="https://github.com/shashwatkale/python-from-scratch"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  style={{
+                    fontFamily: "var(--font-mono)",
+                    fontSize: "0.65rem",
+                    fontWeight: 600,
+                    textTransform: "uppercase",
+                    letterSpacing: "0.06em",
+                    padding: "0.4rem 0.85rem",
+                    backgroundColor: "var(--color-surface)",
+                    color: "var(--color-ink-2)",
+                    border: "1px solid var(--color-border)",
+                    textDecoration: "none",
+                    display: "inline-flex",
+                    alignItems: "center",
+                    gap: "0.4rem",
+                  }}
+                  className="hover:border-accent"
+                >
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z" />
+                  </svg>
+                  <span>Repository</span>
+                </a>
+              </div>
+
+              {/* Terminal Box */}
+              <HeroTerminalBox />
+
+              <p
+                style={{
+                  fontFamily: "var(--font-body)",
+                  fontSize: "0.78rem",
+                  color: "var(--color-ink-3)",
+                  marginTop: "0.5rem",
+                  lineHeight: 1.4,
+                }}
+              >
+                Your agent becomes your tutor: placement quiz, personalized path, lessons taught interactively in your terminal.
+              </p>
+
+              {/* Quick Jump Action Buttons */}
+              <div
+                style={{
+                  display: "flex",
+                  flexWrap: "wrap",
+                  gap: "0.6rem",
+                  marginTop: "1.5rem",
+                }}
+              >
+                <Link href="/curriculum/00-getting-started/" className="btn-primary">
+                  Start Curriculum →
+                </Link>
+                <Link href="/roadmap/" className="btn-ghost">
+                  Career Roadmap
+                </Link>
+                <Link href="/glossary/" className="btn-ghost">
+                  Python Glossary
+                </Link>
+              </div>
+            </div>
+
+            {/* ── Right Column: CPython Virtual Machine Animation ─ */}
+            <div>
+              <HeroPythonEngineAnimation />
+            </div>
+          </div>
+
+          {/* Stats Bar */}
           <div
             style={{
               display: "flex",
               flexWrap: "wrap",
-              gap: "2rem",
-              paddingTop: "2rem",
+              gap: "2.5rem",
+              paddingTop: "2.5rem",
+              marginTop: "3rem",
               borderTop: "1px solid var(--color-border)",
             }}
           >
@@ -133,12 +231,13 @@ export default function HomePage() {
               { value: STATS.lessons, label: "Lessons" },
               { value: STATS.exercises, label: "Exercises" },
               { value: STATS.projects, label: "Projects" },
+              { value: "11", label: "Career Paths" },
             ].map(({ value, label }) => (
               <div key={label}>
                 <div
                   style={{
                     fontFamily: "var(--font-display)",
-                    fontSize: "2rem",
+                    fontSize: "2.2rem",
                     fontWeight: 700,
                     color: "var(--color-ink)",
                     lineHeight: 1,
@@ -173,18 +272,18 @@ export default function HomePage() {
       >
         <div
           style={{
-            maxWidth: "900px",
+            maxWidth: "1280px",
             margin: "0 auto",
             padding: "0 1.5rem",
             display: "grid",
-            gridTemplateColumns: "repeat(auto-fit, minmax(160px, 1fr))",
+            gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))",
           }}
         >
           {[
             { label: "Beginner Friendly", desc: "Start from zero, no experience needed" },
-            { label: "Project-Based", desc: "Build real things at every phase" },
-            { label: "Interview Ready", desc: "DSA, algorithms, and common questions" },
-            { label: "Production Python", desc: "FastAPI, databases, async, testing" },
+            { label: "Project-Based", desc: "Build real things at every single phase" },
+            { label: "Interactive Roadmap", desc: "11 career paths with animated dependency graph" },
+            { label: "Production Python", desc: "FastAPI, databases, async, testing, MLOps" },
           ].map((f) => (
             <div
               key={f.label}
@@ -221,93 +320,56 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ── Curriculum list ──────────────────────────────────── */}
-      <section style={{ maxWidth: "900px", margin: "0 auto", padding: "3rem 1.5rem" }}>
+      {/* ── Curriculum table of contents ─────────────────────── */}
+      <section style={{ padding: "4rem 1.5rem 6rem", maxWidth: "1280px", margin: "0 auto" }}>
         <div
           style={{
             display: "flex",
             alignItems: "baseline",
             justifyContent: "space-between",
-            marginBottom: "1.5rem",
-            paddingBottom: "0.75rem",
-            borderBottom: "1px solid var(--color-border)",
+            paddingBottom: "1rem",
+            borderBottom: "2px solid var(--color-ink)",
+            marginBottom: "2rem",
           }}
         >
-          <h2
-            style={{
-              fontFamily: "var(--font-display)",
-              fontSize: "1.5rem",
-              fontWeight: 700,
-              textTransform: "uppercase",
-              color: "var(--color-ink)",
-            }}
-          >
-            Curriculum
-          </h2>
+          <div>
+            <p
+              style={{
+                fontFamily: "var(--font-mono)",
+                fontSize: "0.65rem",
+                textTransform: "uppercase",
+                letterSpacing: "0.1em",
+                color: "var(--color-accent-text)",
+                marginBottom: "0.25rem",
+              }}
+            >
+              Complete Curriculum
+            </p>
+            <h2
+              style={{
+                fontFamily: "var(--font-display)",
+                fontSize: "2rem",
+                fontWeight: 700,
+                textTransform: "uppercase",
+                color: "var(--color-ink)",
+              }}
+            >
+              21 Phases · Zero to Production
+            </h2>
+          </div>
           <span
             style={{
               fontFamily: "var(--font-mono)",
               fontSize: "0.65rem",
-              textTransform: "uppercase",
-              letterSpacing: "0.08em",
               color: "var(--color-ink-3)",
+              textTransform: "uppercase",
             }}
           >
-            {PHASES.length} Phases
+            {STATS.lessons} Lessons Total
           </span>
         </div>
 
         <HomeCurriculumList phases={PHASES} />
-
-        <div style={{ marginTop: "1.5rem" }}>
-          <Link href="/curriculum/" className="btn-ghost">
-            View Full Curriculum →
-          </Link>
-        </div>
-      </section>
-
-      {/* ── Setup block ──────────────────────────────────────── */}
-      <section
-        style={{
-          borderTop: "1px solid var(--color-border)",
-          backgroundColor: "var(--color-surface)",
-          padding: "3rem 1.5rem",
-        }}
-      >
-        <div style={{ maxWidth: "900px", margin: "0 auto" }}>
-          <p
-            style={{
-              fontFamily: "var(--font-mono)",
-              fontSize: "0.65rem",
-              textTransform: "uppercase",
-              letterSpacing: "0.1em",
-              color: "var(--color-ink-3)",
-              marginBottom: "0.75rem",
-            }}
-          >
-            Quick Start
-          </p>
-          <h2
-            style={{
-              fontFamily: "var(--font-display)",
-              fontSize: "1.5rem",
-              fontWeight: 700,
-              textTransform: "uppercase",
-              color: "var(--color-ink)",
-              marginBottom: "1.25rem",
-            }}
-          >
-            Get the Repository
-          </h2>
-          <div className="code-block-wrapper" style={{ maxWidth: "600px" }}>
-            <div className="code-block-header">
-              <span className="code-block-lang">bash</span>
-            </div>
-            <pre className="code-block-pre" style={{ color: "var(--color-ink-2)" }}>
-              {CLONE_CMD}
-            </pre>
-          </div>
-        </div>
       </section>
     </div>
   );
