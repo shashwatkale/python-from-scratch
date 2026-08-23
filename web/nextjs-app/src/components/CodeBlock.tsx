@@ -11,6 +11,24 @@ interface CodeBlockProps {
   showLineNumbers?: boolean;
 }
 
+function normalizeLanguage(lang?: string): string {
+  if (!lang) return "markup";
+  const l = lang.toLowerCase().trim();
+  if (["python", "py", "python3"].includes(l)) return "python";
+  if (["typescript", "ts"].includes(l)) return "typescript";
+  if (["javascript", "js"].includes(l)) return "javascript";
+  if (["tsx", "jsx"].includes(l)) return "tsx";
+  if (["json"].includes(l)) return "json";
+  if (["yaml", "yml"].includes(l)) return "yaml";
+  if (["css", "scss"].includes(l)) return "css";
+  if (["sql"].includes(l)) return "sql";
+  if (["go", "golang"].includes(l)) return "go";
+  if (["rust", "rs"].includes(l)) return "rust";
+  if (["c", "cpp", "c++"].includes(l)) return "c";
+  // Fallback for markdown, bash, shell, text, etc.
+  return "markup";
+}
+
 export function CodeBlock({
   code,
   language = "python",
@@ -20,18 +38,23 @@ export function CodeBlock({
   const [copied, setCopied] = useState(false);
   const { theme } = useTheme();
   const isDark = theme === "dark";
+  const safeLang = normalizeLanguage(language);
 
   const copy = async () => {
-    await navigator.clipboard.writeText(code.trim());
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
+    try {
+      await navigator.clipboard.writeText(code.trim());
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    } catch {
+      // ignore clipboard error
+    }
   };
 
   return (
     <div className="code-block-wrapper">
       <div className="code-block-header">
         <div style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
-          <span className="code-block-lang">{language}</span>
+          <span className="code-block-lang">{language || "code"}</span>
           {filename && (
             <span
               style={{
@@ -66,7 +89,7 @@ export function CodeBlock({
       <Highlight
         theme={isDark ? themes.vsDark : themes.github}
         code={code.trim()}
-        language={language as Parameters<typeof Highlight>[0]["language"]}
+        language={safeLang as Parameters<typeof Highlight>[0]["language"]}
       >
         {({ className, style, tokens, getLineProps, getTokenProps }) => (
           <pre

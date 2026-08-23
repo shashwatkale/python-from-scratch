@@ -44,10 +44,45 @@ export interface CertificationLessonDetail extends CertificationLessonRef {
   contentMarkdown: string;
   codeSnippet?: {
     language: string;
-    filename: string;
+    filename?: string;
     code: string;
+    note?: string;
   };
   interactiveLabPrompt?: string;
+  productLandscape?: { surface: string; whatItIs: string; typicalUser: string }[];
+  scenarioData?: {
+    title: string;
+    context: string;
+    whatWentWrong?: string;
+    correctApproach?: string;
+  };
+  examples?: {
+    title: string;
+    bad: { label: string; codeOrPrompt: string; explanation: string };
+    good: { label: string; codeOrPrompt: string; explanation: string };
+  }[];
+  practicalPromptExample?: { title: string; prompt: string; explanation: string };
+  commonMistakes?: string[];
+  bestPractices?: string[];
+  keyTakeaways?: string[];
+  glossaryTermsList?: { term: string; definition: string }[];
+  glossaryTerms?: { term: string; definition: string }[];
+  exercisesList?: { id: string; title: string; description: string; tasks: string[] }[];
+  exercises?: { id: string; title: string; description: string; tasks: string[] }[];
+  knowledgeChecksList?: {
+    id: string;
+    question: string;
+    options: { id: string; text: string }[];
+    correctAnswer: string;
+    explanation: string;
+  }[];
+  knowledgeChecks?: {
+    id: string;
+    question: string;
+    options: { id: string; text: string }[];
+    correctAnswer: string;
+    explanation: string;
+  }[];
 }
 
 export interface AssessmentQuestion {

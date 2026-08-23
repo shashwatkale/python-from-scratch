@@ -1,7 +1,9 @@
 // src/data/certifications/questions/track-01-ccao-f.ts — CCAO-F Question Pool
 import type { CertificationQuestionItem } from "./types";
+import { CLAUDE_ASSOCIATE_QUESTIONS } from "../claude-associate/questions";
 
 export const CCAO_F_QUESTIONS: CertificationQuestionItem[] = [
+  ...CLAUDE_ASSOCIATE_QUESTIONS,
   {
     id: "CCAO-001",
     certificationId: "claude-ccao-f",
