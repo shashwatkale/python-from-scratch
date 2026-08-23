@@ -63,6 +63,7 @@ export interface Progress {
 }
 
 export * from "./glossary";
+export * from "./roadmap";
 
 export interface SearchResult {
   title: string;

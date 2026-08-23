@@ -1,107 +1,258 @@
-import type { Metadata } from "next";
-import { PHASES } from "@/lib/curriculum";
+// src/app/roadmap/page.tsx — Animated Interactive Python Career Roadmap
+"use client";
 
-export const metadata: Metadata = {
-  title: "Roadmap",
-  description: "Python From Scratch learning roadmap — 21 phases from beginner to advanced.",
-};
-
-const DIFF_COLOR: Record<string, string> = {
-  beginner: "var(--color-accent-text)",
-  intermediate: "#d97706",
-  advanced: "#dc2626",
-};
-
-function phaseStatus(lessons: unknown[]): "active" | "planned" {
-  return lessons.length > 0 ? "active" : "planned";
-}
+import { useState, useEffect, useMemo, useCallback } from "react";
+import {
+  CAREER_ROLES,
+  ROADMAP_NODES,
+  getRoleById,
+  getNodeById,
+  calculateRoleProgress,
+  getNodeDependencyChain,
+} from "@/data/roadmap";
+import { loadProgress, saveProgress, markLessonComplete } from "@/lib/progress";
+import { RoadmapHero } from "@/components/roadmap/RoadmapHero";
+import { RoleSelector } from "@/components/roadmap/RoleSelector";
+import { RoadmapControls } from "@/components/roadmap/RoadmapControls";
+import { RoadmapGraph } from "@/components/roadmap/RoadmapGraph";
+import { RouteInspector } from "@/components/roadmap/RouteInspector";
+import { RecommendedNext } from "@/components/roadmap/RecommendedNext";
+import { CareerRoleCards } from "@/components/roadmap/CareerRoleCards";
+import { CapstoneProjectsSection } from "@/components/roadmap/CapstoneProjectsSection";
+import type { CareerRoleId } from "@/types";
 
 export default function RoadmapPage() {
+  const [selectedRole, setSelectedRole] = useState<CareerRoleId | "all">("python-dev");
+  const [selectedNodeId, setSelectedNodeId] = useState<string | null>(null);
+  const [zoom, setZoom] = useState(1.0);
+  const [completedLessons, setCompletedLessons] = useState<string[]>([]);
+
+  // Load progress from browser localStorage on mount
+  useEffect(() => {
+    const p = loadProgress();
+    setCompletedLessons(p.completedLessons);
+
+    // Keyboard navigation (ESC to deselect)
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        setSelectedNodeId(null);
+      }
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, []);
+
+  // Active role object
+  const activeRole = useMemo(() => {
+    return selectedRole === "all" ? null : getRoleById(selectedRole) ?? null;
+  }, [selectedRole]);
+
+  // Set of node IDs active for the current role
+  const activeRoleNodeIds = useMemo(() => {
+    if (selectedRole === "all" || !activeRole) {
+      return new Set(ROADMAP_NODES.map((n) => n.id));
+    }
+    return new Set(activeRole.nodeIds);
+  }, [selectedRole, activeRole]);
+
+  // Overall role completion percentage
+  const roleProgress = useMemo(() => {
+    if (!activeRole) return 0;
+    return calculateRoleProgress(activeRole.id, completedLessons);
+  }, [activeRole, completedLessons]);
+
+  // Selected node object & dependency chains
+  const selectedNode = useMemo(() => {
+    return selectedNodeId ? getNodeById(selectedNodeId) ?? null : null;
+  }, [selectedNodeId]);
+
+  const { prereqs: prereqNodeIds, unlocks: unlockNodeIds } = useMemo(() => {
+    if (!selectedNodeId) {
+      return { prereqs: new Set<string>(), unlocks: new Set<string>() };
+    }
+    return getNodeDependencyChain(selectedNodeId);
+  }, [selectedNodeId]);
+
+  // Handler to toggle lesson completion
+  const handleToggleLesson = useCallback((lessonKey: string) => {
+    const p = loadProgress();
+    if (p.completedLessons.includes(lessonKey)) {
+      p.completedLessons = p.completedLessons.filter((s) => s !== lessonKey);
+    } else {
+      p.completedLessons.push(lessonKey);
+    }
+    saveProgress(p);
+    setCompletedLessons([...p.completedLessons]);
+  }, []);
+
+  // Jump to specific zone
+  const handleJumpToStage = useCallback((stageId: string) => {
+    const el = document.getElementById(`stage-${stageId}`);
+    if (el) {
+      el.scrollIntoView({ behavior: "smooth", block: "center" });
+    }
+  }, []);
+
   return (
-    <div style={{ maxWidth: "900px", margin: "0 auto", padding: "3rem 1.5rem" }}>
-      {/* Header */}
-      <div style={{ marginBottom: "2.5rem", paddingBottom: "1.25rem", borderBottom: "1px solid var(--color-border)" }}>
-        <p style={{ fontFamily: "var(--font-mono)", fontSize: "0.65rem", textTransform: "uppercase", letterSpacing: "0.1em", color: "var(--color-ink-3)", marginBottom: "0.5rem" }}>
-          Learning Path
-        </p>
-        <h1 style={{ fontFamily: "var(--font-display)", fontSize: "2.5rem", fontWeight: 700, textTransform: "uppercase", color: "var(--color-ink)", lineHeight: 1.05, marginBottom: "0.75rem" }}>
-          Roadmap
-        </h1>
-        <p style={{ fontFamily: "var(--font-body)", fontSize: "1rem", color: "var(--color-ink-3)", maxWidth: "480px" }}>
-          {PHASES.length} phases from absolute beginner to production Python.
-        </p>
+    <div style={{ backgroundColor: "var(--color-bg)", minHeight: "100vh" }}>
+      {/* ── 1. Hero ───────────────────────────────────────────── */}
+      <RoadmapHero activeRole={activeRole} roleProgress={roleProgress} />
+
+      {/* ── 2. Role Selector ──────────────────────────────────── */}
+      <RoleSelector
+        selectedRole={selectedRole}
+        onSelectRole={(role) => setSelectedRole(role)}
+        completedLessons={completedLessons}
+      />
+
+      {/* ── 3. Recommended Next Banner ────────────────────────── */}
+      <div style={{ padding: "0 1.5rem" }}>
+        <RecommendedNext
+          activeRole={activeRole}
+          completedLessons={completedLessons}
+          onSelectNode={(nodeId) => setSelectedNodeId(nodeId)}
+        />
       </div>
 
-      {/* Legend */}
-      <div style={{ display: "flex", gap: "1.5rem", marginBottom: "2rem" }}>
-        {[
-          { dot: "var(--color-accent)", label: "In Progress" },
-          { dot: "var(--color-border-2)", label: "Planned" },
-        ].map(({ dot, label }) => (
-          <div key={label} style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
-            <span style={{ width: "8px", height: "8px", backgroundColor: dot, display: "inline-block" }} />
-            <span style={{ fontFamily: "var(--font-mono)", fontSize: "0.6rem", textTransform: "uppercase", letterSpacing: "0.08em", color: "var(--color-ink-3)" }}>
-              {label}
-            </span>
-          </div>
-        ))}
+      {/* ── 4. Graph Controls & Search Bar ────────────────────── */}
+      <div style={{ marginTop: "1rem" }}>
+        <RoadmapControls
+          zoom={zoom}
+          onZoomIn={() => setZoom((z) => Math.min(1.5, Math.round((z + 0.15) * 100) / 100))}
+          onZoomOut={() => setZoom((z) => Math.max(0.6, Math.round((z - 0.15) * 100) / 100))}
+          onResetZoom={() => setZoom(1.0)}
+          onJumpToStage={handleJumpToStage}
+          onSelectNode={(nodeId) => setSelectedNodeId(nodeId)}
+        />
       </div>
 
-      {/* Phase list */}
-      <div style={{ border: "1px solid var(--color-border)", backgroundColor: "var(--color-surface)" }}>
-        {/* Header row */}
-        <div style={{ display: "grid", gridTemplateColumns: "2.5rem 0.5rem 1fr 7rem 5rem", gap: "1rem", alignItems: "center", padding: "0.5rem 1.25rem", borderBottom: "1px solid var(--color-border)", backgroundColor: "var(--color-surface-2)" }}>
-          {["#", "", "Phase", "Difficulty", "Status"].map((h, i) => (
-            <span key={i} style={{ fontFamily: "var(--font-mono)", fontSize: "0.6rem", textTransform: "uppercase", letterSpacing: "0.1em", color: "var(--color-ink-3)" }}>
-              {h}
-            </span>
-          ))}
+      {/* ── 5. Main Graph + Inspector Workspace ───────────────── */}
+      <div
+        style={{
+          display: "grid",
+          gridTemplateColumns: selectedNodeId ? "1fr 340px" : "1fr",
+          borderBottom: "1px solid var(--color-border)",
+          minHeight: "750px",
+          position: "relative",
+        }}
+        className="roadmap-workspace"
+      >
+        {/* SVG Graph Canvas */}
+        <div style={{ minWidth: 0 }}>
+          <RoadmapGraph
+            selectedRole={selectedRole}
+            selectedNodeId={selectedNodeId}
+            activeRoleNodeIds={activeRoleNodeIds}
+            prereqNodeIds={prereqNodeIds}
+            unlockNodeIds={unlockNodeIds}
+            completedLessons={completedLessons}
+            zoom={zoom}
+            onSelectNode={(nodeId) => setSelectedNodeId(nodeId)}
+          />
         </div>
 
-        {PHASES.map((phase) => {
-          const status = phaseStatus(phase.lessons);
-          return (
-            <div
-              key={phase.slug}
-              style={{
-                display: "grid",
-                gridTemplateColumns: "2.5rem 0.5rem 1fr 7rem 5rem",
-                gap: "1rem",
-                alignItems: "center",
-                padding: "0.875rem 1.25rem",
-                borderBottom: "1px solid var(--color-border)",
-              }}
-            >
-              <span style={{ fontFamily: "var(--font-mono)", fontSize: "0.7rem", color: "var(--color-ink-3)", fontWeight: 600 }}>
-                {String(phase.order).padStart(2, "0")}
-              </span>
+        {/* Right-Side Desktop / Sticky Inspector */}
+        {selectedNodeId && (
+          <aside
+            style={{
+              width: "340px",
+              borderLeft: "1px solid var(--color-border)",
+              backgroundColor: "var(--color-surface)",
+              position: "sticky",
+              top: "3.25rem",
+              height: "calc(100vh - 3.25rem)",
+              overflowY: "auto",
+              zIndex: 30,
+            }}
+          >
+            <RouteInspector
+              selectedNode={selectedNode}
+              activeRole={activeRole}
+              completedLessons={completedLessons}
+              onSelectNode={(nodeId) => setSelectedNodeId(nodeId)}
+              onToggleLesson={handleToggleLesson}
+              onClose={() => setSelectedNodeId(null)}
+            />
+          </aside>
+        )}
+      </div>
+
+      {/* ── 6. Visual Graph Legend ────────────────────────────── */}
+      <div
+        style={{
+          backgroundColor: "var(--color-surface)",
+          padding: "0.85rem 1.5rem",
+          borderBottom: "1px solid var(--color-border)",
+        }}
+      >
+        <div
+          style={{
+            maxWidth: "1400px",
+            margin: "0 auto",
+            display: "flex",
+            flexWrap: "wrap",
+            gap: "1.5rem",
+            alignItems: "center",
+          }}
+        >
+          <span
+            style={{
+              fontFamily: "var(--font-mono)",
+              fontSize: "0.6rem",
+              textTransform: "uppercase",
+              letterSpacing: "0.1em",
+              color: "var(--color-ink-3)",
+            }}
+          >
+            Legend:
+          </span>
+          {[
+            { color: "var(--color-accent)", label: "Active Role Route" },
+            { color: "#059669", label: "Prerequisites" },
+            { color: "#d97706", label: "Unlocks Next" },
+            { color: "var(--color-border-2)", label: "Other Skills" },
+          ].map(({ color, label }) => (
+            <div key={label} style={{ display: "flex", alignItems: "center", gap: "0.4rem" }}>
               <span
                 style={{
-                  width: "8px",
-                  height: "8px",
-                  backgroundColor: status === "active" ? "var(--color-accent)" : "var(--color-border-2)",
+                  width: "14px",
+                  height: "3px",
+                  backgroundColor: color,
                   display: "inline-block",
-                  flexShrink: 0,
                 }}
               />
-              <div>
-                <p style={{ fontFamily: "var(--font-mono)", fontSize: "0.78rem", fontWeight: 600, color: "var(--color-ink)", textTransform: "uppercase", letterSpacing: "0.04em", marginBottom: "0.15rem" }}>
-                  {phase.title}
-                </p>
-                <p style={{ fontFamily: "var(--font-body)", fontSize: "0.75rem", color: "var(--color-ink-3)" }}>
-                  {phase.description}
-                </p>
-              </div>
-              <span style={{ fontFamily: "var(--font-mono)", fontSize: "0.6rem", textTransform: "uppercase", letterSpacing: "0.06em", color: DIFF_COLOR[phase.difficulty] }}>
-                {phase.difficulty}
-              </span>
-              <span style={{ fontFamily: "var(--font-mono)", fontSize: "0.6rem", textTransform: "uppercase", letterSpacing: "0.06em", color: status === "active" ? "var(--color-accent-text)" : "var(--color-ink-3)" }}>
-                {status === "active" ? `${phase.lessons.length} lessons` : "Planned"}
+              <span
+                style={{
+                  fontFamily: "var(--font-mono)",
+                  fontSize: "0.65rem",
+                  color: "var(--color-ink-2)",
+                }}
+              >
+                {label}
               </span>
             </div>
-          );
-        })}
+          ))}
+        </div>
       </div>
+
+      {/* ── 7. Capstone Projects Section ──────────────────────── */}
+      <CapstoneProjectsSection
+        activeRole={activeRole}
+        selectedRole={selectedRole}
+      />
+
+      {/* ── 8. 11 Career Roles Summary Section ────────────────── */}
+      <CareerRoleCards
+        selectedRole={selectedRole}
+        onSelectRole={(role) => {
+          setSelectedRole(role);
+          window.scrollTo({ top: 0, behavior: "smooth" });
+        }}
+        completedLessons={completedLessons}
+      />
+
+      {/* ── Bottom Padding ────────────────────────────────────── */}
+      <div style={{ height: "6rem" }} />
     </div>
   );
 }

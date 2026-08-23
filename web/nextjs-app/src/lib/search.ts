@@ -5,9 +5,30 @@ import { PHASES, EXERCISES, PROJECTS } from "./curriculum";
 import type { SearchResult } from "@/types";
 
 import { GLOSSARY_TERMS } from "@/data/glossary";
+import { ROADMAP_NODES, CAREER_ROLES } from "@/data/roadmap";
 
 function buildIndex(): SearchResult[] {
   const results: SearchResult[] = [];
+
+  for (const role of CAREER_ROLES) {
+    results.push({
+      title: `${role.title} Career Path`,
+      description: role.headline,
+      category: "project",
+      href: `/roadmap/`,
+      tags: ["career", "role", "roadmap", role.shortTitle],
+    });
+  }
+
+  for (const node of ROADMAP_NODES) {
+    results.push({
+      title: `${node.number} · ${node.title}`,
+      description: `${node.subtitle} — ${node.description}`,
+      category: "lesson",
+      href: `/roadmap/`,
+      tags: [...node.tags, node.category, "roadmap", "skill"],
+    });
+  }
 
   for (const term of GLOSSARY_TERMS) {
     results.push({
