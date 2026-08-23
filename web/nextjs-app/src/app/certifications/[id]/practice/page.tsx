@@ -512,6 +512,7 @@ export default function PracticePage({ params }: Props) {
                           </span>
                           <p style={{ fontFamily: "var(--font-body)", fontSize: "0.98rem", fontStyle: "italic", color: "var(--color-ink)", margin: "0.3rem 0 0", lineHeight: 1.55 }}>
                             &ldquo;{q.engineeringPrinciple}&rdquo;
+                          </p>
                         </div>
                       )}
                     </div>
