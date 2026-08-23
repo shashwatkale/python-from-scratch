@@ -7,12 +7,14 @@ import { useTheme } from "./ThemeProvider";
 interface CodeBlockProps {
   code: string;
   language?: string;
+  filename?: string;
   showLineNumbers?: boolean;
 }
 
 export function CodeBlock({
   code,
   language = "python",
+  filename,
   showLineNumbers = false,
 }: CodeBlockProps) {
   const [copied, setCopied] = useState(false);
@@ -28,7 +30,20 @@ export function CodeBlock({
   return (
     <div className="code-block-wrapper">
       <div className="code-block-header">
-        <span className="code-block-lang">{language}</span>
+        <div style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
+          <span className="code-block-lang">{language}</span>
+          {filename && (
+            <span
+              style={{
+                fontFamily: "var(--font-mono)",
+                fontSize: "0.68rem",
+                color: "var(--color-ink-3)",
+              }}
+            >
+              · {filename}
+            </span>
+          )}
+        </div>
         <button onClick={copy} className="code-block-copy" aria-label="Copy code">
           {copied ? (
             <>

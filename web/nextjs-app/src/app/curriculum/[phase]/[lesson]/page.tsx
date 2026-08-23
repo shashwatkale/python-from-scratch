@@ -1,4 +1,4 @@
-// src/app/curriculum/[phase]/[lesson]/page.tsx — Interactive Python Lesson Detail Reader
+// src/app/curriculum/[phase]/[lesson]/page.tsx — Interactive Python Lesson Detail Reader with High-Legibility Typography
 import { PHASES } from "@/lib/curriculum";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
@@ -78,9 +78,9 @@ export default async function LessonPage({ params }: Props) {
               display: "flex",
               alignItems: "center",
               gap: "0.5rem",
-              marginBottom: "0.75rem",
+              marginBottom: "0.85rem",
               fontFamily: "var(--font-mono)",
-              fontSize: "0.65rem",
+              fontSize: "0.78rem",
               fontWeight: 700,
               textTransform: "uppercase",
               letterSpacing: "0.1em",
@@ -96,13 +96,13 @@ export default async function LessonPage({ params }: Props) {
           <h1
             style={{
               fontFamily: "var(--font-display)",
-              fontSize: "clamp(2.4rem, 5vw, 3.8rem)",
+              fontSize: "clamp(2.4rem, 5.5vw, 4rem)",
               fontWeight: 700,
               textTransform: "uppercase",
               letterSpacing: "-0.01em",
-              lineHeight: 0.98,
+              lineHeight: 1.02,
               color: "var(--color-ink)",
-              marginBottom: "1rem",
+              marginBottom: "1.25rem",
             }}
           >
             {lesson.title}
@@ -115,18 +115,18 @@ export default async function LessonPage({ params }: Props) {
                 backgroundColor: "var(--color-surface)",
                 border: "1px solid var(--color-border)",
                 borderLeft: "4px solid var(--color-accent)",
-                padding: "1rem 1.35rem",
+                padding: "1.15rem 1.45rem",
                 marginBottom: "2rem",
               }}
             >
               <p
                 style={{
                   fontFamily: "var(--font-body)",
-                  fontSize: "1rem",
+                  fontSize: "1.05rem",
                   fontStyle: "italic",
                   color: "var(--color-ink)",
                   margin: 0,
-                  lineHeight: 1.55,
+                  lineHeight: 1.6,
                 }}
               >
                 {detail.quote}
@@ -138,46 +138,46 @@ export default async function LessonPage({ params }: Props) {
           <div
             style={{
               display: "grid",
-              gridTemplateColumns: "repeat(auto-fit, minmax(130px, 1fr))",
-              gap: "1rem",
-              padding: "1rem 1.25rem",
+              gridTemplateColumns: "repeat(auto-fit, minmax(140px, 1fr))",
+              gap: "1.25rem",
+              padding: "1.15rem 1.35rem",
               backgroundColor: "var(--color-surface-2)",
               border: "1px solid var(--color-border)",
               marginBottom: "2.5rem",
             }}
           >
             <div>
-              <span style={{ fontFamily: "var(--font-mono)", fontSize: "0.58rem", textTransform: "uppercase", color: "var(--color-ink-3)", display: "block" }}>
+              <span style={{ fontFamily: "var(--font-mono)", fontSize: "0.72rem", textTransform: "uppercase", color: "var(--color-ink-3)", display: "block", fontWeight: 600 }}>
                 TYPE
               </span>
-              <span style={{ fontFamily: "var(--font-mono)", fontSize: "0.82rem", fontWeight: 700, color: "var(--color-ink)" }}>
+              <span style={{ fontFamily: "var(--font-mono)", fontSize: "0.92rem", fontWeight: 700, color: "var(--color-ink)", marginTop: "0.2rem", display: "block" }}>
                 {detail.type}
               </span>
             </div>
 
             <div>
-              <span style={{ fontFamily: "var(--font-mono)", fontSize: "0.58rem", textTransform: "uppercase", color: "var(--color-ink-3)", display: "block" }}>
+              <span style={{ fontFamily: "var(--font-mono)", fontSize: "0.72rem", textTransform: "uppercase", color: "var(--color-ink-3)", display: "block", fontWeight: 600 }}>
                 LANGUAGE
               </span>
-              <span style={{ fontFamily: "var(--font-mono)", fontSize: "0.82rem", fontWeight: 700, color: "var(--color-ink)" }}>
+              <span style={{ fontFamily: "var(--font-mono)", fontSize: "0.92rem", fontWeight: 700, color: "var(--color-ink)", marginTop: "0.2rem", display: "block" }}>
                 {detail.languages}
               </span>
             </div>
 
             <div>
-              <span style={{ fontFamily: "var(--font-mono)", fontSize: "0.58rem", textTransform: "uppercase", color: "var(--color-ink-3)", display: "block" }}>
+              <span style={{ fontFamily: "var(--font-mono)", fontSize: "0.72rem", textTransform: "uppercase", color: "var(--color-ink-3)", display: "block", fontWeight: 600 }}>
                 TIME
               </span>
-              <span style={{ fontFamily: "var(--font-mono)", fontSize: "0.82rem", fontWeight: 700, color: "var(--color-ink)" }}>
+              <span style={{ fontFamily: "var(--font-mono)", fontSize: "0.92rem", fontWeight: 700, color: "var(--color-ink)", marginTop: "0.2rem", display: "block" }}>
                 {detail.estimatedTime}
               </span>
             </div>
 
             <div>
-              <span style={{ fontFamily: "var(--font-mono)", fontSize: "0.58rem", textTransform: "uppercase", color: "var(--color-ink-3)", display: "block" }}>
+              <span style={{ fontFamily: "var(--font-mono)", fontSize: "0.72rem", textTransform: "uppercase", color: "var(--color-ink-3)", display: "block", fontWeight: 600 }}>
                 PREREQUISITE
               </span>
-              <span style={{ fontFamily: "var(--font-mono)", fontSize: "0.82rem", fontWeight: 700, color: "var(--color-ink)" }}>
+              <span style={{ fontFamily: "var(--font-mono)", fontSize: "0.92rem", fontWeight: 700, color: "var(--color-ink)", marginTop: "0.2rem", display: "block" }}>
                 {detail.prerequisites}
               </span>
             </div>
@@ -189,15 +189,15 @@ export default async function LessonPage({ params }: Props) {
             style={{
               backgroundColor: "var(--color-surface)",
               border: "1.5px solid var(--color-accent)",
-              padding: "1.5rem 1.75rem",
-              marginBottom: "2.5rem",
+              padding: "1.75rem 2rem",
+              marginBottom: "2.75rem",
               scrollMarginTop: "5.5rem",
             }}
           >
             <span
               style={{
                 fontFamily: "var(--font-mono)",
-                fontSize: "0.65rem",
+                fontSize: "0.78rem",
                 fontWeight: 700,
                 textTransform: "uppercase",
                 letterSpacing: "0.1em",
@@ -205,27 +205,27 @@ export default async function LessonPage({ params }: Props) {
                 display: "flex",
                 alignItems: "center",
                 gap: "0.4rem",
-                marginBottom: "0.85rem",
+                marginBottom: "1rem",
               }}
             >
               <span>🎯</span>
               <span>Learning Objectives</span>
             </span>
 
-            <ul style={{ listStyle: "none", padding: 0, margin: 0, display: "flex", flexDirection: "column", gap: "0.5rem" }}>
+            <ul style={{ listStyle: "none", padding: 0, margin: 0, display: "flex", flexDirection: "column", gap: "0.65rem" }}>
               {detail.objectives.map((obj, i) => (
                 <li
                   key={i}
                   style={{
                     fontFamily: "var(--font-body)",
-                    fontSize: "0.98rem",
+                    fontSize: "1.05rem",
                     color: "var(--color-ink)",
-                    lineHeight: 1.55,
+                    lineHeight: 1.65,
                     display: "flex",
-                    gap: "0.6rem",
+                    gap: "0.75rem",
                   }}
                 >
-                  <span style={{ color: "var(--color-accent)", fontFamily: "var(--font-mono)" }}>▪</span>
+                  <span style={{ color: "var(--color-accent)", fontFamily: "var(--font-mono)", fontWeight: 700 }}>▪</span>
                   <span>{obj}</span>
                 </li>
               ))}
@@ -235,35 +235,36 @@ export default async function LessonPage({ params }: Props) {
           {/* ── The Problem Section ──────────────────────────────── */}
           <section id="the-problem">
             <h2>The Problem</h2>
-            <p>{detail.problem.statement}</p>
+            <p style={{ fontSize: "1.08rem", lineHeight: 1.8 }}>{detail.problem.statement}</p>
             {detail.problem.scenario && (
               <div
                 style={{
                   backgroundColor: "var(--color-surface)",
                   border: "1px solid var(--color-border)",
-                  padding: "1rem 1.25rem",
-                  margin: "1rem 0 1.25rem",
+                  borderLeft: "3.5px solid var(--color-accent)",
+                  padding: "1.15rem 1.45rem",
+                  margin: "1.25rem 0 1.5rem",
                 }}
               >
                 <span
                   style={{
                     fontFamily: "var(--font-mono)",
-                    fontSize: "0.6rem",
+                    fontSize: "0.72rem",
                     fontWeight: 700,
                     textTransform: "uppercase",
                     color: "var(--color-accent-text)",
                     display: "block",
-                    marginBottom: "0.3rem",
+                    marginBottom: "0.4rem",
                   }}
                 >
                   Concrete Scenario
                 </span>
-                <p style={{ margin: 0, fontSize: "0.95rem" }}>{detail.problem.scenario}</p>
+                <p style={{ margin: 0, fontSize: "1.05rem", lineHeight: 1.65 }}>{detail.problem.scenario}</p>
               </div>
             )}
-            <ul style={{ listStyle: "none", padding: 0, margin: "1rem 0" }}>
+            <ul style={{ listStyle: "none", padding: 0, margin: "1.25rem 0" }}>
               {detail.problem.steps.map((step, i) => (
-                <li key={i} style={{ marginBottom: "0.4rem", color: "var(--color-ink-2)" }}>
+                <li key={i} style={{ marginBottom: "0.55rem", color: "var(--color-ink-2)", fontSize: "1.02rem", lineHeight: 1.6 }}>
                   {step}
                 </li>
               ))}
@@ -273,7 +274,7 @@ export default async function LessonPage({ params }: Props) {
           {/* ── The Concept Section ──────────────────────────────── */}
           <section id="the-concept">
             <h2>The Concept</h2>
-            <p>{detail.concept.summary}</p>
+            <p style={{ fontSize: "1.08rem", lineHeight: 1.8 }}>{detail.concept.summary}</p>
 
             {/* Syntax Breakdown Visualizer */}
             {detail.concept.syntaxBreakdown && (
@@ -281,20 +282,20 @@ export default async function LessonPage({ params }: Props) {
                 style={{
                   backgroundColor: "var(--color-surface-2)",
                   border: "1px solid var(--color-border)",
-                  padding: "1.25rem",
-                  margin: "1.5rem 0",
+                  padding: "1.35rem",
+                  margin: "1.75rem 0",
                 }}
               >
                 <span
                   style={{
                     fontFamily: "var(--font-mono)",
-                    fontSize: "0.6rem",
+                    fontSize: "0.72rem",
                     fontWeight: 700,
                     textTransform: "uppercase",
                     letterSpacing: "0.08em",
                     color: "var(--color-ink-3)",
                     display: "block",
-                    marginBottom: "0.5rem",
+                    marginBottom: "0.65rem",
                   }}
                 >
                   Syntax Anatomy
@@ -302,21 +303,22 @@ export default async function LessonPage({ params }: Props) {
                 <pre
                   style={{
                     fontFamily: "var(--font-mono)",
-                    fontSize: "0.85rem",
+                    fontSize: "0.92rem",
                     backgroundColor: "var(--color-surface)",
-                    padding: "0.75rem 1rem",
+                    padding: "0.85rem 1.15rem",
                     border: "1px solid var(--color-border)",
-                    marginBottom: "1rem",
+                    marginBottom: "1.15rem",
                     color: "var(--color-accent-text)",
+                    lineHeight: 1.5,
                   }}
                 >
                   {detail.concept.syntaxBreakdown.syntax}
                 </pre>
 
-                <div style={{ display: "flex", flexDirection: "column", gap: "0.4rem" }}>
+                <div style={{ display: "flex", flexDirection: "column", gap: "0.5rem" }}>
                   {detail.concept.syntaxBreakdown.parts.map((p) => (
-                    <div key={p.label} style={{ fontSize: "0.85rem" }}>
-                      <code style={{ fontFamily: "var(--font-mono)", color: "var(--color-ink)", fontWeight: 600 }}>
+                    <div key={p.label} style={{ fontSize: "0.95rem", lineHeight: 1.5 }}>
+                      <code style={{ fontFamily: "var(--font-mono)", color: "var(--color-ink)", fontWeight: 700 }}>
                         {p.label}
                       </code>
                       <span style={{ color: "var(--color-ink-3)" }}> — </span>
@@ -327,9 +329,9 @@ export default async function LessonPage({ params }: Props) {
               </div>
             )}
 
-            <ul style={{ listStyle: "disc", paddingLeft: "1.5rem", margin: "1rem 0" }}>
+            <ul style={{ listStyle: "disc", paddingLeft: "1.5rem", margin: "1.25rem 0" }}>
               {detail.concept.keyPoints.map((point, i) => (
-                <li key={i} style={{ marginBottom: "0.4rem" }}>
+                <li key={i} style={{ marginBottom: "0.5rem", fontSize: "1.05rem", lineHeight: 1.7 }}>
                   {point}
                 </li>
               ))}
@@ -339,8 +341,8 @@ export default async function LessonPage({ params }: Props) {
           {/* ── Interactive Code Playground ──────────────────────── */}
           <section id="interactive-example">
             <h2>Interactive Code Playground</h2>
-            <p>
-              Experiment with this runnable code example. Click <strong>Run Code</strong> to execute and see the console output:
+            <p style={{ fontSize: "1.05rem", lineHeight: 1.7 }}>
+              Experiment with this runnable code example. Click <strong>Run Code</strong> to execute and observe the terminal stdout output:
             </p>
             <InteractiveCodeRunner
               initialCode={detail.concept.codeExample.code}
@@ -353,11 +355,11 @@ export default async function LessonPage({ params }: Props) {
           <section id="build-it">
             <h2>Build It Step-by-Step</h2>
 
-            <div style={{ display: "flex", flexDirection: "column", gap: "2rem", marginTop: "1rem" }}>
+            <div style={{ display: "flex", flexDirection: "column", gap: "2.25rem", marginTop: "1.25rem" }}>
               {detail.buildSteps.map((step, idx) => (
                 <div key={idx}>
                   <h3>{step.title}</h3>
-                  <p>{step.explanation}</p>
+                  <p style={{ fontSize: "1.05rem", lineHeight: 1.7 }}>{step.explanation}</p>
                   {step.code && (
                     <CodeBlock
                       code={step.code.code}
@@ -374,32 +376,32 @@ export default async function LessonPage({ params }: Props) {
           {detail.commonPitfalls && (
             <section id="common-pitfalls">
               <h2>Common Failure Modes &amp; Traps</h2>
-              <div style={{ display: "flex", flexDirection: "column", gap: "1rem", marginTop: "1rem" }}>
+              <div style={{ display: "flex", flexDirection: "column", gap: "1.25rem", marginTop: "1.25rem" }}>
                 {detail.commonPitfalls.map((pitfall, i) => (
                   <div
                     key={i}
                     style={{
                       backgroundColor: "var(--color-surface)",
                       border: "1px solid var(--color-border)",
-                      borderLeft: "3.5px solid #dc2626",
-                      padding: "1rem 1.25rem",
+                      borderLeft: "4px solid #dc2626",
+                      padding: "1.15rem 1.45rem",
                     }}
                   >
                     <h4
                       style={{
                         fontFamily: "var(--font-mono)",
-                        fontSize: "0.85rem",
+                        fontSize: "0.92rem",
                         fontWeight: 700,
                         color: "#dc2626",
-                        margin: "0 0 0.4rem",
+                        margin: "0 0 0.5rem",
                       }}
                     >
                       ⚠️ {pitfall.pitfall}
                     </h4>
-                    <p style={{ margin: "0 0 0.4rem", fontSize: "0.9rem", color: "var(--color-ink-2)" }}>
+                    <p style={{ margin: "0 0 0.5rem", fontSize: "0.98rem", color: "var(--color-ink-2)", lineHeight: 1.6 }}>
                       <strong>Why it fails:</strong> {pitfall.whyItFails}
                     </p>
-                    <p style={{ margin: 0, fontSize: "0.9rem", color: "var(--color-accent-text)" }}>
+                    <p style={{ margin: 0, fontSize: "0.98rem", color: "var(--color-accent-text)", lineHeight: 1.6 }}>
                       <strong>How to fix:</strong> {pitfall.howToFix}
                     </p>
                   </div>
@@ -414,7 +416,7 @@ export default async function LessonPage({ params }: Props) {
               <h2>Use It in Production</h2>
               <ul style={{ listStyle: "disc", paddingLeft: "1.5rem" }}>
                 {detail.useIt.map((item, i) => (
-                  <li key={i} style={{ marginBottom: "0.5rem" }}>
+                  <li key={i} style={{ marginBottom: "0.6rem", fontSize: "1.05rem", lineHeight: 1.7 }}>
                     {item}
                   </li>
                 ))}
@@ -428,7 +430,7 @@ export default async function LessonPage({ params }: Props) {
               <h2>Ship It</h2>
               <ul style={{ listStyle: "disc", paddingLeft: "1.5rem" }}>
                 {detail.shipIt.map((item, i) => (
-                  <li key={i} style={{ marginBottom: "0.5rem" }}>
+                  <li key={i} style={{ marginBottom: "0.6rem", fontSize: "1.05rem", lineHeight: 1.7 }}>
                     {item}
                   </li>
                 ))}
@@ -442,7 +444,7 @@ export default async function LessonPage({ params }: Props) {
               <h2>Exercises &amp; Review Questions</h2>
               <ul style={{ listStyle: "decimal", paddingLeft: "1.5rem" }}>
                 {detail.exercises.map((item, i) => (
-                  <li key={i} style={{ marginBottom: "0.6rem" }}>
+                  <li key={i} style={{ marginBottom: "0.75rem", fontSize: "1.05rem", lineHeight: 1.7 }}>
                     {item}
                   </li>
                 ))}
@@ -451,7 +453,7 @@ export default async function LessonPage({ params }: Props) {
           )}
 
           {/* ── Mark Complete Checkpoint ────────────────────────── */}
-          <div style={{ padding: "2.5rem 0", borderTop: "1px solid var(--color-border)", marginTop: "3rem" }}>
+          <div style={{ padding: "2.75rem 0", borderTop: "1px solid var(--color-border)", marginTop: "3.5rem" }}>
             <LessonMarkComplete phaseSlug={phase.slug} lessonSlug={lesson.slug} />
           </div>
 
@@ -470,17 +472,17 @@ export default async function LessonPage({ params }: Props) {
                 style={{
                   backgroundColor: "var(--color-surface)",
                   border: "1px solid var(--color-border)",
-                  padding: "1.25rem 1.5rem",
+                  padding: "1.35rem 1.65rem",
                   textDecoration: "none",
                   display: "flex",
                   flexDirection: "column",
                 }}
                 className="hover:border-accent"
               >
-                <span style={{ fontFamily: "var(--font-mono)", fontSize: "0.58rem", textTransform: "uppercase", color: "var(--color-ink-3)", marginBottom: "0.3rem" }}>
+                <span style={{ fontFamily: "var(--font-mono)", fontSize: "0.72rem", textTransform: "uppercase", color: "var(--color-ink-3)", marginBottom: "0.35rem", fontWeight: 600 }}>
                   ← Previous Lesson
                 </span>
-                <span style={{ fontFamily: "var(--font-display)", fontSize: "1.2rem", fontWeight: 700, textTransform: "uppercase", color: "var(--color-ink)" }}>
+                <span style={{ fontFamily: "var(--font-display)", fontSize: "1.25rem", fontWeight: 700, textTransform: "uppercase", color: "var(--color-ink)" }}>
                   {prevLesson.title}
                 </span>
               </Link>
@@ -494,7 +496,7 @@ export default async function LessonPage({ params }: Props) {
                 style={{
                   backgroundColor: "var(--color-surface)",
                   border: "1px solid var(--color-border)",
-                  padding: "1.25rem 1.5rem",
+                  padding: "1.35rem 1.65rem",
                   textDecoration: "none",
                   display: "flex",
                   flexDirection: "column",
@@ -502,10 +504,10 @@ export default async function LessonPage({ params }: Props) {
                 }}
                 className="hover:border-accent"
               >
-                <span style={{ fontFamily: "var(--font-mono)", fontSize: "0.58rem", textTransform: "uppercase", color: "var(--color-ink-3)", marginBottom: "0.3rem" }}>
+                <span style={{ fontFamily: "var(--font-mono)", fontSize: "0.72rem", textTransform: "uppercase", color: "var(--color-ink-3)", marginBottom: "0.35rem", fontWeight: 600 }}>
                   Next Lesson →
                 </span>
-                <span style={{ fontFamily: "var(--font-display)", fontSize: "1.2rem", fontWeight: 700, textTransform: "uppercase", color: "var(--color-accent-text)" }}>
+                <span style={{ fontFamily: "var(--font-display)", fontSize: "1.25rem", fontWeight: 700, textTransform: "uppercase", color: "var(--color-accent-text)" }}>
                   {nextLesson.title}
                 </span>
               </Link>

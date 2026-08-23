@@ -153,93 +153,91 @@ export default function CertificationTrackPage({ params }: Props) {
             </p>
           </div>
 
-          {/* Exam Specs Pill Grid */}
+          {/* Metadata Specs Bar */}
           <div
+            className="stat-pills-row"
             style={{
-              display: "flex",
-              flexWrap: "wrap",
-              gap: "1.5rem",
-              padding: "1rem 1.25rem",
+              padding: "1.15rem 1.35rem",
               backgroundColor: "var(--color-surface)",
               border: "1px solid var(--color-border)",
               marginBottom: "1.75rem",
             }}
           >
             <div>
-              <span style={{ fontFamily: "var(--font-mono)", fontSize: "0.6rem", textTransform: "uppercase", color: "var(--color-ink-3)", display: "block" }}>
+              <span style={{ fontFamily: "var(--font-mono)", fontSize: "0.72rem", textTransform: "uppercase", color: "var(--color-ink-3)", display: "block", fontWeight: 600 }}>
                 QUESTIONS
               </span>
-              <span style={{ fontFamily: "var(--font-mono)", fontSize: "0.9rem", fontWeight: 700, color: "var(--color-ink)" }}>
+              <span style={{ fontFamily: "var(--font-mono)", fontSize: "1rem", fontWeight: 700, color: "var(--color-ink)", marginTop: "0.2rem", display: "block" }}>
                 {track.questionsCount}
               </span>
             </div>
 
             <div>
-              <span style={{ fontFamily: "var(--font-mono)", fontSize: "0.6rem", textTransform: "uppercase", color: "var(--color-ink-3)", display: "block" }}>
+              <span style={{ fontFamily: "var(--font-mono)", fontSize: "0.72rem", textTransform: "uppercase", color: "var(--color-ink-3)", display: "block", fontWeight: 600 }}>
                 TIME LIMIT
               </span>
-              <span style={{ fontFamily: "var(--font-mono)", fontSize: "0.9rem", fontWeight: 700, color: "var(--color-ink)" }}>
+              <span style={{ fontFamily: "var(--font-mono)", fontSize: "1rem", fontWeight: 700, color: "var(--color-ink)", marginTop: "0.2rem", display: "block" }}>
                 {track.timeLimitMin} min
               </span>
             </div>
 
             <div>
-              <span style={{ fontFamily: "var(--font-mono)", fontSize: "0.6rem", textTransform: "uppercase", color: "var(--color-ink-3)", display: "block" }}>
+              <span style={{ fontFamily: "var(--font-mono)", fontSize: "0.72rem", textTransform: "uppercase", color: "var(--color-ink-3)", display: "block", fontWeight: 600 }}>
                 PASSING SCORE
               </span>
-              <span style={{ fontFamily: "var(--font-mono)", fontSize: "0.9rem", fontWeight: 700, color: "var(--color-accent)" }}>
+              <span style={{ fontFamily: "var(--font-mono)", fontSize: "1rem", fontWeight: 700, color: "var(--color-accent)", marginTop: "0.2rem", display: "block" }}>
                 {track.passingScore}
               </span>
             </div>
 
             <div>
-              <span style={{ fontFamily: "var(--font-mono)", fontSize: "0.6rem", textTransform: "uppercase", color: "var(--color-ink-3)", display: "block" }}>
+              <span style={{ fontFamily: "var(--font-mono)", fontSize: "0.72rem", textTransform: "uppercase", color: "var(--color-ink-3)", display: "block", fontWeight: 600 }}>
                 EXAM FEE
               </span>
-              <span style={{ fontFamily: "var(--font-mono)", fontSize: "0.9rem", fontWeight: 700, color: "var(--color-ink)" }}>
+              <span style={{ fontFamily: "var(--font-mono)", fontSize: "1rem", fontWeight: 700, color: "var(--color-ink)", marginTop: "0.2rem", display: "block" }}>
                 {track.examFee}
               </span>
             </div>
 
             <div>
-              <span style={{ fontFamily: "var(--font-mono)", fontSize: "0.6rem", textTransform: "uppercase", color: "var(--color-ink-3)", display: "block" }}>
+              <span style={{ fontFamily: "var(--font-mono)", fontSize: "0.72rem", textTransform: "uppercase", color: "var(--color-ink-3)", display: "block", fontWeight: 600 }}>
                 FORMAT
               </span>
-              <span style={{ fontFamily: "var(--font-mono)", fontSize: "0.75rem", fontWeight: 600, color: "var(--color-ink)" }}>
+              <span style={{ fontFamily: "var(--font-mono)", fontSize: "0.85rem", fontWeight: 600, color: "var(--color-ink)", marginTop: "0.2rem", display: "block" }}>
                 {track.format}
               </span>
             </div>
 
             <div>
-              <span style={{ fontFamily: "var(--font-mono)", fontSize: "0.6rem", textTransform: "uppercase", color: "var(--color-ink-3)", display: "block" }}>
+              <span style={{ fontFamily: "var(--font-mono)", fontSize: "0.72rem", textTransform: "uppercase", color: "var(--color-ink-3)", display: "block", fontWeight: 600 }}>
                 VALIDITY
               </span>
-              <span style={{ fontFamily: "var(--font-mono)", fontSize: "0.75rem", fontWeight: 600, color: "var(--color-ink)" }}>
+              <span style={{ fontFamily: "var(--font-mono)", fontSize: "0.85rem", fontWeight: 600, color: "var(--color-ink)", marginTop: "0.2rem", display: "block" }}>
                 {track.validity}
               </span>
             </div>
           </div>
 
           {/* Action CTAs */}
-          <div style={{ display: "flex", flexWrap: "wrap", gap: "0.75rem", alignItems: "center", marginBottom: "1.75rem" }}>
+          <div style={{ display: "flex", flexWrap: "wrap", gap: "0.85rem", alignItems: "center", marginBottom: "1.75rem" }}>
             <Link
               href={`/certifications/${track.id}/lessons/${track.lessons[0]?.slug || ""}/`}
               className="btn-primary"
-              style={{ padding: "0.65rem 1.4rem", fontSize: "0.75rem", textDecoration: "none" }}
+              style={{ padding: "0.75rem 1.6rem", fontSize: "0.82rem", textDecoration: "none", fontWeight: 700 }}
             >
               Start learning →
             </Link>
             <Link
               href={`/certifications/${track.id}/practice/`}
               className="btn-secondary"
-              style={{ padding: "0.65rem 1.2rem", fontSize: "0.75rem", textDecoration: "none" }}
+              style={{ padding: "0.75rem 1.4rem", fontSize: "0.82rem", textDecoration: "none", fontWeight: 700 }}
             >
               Practice Question Bank →
             </Link>
             <Link
               href={`/certifications/${track.id}/mock/`}
               className="btn-ghost"
-              style={{ padding: "0.65rem 1.1rem", fontSize: "0.75rem", textDecoration: "none", border: "1px solid var(--color-accent)", color: "var(--color-accent-text)" }}
+              style={{ padding: "0.75rem 1.25rem", fontSize: "0.82rem", textDecoration: "none", border: "1.5px solid var(--color-accent)", color: "var(--color-accent-text)", fontWeight: 700 }}
             >
               120-Min Mock Simulator ⏱
             </Link>
@@ -249,7 +247,7 @@ export default function CertificationTrackPage({ params }: Props) {
                 target="_blank"
                 rel="noreferrer"
                 className="btn-ghost"
-                style={{ padding: "0.65rem 1rem", fontSize: "0.75rem", textDecoration: "none" }}
+                style={{ padding: "0.75rem 1.25rem", fontSize: "0.82rem", textDecoration: "none", fontWeight: 600 }}
               >
                 Official exam guide ↗
               </a>

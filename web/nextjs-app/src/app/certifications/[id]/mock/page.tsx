@@ -116,8 +116,8 @@ export default function MockExamPage({ params }: Props) {
 
   if (examQuestions.length === 0) {
     return (
-      <div style={{ padding: "5rem", textAlign: "center", backgroundColor: "var(--color-bg)", minHeight: "100vh" }}>
-        <p style={{ fontFamily: "var(--font-mono)", color: "var(--color-ink-3)" }}>
+      <div style={{ padding: "5rem 1.5rem", textAlign: "center", backgroundColor: "var(--color-bg)", minHeight: "100vh" }}>
+        <p style={{ fontFamily: "var(--font-mono)", fontSize: "0.9rem", color: "var(--color-ink-3)" }}>
           Initializing {track.code} Mock Exam Environment...
         </p>
       </div>
@@ -142,12 +142,13 @@ export default function MockExamPage({ params }: Props) {
             <span
               style={{
                 fontFamily: "var(--font-mono)",
-                fontSize: "0.68rem",
+                fontSize: "0.78rem",
                 textTransform: "uppercase",
                 letterSpacing: "0.1em",
                 color: "var(--color-ink-3)",
                 display: "block",
-                marginBottom: "0.5rem",
+                marginBottom: "0.6rem",
+                fontWeight: 700,
               }}
             >
               {track.code} · Official Blueprint Simulation Results
@@ -156,42 +157,43 @@ export default function MockExamPage({ params }: Props) {
             <h1
               style={{
                 fontFamily: "var(--font-display)",
-                fontSize: "3rem",
+                fontSize: "clamp(2rem, 5vw, 3.2rem)",
                 fontWeight: 700,
                 color: results.passed ? "var(--color-accent)" : "#dc2626",
                 textTransform: "uppercase",
-                margin: "0 0 0.5rem",
+                margin: "0 0 0.75rem",
+                lineHeight: 1.1,
               }}
             >
               {results.passed ? "PASS · CERTIFICATION READY" : "NEEDS IMPROVEMENT"}
             </h1>
 
-            <p style={{ fontFamily: "var(--font-body)", fontSize: "1.1rem", color: "var(--color-ink-2)", margin: 0 }}>
-              Overall Score: <strong>{results.percent}%</strong> ({results.correct} / {results.total} Correct) · Passing Threshold: 70%
+            <p style={{ fontFamily: "var(--font-body)", fontSize: "1.15rem", color: "var(--color-ink-2)", margin: 0, lineHeight: 1.6 }}>
+              Overall Score: <strong style={{ color: "var(--color-ink)" }}>{results.percent}%</strong> ({results.correct} / {results.total} Correct) · Passing Threshold: 70%
             </p>
           </div>
 
           {/* Domain Breakdown */}
           <div style={{ backgroundColor: "var(--color-surface)", border: "1px solid var(--color-border)", padding: "2rem", marginBottom: "2.5rem" }}>
-            <h2 style={{ fontFamily: "var(--font-display)", fontSize: "1.5rem", fontWeight: 700, textTransform: "uppercase", color: "var(--color-ink)", marginBottom: "1.5rem" }}>
+            <h2 style={{ fontFamily: "var(--font-display)", fontSize: "1.6rem", fontWeight: 700, textTransform: "uppercase", color: "var(--color-ink)", marginBottom: "1.5rem" }}>
               Domain Competency Analysis
             </h2>
 
-            <div style={{ display: "flex", flexDirection: "column", gap: "1.25rem" }}>
+            <div style={{ display: "flex", flexDirection: "column", gap: "1.5rem" }}>
               {Object.entries(results.domainScores).map(([domId, score]) => {
                 const domPct = Math.round((score.correct / score.total) * 100);
                 const isWeak = domPct < 70;
 
                 return (
                   <div key={domId}>
-                    <div style={{ display: "flex", justifyContent: "space-between", marginBottom: "0.4rem", fontFamily: "var(--font-mono)", fontSize: "0.75rem" }}>
+                    <div style={{ display: "flex", justifyContent: "space-between", marginBottom: "0.5rem", fontFamily: "var(--font-mono)", fontSize: "0.85rem" }}>
                       <span style={{ color: "var(--color-ink)", fontWeight: 600 }}>{score.name}</span>
                       <span style={{ color: isWeak ? "#dc2626" : "var(--color-accent-text)", fontWeight: 700 }}>
                         {score.correct}/{score.total} ({domPct}%)
                       </span>
                     </div>
 
-                    <div style={{ height: "6px", backgroundColor: "var(--color-surface-2)", border: "1px solid var(--color-border)" }}>
+                    <div style={{ height: "8px", backgroundColor: "var(--color-surface-2)", border: "1px solid var(--color-border)", borderRadius: "2px", overflow: "hidden" }}>
                       <div
                         style={{
                           height: "100%",
@@ -208,18 +210,19 @@ export default function MockExamPage({ params }: Props) {
           </div>
 
           {/* Actions */}
-          <div style={{ display: "flex", gap: "1rem", justifyContent: "center" }}>
+          <div style={{ display: "flex", flexWrap: "wrap", gap: "1rem", justifyContent: "center" }}>
             <Link
               href={`/certifications/${track.id}/practice/`}
               style={{
                 fontFamily: "var(--font-mono)",
-                fontSize: "0.75rem",
+                fontSize: "0.82rem",
                 fontWeight: 700,
                 textTransform: "uppercase",
-                padding: "0.75rem 1.5rem",
+                padding: "0.85rem 1.75rem",
                 backgroundColor: "var(--color-accent)",
                 color: "#fff",
                 textDecoration: "none",
+                textAlign: "center",
               }}
             >
               Practice Domain Questions →
@@ -235,14 +238,15 @@ export default function MockExamPage({ params }: Props) {
               }}
               style={{
                 fontFamily: "var(--font-mono)",
-                fontSize: "0.75rem",
+                fontSize: "0.82rem",
                 fontWeight: 700,
                 textTransform: "uppercase",
-                padding: "0.75rem 1.5rem",
+                padding: "0.85rem 1.75rem",
                 backgroundColor: "transparent",
                 border: "1px solid var(--color-border)",
                 color: "var(--color-ink)",
                 cursor: "pointer",
+                textAlign: "center",
               }}
             >
               Retake Mock Exam
@@ -255,31 +259,43 @@ export default function MockExamPage({ params }: Props) {
 
   // ── Active Mock Simulator Screen ─────────────────────────────
   return (
-    <div style={{ backgroundColor: "var(--color-bg)", minHeight: "100vh", padding: "1.5rem" }}>
-      <div style={{ maxWidth: "1200px", margin: "0 auto" }}>
+    <div style={{ backgroundColor: "var(--color-bg)", minHeight: "100vh", padding: "1.5rem 1rem 4rem" }}>
+      <div style={{ maxWidth: "1240px", margin: "0 auto" }}>
         {/* ── Top Bar ─────────────────────────────────────────── */}
         <div
           style={{
             backgroundColor: "var(--color-surface)",
             border: "1px solid var(--color-border)",
-            padding: "0.85rem 1.5rem",
+            padding: "1rem 1.5rem",
             marginBottom: "1.5rem",
             display: "flex",
             justifyContent: "space-between",
             alignItems: "center",
+            flexWrap: "wrap",
+            gap: "1rem",
           }}
         >
           <div>
-            <span style={{ fontFamily: "var(--font-mono)", fontSize: "0.6rem", textTransform: "uppercase", color: "var(--color-accent-text)", fontWeight: 700 }}>
-              {track.code} · Official Simulation
+            <span style={{ fontFamily: "var(--font-mono)", fontSize: "0.75rem", textTransform: "uppercase", color: "var(--color-accent-text)", fontWeight: 700, display: "block" }}>
+              {track.code} · Official Blueprint Simulation
             </span>
-            <h2 style={{ fontFamily: "var(--font-display)", fontSize: "1.1rem", margin: 0, color: "var(--color-ink)" }}>
+            <h2 style={{ fontFamily: "var(--font-display)", fontSize: "1.25rem", margin: "0.2rem 0 0", color: "var(--color-ink)", fontWeight: 700 }}>
               Question {currentIndex + 1} of {examQuestions.length}
             </h2>
           </div>
 
-          <div style={{ display: "flex", alignItems: "center", gap: "1.5rem" }}>
-            <div style={{ fontFamily: "var(--font-mono)", fontSize: "1rem", fontWeight: 700, color: secondsRemaining < 600 ? "#dc2626" : "var(--color-accent)" }}>
+          <div style={{ display: "flex", alignItems: "center", gap: "1.25rem", flexWrap: "wrap" }}>
+            <div
+              style={{
+                fontFamily: "var(--font-mono)",
+                fontSize: "1.15rem",
+                fontWeight: 700,
+                color: secondsRemaining < 600 ? "#dc2626" : "var(--color-accent)",
+                backgroundColor: "var(--color-surface-2)",
+                padding: "0.4rem 0.8rem",
+                border: "1px solid var(--color-border)",
+              }}
+            >
               ⏱ {formatTime(secondsRemaining)}
             </div>
 
@@ -291,10 +307,10 @@ export default function MockExamPage({ params }: Props) {
               }}
               style={{
                 fontFamily: "var(--font-mono)",
-                fontSize: "0.65rem",
+                fontSize: "0.78rem",
                 fontWeight: 700,
                 textTransform: "uppercase",
-                padding: "0.45rem 1rem",
+                padding: "0.6rem 1.25rem",
                 backgroundColor: "#dc2626",
                 border: "none",
                 color: "#fff",
@@ -306,13 +322,13 @@ export default function MockExamPage({ params }: Props) {
           </div>
         </div>
 
-        {/* ── Workspace ────────────────────────────────────────── */}
-        <div style={{ display: "grid", gridTemplateColumns: "1fr 280px", gap: "1.5rem", alignItems: "start" }}>
+        {/* ── Responsive Layout Grid ───────────────────────────── */}
+        <div className="mock-exam-layout">
           {/* Main Question Box */}
-          <div style={{ backgroundColor: "var(--color-surface)", border: "1px solid var(--color-border)", padding: "2rem" }}>
+          <div style={{ backgroundColor: "var(--color-surface)", border: "1px solid var(--color-border)", padding: "1.75rem" }}>
             {/* Meta */}
-            <div style={{ display: "flex", justifyContent: "space-between", marginBottom: "1rem", paddingBottom: "0.5rem", borderBottom: "1px solid var(--color-border)" }}>
-              <span style={{ fontFamily: "var(--font-mono)", fontSize: "0.65rem", color: "var(--color-ink-3)" }}>
+            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "1.25rem", paddingBottom: "0.75rem", borderBottom: "1px solid var(--color-border)", flexWrap: "wrap", gap: "0.5rem" }}>
+              <span style={{ fontFamily: "var(--font-mono)", fontSize: "0.78rem", color: "var(--color-ink-3)", fontWeight: 600 }}>
                 {currentQ.domainName} · {currentQ.difficulty.toUpperCase()}
               </span>
 
@@ -323,8 +339,9 @@ export default function MockExamPage({ params }: Props) {
                   border: "none",
                   cursor: "pointer",
                   fontFamily: "var(--font-mono)",
-                  fontSize: "0.65rem",
+                  fontSize: "0.78rem",
                   color: flaggedQuestions.includes(currentQ.id) ? "#d97706" : "var(--color-ink-3)",
+                  fontWeight: 600,
                 }}
               >
                 {flaggedQuestions.includes(currentQ.id) ? "⚑ Flagged for Review" : "⚐ Flag for Review"}
@@ -336,12 +353,13 @@ export default function MockExamPage({ params }: Props) {
               <div
                 style={{
                   backgroundColor: "var(--color-surface-2)",
-                  borderLeft: "3px solid var(--color-accent)",
-                  padding: "1rem 1.25rem",
+                  borderLeft: "3.5px solid var(--color-accent)",
+                  padding: "1.15rem 1.35rem",
                   marginBottom: "1.5rem",
                   fontFamily: "var(--font-body)",
-                  fontSize: "0.98rem",
-                  lineHeight: 1.6,
+                  fontSize: "1.05rem",
+                  lineHeight: 1.7,
+                  color: "var(--color-ink)",
                 }}
               >
                 {currentQ.scenario}
@@ -349,12 +367,12 @@ export default function MockExamPage({ params }: Props) {
             )}
 
             {/* Question */}
-            <h3 style={{ fontFamily: "var(--font-body)", fontSize: "1.1rem", fontWeight: 600, color: "var(--color-ink)", marginBottom: "1.5rem", lineHeight: 1.5 }}>
+            <h3 style={{ fontFamily: "var(--font-body)", fontSize: "1.15rem", fontWeight: 600, color: "var(--color-ink)", marginBottom: "1.5rem", lineHeight: 1.55 }}>
               {currentQ.question}
             </h3>
 
             {/* Options */}
-            <div style={{ display: "flex", flexDirection: "column", gap: "0.75rem", marginBottom: "2rem" }}>
+            <div style={{ display: "flex", flexDirection: "column", gap: "0.85rem", marginBottom: "2rem" }}>
               {currentQ.options.map((opt) => {
                 const isSelected = (userAnswers[currentQ.id] || []).includes(opt.id);
                 return (
@@ -363,20 +381,22 @@ export default function MockExamPage({ params }: Props) {
                     onClick={() => toggleOption(opt.id)}
                     style={{
                       textAlign: "left",
-                      padding: "1rem 1.25rem",
+                      padding: "1.1rem 1.35rem",
                       backgroundColor: isSelected ? "var(--color-accent-soft)" : "transparent",
                       border: `1.5px solid ${isSelected ? "var(--color-accent)" : "var(--color-border)"}`,
                       cursor: "pointer",
                       display: "flex",
-                      gap: "0.85rem",
+                      gap: "1rem",
                       alignItems: "flex-start",
+                      minHeight: "52px",
+                      transition: "all 0.12s ease",
                     }}
                     className="hover:border-accent"
                   >
-                    <span style={{ fontFamily: "var(--font-mono)", fontSize: "0.8rem", fontWeight: 700, color: isSelected ? "var(--color-accent)" : "var(--color-ink-3)" }}>
+                    <span style={{ fontFamily: "var(--font-mono)", fontSize: "0.95rem", fontWeight: 700, color: isSelected ? "var(--color-accent)" : "var(--color-ink-3)", minWidth: "22px" }}>
                       {opt.id}.
                     </span>
-                    <span style={{ fontFamily: "var(--font-body)", fontSize: "0.95rem", color: "var(--color-ink)", lineHeight: 1.5 }}>
+                    <span style={{ fontFamily: "var(--font-body)", fontSize: "1.02rem", color: "var(--color-ink)", lineHeight: 1.6 }}>
                       {opt.text}
                     </span>
                   </button>
@@ -385,14 +405,16 @@ export default function MockExamPage({ params }: Props) {
             </div>
 
             {/* Prev / Next Footer */}
-            <div style={{ display: "flex", justifyContent: "space-between", borderTop: "1px solid var(--color-border)", paddingTop: "1.25rem" }}>
+            <div style={{ display: "flex", justifyContent: "space-between", borderTop: "1px solid var(--color-border)", paddingTop: "1.25rem", gap: "0.5rem" }}>
               <button
                 onClick={() => setCurrentIndex((prev) => Math.max(0, prev - 1))}
                 disabled={currentIndex === 0}
                 style={{
                   fontFamily: "var(--font-mono)",
-                  fontSize: "0.68rem",
-                  padding: "0.45rem 1rem",
+                  fontSize: "0.8rem",
+                  fontWeight: 700,
+                  textTransform: "uppercase",
+                  padding: "0.65rem 1.4rem",
                   backgroundColor: "var(--color-surface-2)",
                   border: "1px solid var(--color-border)",
                   color: "var(--color-ink)",
@@ -408,8 +430,10 @@ export default function MockExamPage({ params }: Props) {
                 disabled={currentIndex === examQuestions.length - 1}
                 style={{
                   fontFamily: "var(--font-mono)",
-                  fontSize: "0.68rem",
-                  padding: "0.45rem 1rem",
+                  fontSize: "0.8rem",
+                  fontWeight: 700,
+                  textTransform: "uppercase",
+                  padding: "0.65rem 1.4rem",
                   backgroundColor: "var(--color-accent)",
                   border: "none",
                   color: "#fff",
@@ -424,7 +448,7 @@ export default function MockExamPage({ params }: Props) {
 
           {/* ── Question Navigator Grid Sidebar ─────────────────── */}
           <aside style={{ backgroundColor: "var(--color-surface)", border: "1px solid var(--color-border)", padding: "1.25rem" }}>
-            <span style={{ fontFamily: "var(--font-mono)", fontSize: "0.62rem", textTransform: "uppercase", letterSpacing: "0.08em", color: "var(--color-ink-3)", display: "block", marginBottom: "0.75rem" }}>
+            <span style={{ fontFamily: "var(--font-mono)", fontSize: "0.72rem", textTransform: "uppercase", letterSpacing: "0.08em", color: "var(--color-ink-3)", display: "block", marginBottom: "0.85rem", fontWeight: 700 }}>
               Question Grid
             </span>
 
@@ -439,9 +463,9 @@ export default function MockExamPage({ params }: Props) {
                     key={q.id}
                     onClick={() => setCurrentIndex(idx)}
                     style={{
-                      height: "32px",
+                      height: "36px",
                       fontFamily: "var(--font-mono)",
-                      fontSize: "0.65rem",
+                      fontSize: "0.75rem",
                       fontWeight: isCurrent ? 700 : 400,
                       backgroundColor: isCurrent
                         ? "var(--color-accent)"
@@ -456,7 +480,7 @@ export default function MockExamPage({ params }: Props) {
                   >
                     {idx + 1}
                     {isFlagged && (
-                      <span style={{ position: "absolute", top: 1, right: 2, fontSize: "0.5rem", color: "#d97706" }}>
+                      <span style={{ position: "absolute", top: 1, right: 3, fontSize: "0.6rem", color: "#d97706" }}>
                         •
                       </span>
                     )}
@@ -465,7 +489,7 @@ export default function MockExamPage({ params }: Props) {
               })}
             </div>
 
-            <div style={{ marginTop: "1.25rem", borderTop: "1px solid var(--color-border)", paddingTop: "0.75rem", fontFamily: "var(--font-mono)", fontSize: "0.6rem", display: "flex", flexDirection: "column", gap: "0.3rem", color: "var(--color-ink-3)" }}>
+            <div style={{ marginTop: "1.25rem", borderTop: "1px solid var(--color-border)", paddingTop: "0.85rem", fontFamily: "var(--font-mono)", fontSize: "0.72rem", display: "flex", flexDirection: "column", gap: "0.4rem", color: "var(--color-ink-3)" }}>
               <div>• Answered: {Object.keys(userAnswers).length} / {examQuestions.length}</div>
               <div>• Flagged: {flaggedQuestions.length}</div>
             </div>
@@ -475,4 +499,3 @@ export default function MockExamPage({ params }: Props) {
     </div>
   );
 }
-

@@ -76,20 +76,21 @@ export default function PracticePage({ params }: Props) {
   };
 
   return (
-    <div style={{ backgroundColor: "var(--color-bg)", minHeight: "100vh", padding: "2.5rem 1.5rem 6rem" }}>
+    <div style={{ backgroundColor: "var(--color-bg)", minHeight: "100vh", padding: "2.5rem 1rem 6rem" }}>
       <div style={{ maxWidth: "1100px", margin: "0 auto" }}>
         {/* ── Breadcrumb & Notice ──────────────────────────────── */}
         <nav
           style={{
             fontFamily: "var(--font-mono)",
-            fontSize: "0.65rem",
+            fontSize: "0.75rem",
             textTransform: "uppercase",
             letterSpacing: "0.08em",
             color: "var(--color-ink-3)",
             marginBottom: "1.25rem",
             display: "flex",
             alignItems: "center",
-            gap: "0.4rem",
+            flexWrap: "wrap",
+            gap: "0.5rem",
           }}
         >
           <Link href="/certifications/" style={{ color: "var(--color-accent-text)", textDecoration: "none" }}>
@@ -100,7 +101,7 @@ export default function PracticePage({ params }: Props) {
             {track.code}
           </Link>
           <span>/</span>
-          <span style={{ color: "var(--color-ink)" }}>Practice Bank</span>
+          <span style={{ color: "var(--color-ink)", fontWeight: 600 }}>Practice Bank</span>
         </nav>
 
         {/* Disclaimer Banner */}
@@ -109,19 +110,19 @@ export default function PracticePage({ params }: Props) {
             backgroundColor: "var(--color-surface)",
             border: "1px solid var(--color-border)",
             borderLeft: "3.5px solid var(--color-accent)",
-            padding: "0.85rem 1.25rem",
+            padding: "1rem 1.25rem",
             marginBottom: "2rem",
             display: "flex",
             justifyContent: "space-between",
             alignItems: "center",
             flexWrap: "wrap",
-            gap: "0.5rem",
+            gap: "0.75rem",
           }}
         >
           <span
             style={{
               fontFamily: "var(--font-mono)",
-              fontSize: "0.65rem",
+              fontSize: "0.75rem",
               textTransform: "uppercase",
               letterSpacing: "0.08em",
               color: "var(--color-accent-text)",
@@ -134,7 +135,7 @@ export default function PracticePage({ params }: Props) {
             href={`/certifications/${track.id}/mock/`}
             style={{
               fontFamily: "var(--font-mono)",
-              fontSize: "0.65rem",
+              fontSize: "0.75rem",
               fontWeight: 700,
               textTransform: "uppercase",
               color: "var(--color-accent)",
@@ -151,13 +152,13 @@ export default function PracticePage({ params }: Props) {
           <span
             style={{
               fontFamily: "var(--font-mono)",
-              fontSize: "0.68rem",
+              fontSize: "0.78rem",
               fontWeight: 700,
               color: "var(--color-accent)",
               textTransform: "uppercase",
               letterSpacing: "0.1em",
               display: "block",
-              marginBottom: "0.25rem",
+              marginBottom: "0.4rem",
             }}
           >
             {track.code} · Interactive Practice
@@ -165,37 +166,26 @@ export default function PracticePage({ params }: Props) {
           <h1
             style={{
               fontFamily: "var(--font-display)",
-              fontSize: "clamp(2rem, 4vw, 3rem)",
+              fontSize: "clamp(2rem, 4.5vw, 3.2rem)",
               fontWeight: 700,
               textTransform: "uppercase",
               color: "var(--color-ink)",
-              margin: "0 0 0.5rem",
+              margin: "0 0 0.6rem",
+              lineHeight: 1.1,
             }}
           >
             Scenario-Based Practice Engine
           </h1>
-          <p style={{ fontFamily: "var(--font-body)", fontSize: "1rem", color: "var(--color-ink-2)", margin: 0 }}>
+          <p style={{ fontFamily: "var(--font-body)", fontSize: "1.1rem", color: "var(--color-ink-2)", margin: 0, lineHeight: 1.6 }}>
             Master decision patterns and architectural tradeoffs. Filter by blueprint domain, difficulty, or keyword.
           </p>
         </div>
 
         {/* ── Filter Controls Bar ──────────────────────────────── */}
-        <div
-          style={{
-            backgroundColor: "var(--color-surface)",
-            border: "1px solid var(--color-border)",
-            padding: "1.25rem",
-            marginBottom: "2.5rem",
-            display: "flex",
-            flexWrap: "wrap",
-            gap: "1rem",
-            alignItems: "center",
-            justifyContent: "space-between",
-          }}
-        >
+        <div className="practice-filter-bar">
           {/* Domain Filter */}
-          <div style={{ display: "flex", flexDirection: "column", gap: "0.3rem" }}>
-            <label style={{ fontFamily: "var(--font-mono)", fontSize: "0.6rem", textTransform: "uppercase", color: "var(--color-ink-3)" }}>
+          <div style={{ display: "flex", flexDirection: "column", gap: "0.35rem", flex: 1, minWidth: "220px" }}>
+            <label style={{ fontFamily: "var(--font-mono)", fontSize: "0.72rem", textTransform: "uppercase", color: "var(--color-ink-3)", fontWeight: 700 }}>
               Domain
             </label>
             <select
@@ -203,12 +193,13 @@ export default function PracticePage({ params }: Props) {
               onChange={(e) => setSelectedDomain(e.target.value)}
               style={{
                 fontFamily: "var(--font-mono)",
-                fontSize: "0.75rem",
-                padding: "0.4rem 0.6rem",
+                fontSize: "0.85rem",
+                padding: "0.55rem 0.75rem",
                 backgroundColor: "var(--color-surface-2)",
                 border: "1px solid var(--color-border)",
                 color: "var(--color-ink)",
                 outline: "none",
+                width: "100%",
               }}
             >
               <option value="all">All Domains ({allQuestions.length})</option>
@@ -221,8 +212,8 @@ export default function PracticePage({ params }: Props) {
           </div>
 
           {/* Difficulty Filter */}
-          <div style={{ display: "flex", flexDirection: "column", gap: "0.3rem" }}>
-            <label style={{ fontFamily: "var(--font-mono)", fontSize: "0.6rem", textTransform: "uppercase", color: "var(--color-ink-3)" }}>
+          <div style={{ display: "flex", flexDirection: "column", gap: "0.35rem", minWidth: "160px" }}>
+            <label style={{ fontFamily: "var(--font-mono)", fontSize: "0.72rem", textTransform: "uppercase", color: "var(--color-ink-3)", fontWeight: 700 }}>
               Difficulty
             </label>
             <select
@@ -230,12 +221,13 @@ export default function PracticePage({ params }: Props) {
               onChange={(e) => setSelectedDifficulty(e.target.value)}
               style={{
                 fontFamily: "var(--font-mono)",
-                fontSize: "0.75rem",
-                padding: "0.4rem 0.6rem",
+                fontSize: "0.85rem",
+                padding: "0.55rem 0.75rem",
                 backgroundColor: "var(--color-surface-2)",
                 border: "1px solid var(--color-border)",
                 color: "var(--color-ink)",
                 outline: "none",
+                width: "100%",
               }}
             >
               <option value="all">All Difficulties</option>
@@ -247,8 +239,8 @@ export default function PracticePage({ params }: Props) {
           </div>
 
           {/* Search Box */}
-          <div style={{ display: "flex", flexDirection: "column", gap: "0.3rem", flex: 1, minWidth: "220px" }}>
-            <label style={{ fontFamily: "var(--font-mono)", fontSize: "0.6rem", textTransform: "uppercase", color: "var(--color-ink-3)" }}>
+          <div style={{ display: "flex", flexDirection: "column", gap: "0.35rem", flex: 1.5, minWidth: "240px" }}>
+            <label style={{ fontFamily: "var(--font-mono)", fontSize: "0.72rem", textTransform: "uppercase", color: "var(--color-ink-3)", fontWeight: 700 }}>
               Search Topics &amp; Scenarios
             </label>
             <input
@@ -258,22 +250,23 @@ export default function PracticePage({ params }: Props) {
               onChange={(e) => setSearchQuery(e.target.value)}
               style={{
                 fontFamily: "var(--font-mono)",
-                fontSize: "0.75rem",
-                padding: "0.4rem 0.6rem",
+                fontSize: "0.85rem",
+                padding: "0.55rem 0.75rem",
                 backgroundColor: "var(--color-surface-2)",
                 border: "1px solid var(--color-border)",
                 color: "var(--color-ink)",
                 outline: "none",
+                width: "100%",
               }}
             />
           </div>
         </div>
 
         {/* ── Questions Stream ─────────────────────────────────── */}
-        <div style={{ display: "flex", flexDirection: "column", gap: "2rem" }}>
+        <div style={{ display: "flex", flexDirection: "column", gap: "2.5rem" }}>
           {filteredQuestions.length === 0 ? (
-            <div style={{ padding: "3rem", textAlign: "center", border: "1px dashed var(--color-border)" }}>
-              <p style={{ fontFamily: "var(--font-mono)", fontSize: "0.85rem", color: "var(--color-ink-3)" }}>
+            <div style={{ padding: "3.5rem 1.5rem", textAlign: "center", border: "1px dashed var(--color-border)" }}>
+              <p style={{ fontFamily: "var(--font-mono)", fontSize: "0.95rem", color: "var(--color-ink-3)" }}>
                 No questions found matching your filter criteria.
               </p>
             </div>
@@ -301,33 +294,34 @@ export default function PracticePage({ params }: Props) {
                       justifyContent: "space-between",
                       alignItems: "center",
                       borderBottom: "1px solid var(--color-border)",
-                      paddingBottom: "0.75rem",
-                      marginBottom: "1.25rem",
+                      paddingBottom: "0.85rem",
+                      marginBottom: "1.35rem",
                       flexWrap: "wrap",
                       gap: "0.5rem",
                     }}
                   >
                     <div style={{ display: "flex", alignItems: "center", gap: "0.6rem" }}>
-                      <span style={{ fontFamily: "var(--font-mono)", fontSize: "0.65rem", fontWeight: 700, color: "var(--color-accent)" }}>
+                      <span style={{ fontFamily: "var(--font-mono)", fontSize: "0.78rem", fontWeight: 700, color: "var(--color-accent)" }}>
                         QUESTION {idx + 1} OF {filteredQuestions.length} ({q.id})
                       </span>
                       <span
                         style={{
                           fontFamily: "var(--font-mono)",
-                          fontSize: "0.55rem",
+                          fontSize: "0.68rem",
                           textTransform: "uppercase",
-                          padding: "0.15rem 0.4rem",
+                          padding: "0.2rem 0.5rem",
                           backgroundColor: "var(--color-surface-2)",
                           border: "1px solid var(--color-border)",
                           color: "var(--color-ink-3)",
+                          fontWeight: 600,
                         }}
                       >
                         {q.difficulty}
                       </span>
                     </div>
 
-                    <div style={{ display: "flex", alignItems: "center", gap: "0.75rem" }}>
-                      <span style={{ fontFamily: "var(--font-mono)", fontSize: "0.6rem", color: "var(--color-ink-3)" }}>
+                    <div style={{ display: "flex", alignItems: "center", gap: "0.85rem" }}>
+                      <span style={{ fontFamily: "var(--font-mono)", fontSize: "0.75rem", color: "var(--color-ink-3)" }}>
                         {q.domainName}
                       </span>
                       <button
@@ -337,8 +331,9 @@ export default function PracticePage({ params }: Props) {
                           border: "none",
                           cursor: "pointer",
                           fontFamily: "var(--font-mono)",
-                          fontSize: "0.65rem",
+                          fontSize: "0.75rem",
                           color: isBookmarked ? "var(--color-accent)" : "var(--color-ink-3)",
+                          fontWeight: 600,
                         }}
                       >
                         {isBookmarked ? "★ Bookmarked" : "☆ Bookmark"}
@@ -351,13 +346,13 @@ export default function PracticePage({ params }: Props) {
                     <div
                       style={{
                         backgroundColor: "var(--color-surface-2)",
-                        borderLeft: "3px solid var(--color-accent)",
-                        padding: "1rem 1.25rem",
-                        marginBottom: "1.25rem",
+                        borderLeft: "3.5px solid var(--color-accent)",
+                        padding: "1.15rem 1.35rem",
+                        marginBottom: "1.35rem",
                         fontFamily: "var(--font-body)",
-                        fontSize: "0.95rem",
+                        fontSize: "1.05rem",
                         color: "var(--color-ink)",
-                        lineHeight: 1.6,
+                        lineHeight: 1.65,
                       }}
                     >
                       {q.scenario}
@@ -368,18 +363,18 @@ export default function PracticePage({ params }: Props) {
                   <h3
                     style={{
                       fontFamily: "var(--font-body)",
-                      fontSize: "1.05rem",
+                      fontSize: "1.15rem",
                       fontWeight: 600,
                       color: "var(--color-ink)",
-                      marginBottom: "1.25rem",
-                      lineHeight: 1.5,
+                      marginBottom: "1.35rem",
+                      lineHeight: 1.55,
                     }}
                   >
                     {q.question}
                   </h3>
 
                   {/* Options List */}
-                  <div style={{ display: "flex", flexDirection: "column", gap: "0.65rem", marginBottom: "1.5rem" }}>
+                  <div style={{ display: "flex", flexDirection: "column", gap: "0.85rem", marginBottom: "1.75rem" }}>
                     {q.options.map((opt) => {
                       const isChosen = selected.includes(opt.id);
                       const isCorrect = q.correctAnswers.includes(opt.id);
@@ -406,13 +401,14 @@ export default function PracticePage({ params }: Props) {
                           onClick={() => toggleOption(q.id, opt.id, isMulti)}
                           style={{
                             textAlign: "left",
-                            padding: "0.85rem 1.15rem",
+                            padding: "1.1rem 1.35rem",
                             backgroundColor: bgColor,
                             border: `1.5px solid ${borderColor}`,
                             cursor: "pointer",
                             display: "flex",
                             alignItems: "flex-start",
-                            gap: "0.75rem",
+                            gap: "0.85rem",
+                            minHeight: "52px",
                             transition: "all 0.12s ease",
                           }}
                           className="hover:border-accent"
@@ -420,15 +416,15 @@ export default function PracticePage({ params }: Props) {
                           <span
                             style={{
                               fontFamily: "var(--font-mono)",
-                              fontSize: "0.75rem",
+                              fontSize: "0.9rem",
                               fontWeight: 700,
                               color: isChosen || (isRevealed && isCorrect) ? "var(--color-accent)" : "var(--color-ink-3)",
-                              minWidth: "18px",
+                              minWidth: "22px",
                             }}
                           >
                             {opt.id}.
                           </span>
-                          <span style={{ fontFamily: "var(--font-body)", fontSize: "0.92rem", color: "var(--color-ink)", lineHeight: 1.5 }}>
+                          <span style={{ fontFamily: "var(--font-body)", fontSize: "1.02rem", color: "var(--color-ink)", lineHeight: 1.55 }}>
                             {opt.text}
                           </span>
                         </button>
@@ -437,15 +433,15 @@ export default function PracticePage({ params }: Props) {
                   </div>
 
                   {/* Action Bar */}
-                  <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: "0.5rem" }}>
+                  <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: "0.75rem" }}>
                     <button
                       onClick={() => toggleReveal(q.id)}
                       style={{
                         fontFamily: "var(--font-mono)",
-                        fontSize: "0.68rem",
+                        fontSize: "0.78rem",
                         fontWeight: 700,
                         textTransform: "uppercase",
-                        padding: "0.45rem 1rem",
+                        padding: "0.6rem 1.25rem",
                         backgroundColor: isRevealed ? "var(--color-surface-2)" : "var(--color-accent)",
                         border: isRevealed ? "1px solid var(--color-border)" : "none",
                         color: isRevealed ? "var(--color-ink)" : "#fff",
@@ -460,9 +456,10 @@ export default function PracticePage({ params }: Props) {
                         href={`/certifications/${track.id}/lessons/${q.relatedLessons[0]}/`}
                         style={{
                           fontFamily: "var(--font-mono)",
-                          fontSize: "0.62rem",
+                          fontSize: "0.75rem",
                           color: "var(--color-accent-text)",
                           textDecoration: "none",
+                          fontWeight: 600,
                         }}
                         className="hover:underline"
                       >
@@ -475,31 +472,31 @@ export default function PracticePage({ params }: Props) {
                   {isRevealed && (
                     <div
                       style={{
-                        marginTop: "1.5rem",
-                        padding: "1.5rem",
+                        marginTop: "1.75rem",
+                        padding: "1.75rem",
                         backgroundColor: "var(--color-surface-2)",
                         border: "1px solid var(--color-border)",
-                        borderTop: "3px solid var(--color-accent)",
+                        borderTop: "3.5px solid var(--color-accent)",
                       }}
                     >
-                      <div style={{ marginBottom: "1rem" }}>
-                        <span style={{ fontFamily: "var(--font-mono)", fontSize: "0.62rem", fontWeight: 700, textTransform: "uppercase", color: "var(--color-accent-text)", display: "block" }}>
+                      <div style={{ marginBottom: "1.25rem" }}>
+                        <span style={{ fontFamily: "var(--font-mono)", fontSize: "0.75rem", fontWeight: 700, textTransform: "uppercase", color: "var(--color-accent-text)", display: "block" }}>
                           Correct Answer: {q.correctAnswers.join(", ")}
                         </span>
-                        <p style={{ fontFamily: "var(--font-body)", fontSize: "0.95rem", color: "var(--color-ink)", marginTop: "0.35rem", lineHeight: 1.6 }}>
+                        <p style={{ fontFamily: "var(--font-body)", fontSize: "1.05rem", color: "var(--color-ink)", marginTop: "0.45rem", lineHeight: 1.65 }}>
                           {q.explanation}
                         </p>
                       </div>
 
                       {/* Distractor Rationale */}
                       {q.whyOtherOptionsAreWrong && (
-                        <div style={{ borderTop: "1px solid var(--color-border)", paddingTop: "0.75rem", marginBottom: "1rem" }}>
-                          <span style={{ fontFamily: "var(--font-mono)", fontSize: "0.58rem", textTransform: "uppercase", color: "var(--color-ink-3)", display: "block", marginBottom: "0.4rem" }}>
+                        <div style={{ borderTop: "1px solid var(--color-border)", paddingTop: "1rem", marginBottom: "1.25rem" }}>
+                          <span style={{ fontFamily: "var(--font-mono)", fontSize: "0.72rem", textTransform: "uppercase", color: "var(--color-ink-3)", display: "block", marginBottom: "0.5rem", fontWeight: 700 }}>
                             Why Other Options Are Flawed:
                           </span>
-                          <div style={{ display: "flex", flexDirection: "column", gap: "0.35rem" }}>
+                          <div style={{ display: "flex", flexDirection: "column", gap: "0.5rem" }}>
                             {Object.entries(q.whyOtherOptionsAreWrong).map(([optId, reason]) => (
-                              <div key={optId} style={{ fontSize: "0.85rem", color: "var(--color-ink-2)", lineHeight: 1.4 }}>
+                              <div key={optId} style={{ fontSize: "0.95rem", color: "var(--color-ink-2)", lineHeight: 1.5 }}>
                                 <strong>Option {optId}:</strong> {reason}
                               </div>
                             ))}
@@ -509,12 +506,12 @@ export default function PracticePage({ params }: Props) {
 
                       {/* Engineering Principle */}
                       {q.engineeringPrinciple && (
-                        <div style={{ backgroundColor: "var(--color-surface)", padding: "0.75rem 1rem", border: "1px solid var(--color-border)" }}>
-                          <span style={{ fontFamily: "var(--font-mono)", fontSize: "0.58rem", textTransform: "uppercase", color: "var(--color-accent)", fontWeight: 700, display: "block" }}>
+                        <div style={{ backgroundColor: "var(--color-surface)", padding: "1rem 1.25rem", border: "1px solid var(--color-border)" }}>
+                          <span style={{ fontFamily: "var(--font-mono)", fontSize: "0.72rem", textTransform: "uppercase", color: "var(--color-accent)", fontWeight: 700, display: "block" }}>
                             Engineering Principle:
                           </span>
-                          <p style={{ fontFamily: "var(--font-body)", fontSize: "0.9rem", fontStyle: "italic", color: "var(--color-ink)", margin: "0.2rem 0 0" }}>
-                            "{q.engineeringPrinciple}"
+                          <p style={{ fontFamily: "var(--font-body)", fontSize: "0.98rem", fontStyle: "italic", color: "var(--color-ink)", margin: "0.3rem 0 0", lineHeight: 1.55 }}>
+                            &ldquo;{q.engineeringPrinciple}&rdquo;
                           </p>
                         </div>
                       )}
@@ -529,4 +526,3 @@ export default function PracticePage({ params }: Props) {
     </div>
   );
 }
-

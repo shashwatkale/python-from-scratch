@@ -1,4 +1,4 @@
-// src/components/LessonTOC.tsx — Active Scroll Highlighting Table of Contents
+// src/components/LessonTOC.tsx — Active Scroll Highlighting Table of Contents with Enhanced Readability
 "use client";
 
 import { useEffect, useState } from "react";
@@ -52,7 +52,7 @@ export function LessonTOC({ sections }: Props) {
     <aside
       className="lesson-toc"
       style={{
-        width: "220px",
+        width: "230px",
         flexShrink: 0,
         position: "sticky",
         top: "4.5rem",
@@ -62,17 +62,17 @@ export function LessonTOC({ sections }: Props) {
     >
       <div
         style={{
-          borderLeft: "1px solid var(--color-border)",
-          paddingLeft: "1rem",
+          borderLeft: "1.5px solid var(--color-border)",
+          paddingLeft: "1.15rem",
         }}
       >
         <span
           style={{
             fontFamily: "var(--font-mono)",
-            fontSize: "0.62rem",
+            fontSize: "0.78rem",
             fontWeight: 700,
             textTransform: "uppercase",
-            letterSpacing: "0.12em",
+            letterSpacing: "0.1em",
             color: "var(--color-ink-3)",
             display: "block",
             marginBottom: "1rem",
@@ -81,7 +81,7 @@ export function LessonTOC({ sections }: Props) {
           On This Page
         </span>
 
-        <nav style={{ display: "flex", flexDirection: "column", gap: "0.2rem" }}>
+        <nav style={{ display: "flex", flexDirection: "column", gap: "0.35rem" }}>
           {sections.map((section) => {
             const isActive = activeId === section.id;
             return (
@@ -91,17 +91,17 @@ export function LessonTOC({ sections }: Props) {
                 onClick={(e) => scrollToSection(e, section.id)}
                 style={{
                   fontFamily: "var(--font-mono)",
-                  fontSize: "0.72rem",
+                  fontSize: "0.85rem",
                   color: isActive ? "var(--color-accent-text)" : "var(--color-ink-3)",
-                  fontWeight: isActive ? 600 : 400,
+                  fontWeight: isActive ? 700 : 400,
                   textDecoration: "none",
-                  padding: "0.35rem 0.6rem",
-                  marginLeft: "-1rem",
-                  paddingLeft: "1rem",
-                  borderLeft: `2px solid ${isActive ? "var(--color-accent)" : "transparent"}`,
+                  padding: "0.4rem 0.6rem",
+                  marginLeft: "-1.15rem",
+                  paddingLeft: "1.15rem",
+                  borderLeft: `2.5px solid ${isActive ? "var(--color-accent)" : "transparent"}`,
                   transition: "all 0.15s ease",
                   display: "block",
-                  lineHeight: 1.4,
+                  lineHeight: 1.5,
                 }}
                 className={isActive ? "" : "hover:text-accent"}
               >
@@ -114,4 +114,3 @@ export function LessonTOC({ sections }: Props) {
     </aside>
   );
 }
-

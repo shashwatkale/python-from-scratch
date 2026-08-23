@@ -1,4 +1,4 @@
-// src/components/LessonSidebar.tsx — Enhanced Curriculum Sidebar with Progress & Phase Navigation
+// src/components/LessonSidebar.tsx — Enhanced Curriculum Sidebar with High-Legibility Typography
 "use client";
 
 import Link from "next/link";
@@ -24,14 +24,16 @@ export function LessonSidebar({ phase, currentLesson, allPhases = [] }: Props) {
     e.preventDefault();
     e.stopPropagation();
     const key = `${phaseSlug}/${lessonSlug}`;
+    const p = loadProgress();
     let updated: string[];
-    if (completed.includes(key)) {
-      updated = completed.filter((k) => k !== key);
+    if (p.completedLessons.includes(key)) {
+      updated = p.completedLessons.filter((k) => k !== key);
     } else {
-      updated = [...completed, key];
+      updated = [...p.completedLessons, key];
     }
+    p.completedLessons = updated;
     setCompleted(updated);
-    saveProgress({ completedLessons: updated });
+    saveProgress(p);
   };
 
   // Calculate phase progress
@@ -55,7 +57,7 @@ export function LessonSidebar({ phase, currentLesson, allPhases = [] }: Props) {
     <aside
       className="lesson-sidebar"
       style={{
-        width: "270px",
+        width: "280px",
         flexShrink: 0,
         backgroundColor: "var(--color-surface)",
         border: "1px solid var(--color-border)",
@@ -85,7 +87,7 @@ export function LessonSidebar({ phase, currentLesson, allPhases = [] }: Props) {
                   width: "100%",
                   textAlign: "left",
                   fontFamily: "var(--font-mono)",
-                  fontSize: "0.62rem",
+                  fontSize: "0.75rem",
                   textTransform: "uppercase",
                   letterSpacing: "0.08em",
                   color: "var(--color-accent-text)",
@@ -95,7 +97,7 @@ export function LessonSidebar({ phase, currentLesson, allPhases = [] }: Props) {
                   display: "flex",
                   alignItems: "center",
                   justifyContent: "space-between",
-                  padding: "0.2rem 0",
+                  padding: "0.3rem 0",
                   fontWeight: 700,
                 }}
               >
@@ -112,9 +114,9 @@ export function LessonSidebar({ phase, currentLesson, allPhases = [] }: Props) {
                     right: 0,
                     backgroundColor: "var(--color-surface)",
                     border: "1px solid var(--color-border)",
-                    boxShadow: "0 8px 24px rgba(0,0,0,0.15)",
+                    boxShadow: "0 8px 24px rgba(0,0,0,0.35)",
                     zIndex: 60,
-                    maxHeight: "260px",
+                    maxHeight: "280px",
                     overflowY: "auto",
                     marginTop: "0.4rem",
                   }}
@@ -126,13 +128,14 @@ export function LessonSidebar({ phase, currentLesson, allPhases = [] }: Props) {
                       onClick={() => setPhaseDropdownOpen(false)}
                       style={{
                         display: "block",
-                        padding: "0.5rem 0.85rem",
+                        padding: "0.65rem 0.95rem",
                         fontFamily: "var(--font-mono)",
-                        fontSize: "0.65rem",
+                        fontSize: "0.78rem",
                         color: p.slug === phase.slug ? "var(--color-accent-text)" : "var(--color-ink)",
                         backgroundColor: p.slug === phase.slug ? "var(--color-accent-soft)" : "transparent",
                         textDecoration: "none",
                         borderBottom: "1px solid var(--color-border)",
+                        fontWeight: p.slug === phase.slug ? 700 : 400,
                       }}
                       className="hover:bg-surface-2"
                     >
@@ -146,11 +149,12 @@ export function LessonSidebar({ phase, currentLesson, allPhases = [] }: Props) {
             <span
               style={{
                 fontFamily: "var(--font-mono)",
-                fontSize: "0.6rem",
+                fontSize: "0.75rem",
                 textTransform: "uppercase",
                 letterSpacing: "0.08em",
                 color: "var(--color-ink-3)",
                 display: "block",
+                fontWeight: 600,
               }}
             >
               PHASE {String(phase.order).padStart(2, "0")} · ALL PHASES
@@ -160,29 +164,30 @@ export function LessonSidebar({ phase, currentLesson, allPhases = [] }: Props) {
           <h2
             style={{
               fontFamily: "var(--font-display)",
-              fontSize: "1.3rem",
+              fontSize: "1.45rem",
               fontWeight: 700,
               textTransform: "uppercase",
               color: "var(--color-ink)",
-              marginTop: "0.25rem",
-              lineHeight: 1.1,
+              marginTop: "0.35rem",
+              lineHeight: 1.15,
             }}
           >
             {phase.title}
           </h2>
 
           {/* Phase Progress Bar */}
-          <div style={{ marginTop: "0.85rem" }}>
+          <div style={{ marginTop: "1rem" }}>
             <div
               style={{
                 display: "flex",
                 justifyContent: "space-between",
                 alignItems: "center",
                 fontFamily: "var(--font-mono)",
-                fontSize: "0.58rem",
+                fontSize: "0.72rem",
                 color: "var(--color-ink-3)",
-                marginBottom: "0.3rem",
+                marginBottom: "0.4rem",
                 textTransform: "uppercase",
+                fontWeight: 600,
               }}
             >
               <span>Progress</span>
@@ -192,9 +197,9 @@ export function LessonSidebar({ phase, currentLesson, allPhases = [] }: Props) {
             </div>
             <div
               style={{
-                height: "4px",
+                height: "6px",
                 backgroundColor: "var(--color-border)",
-                borderRadius: "2px",
+                borderRadius: "3px",
                 overflow: "hidden",
               }}
             >
@@ -211,7 +216,7 @@ export function LessonSidebar({ phase, currentLesson, allPhases = [] }: Props) {
         </div>
 
         {/* ── Lesson Checklist Stream ───────────────────────────── */}
-        <nav style={{ padding: "0.5rem 0", display: "flex", flexDirection: "column", gap: "0.1rem" }}>
+        <nav style={{ padding: "0.75rem 0", display: "flex", flexDirection: "column", gap: "0.15rem" }}>
           {phase.lessons.map((lesson) => {
             const key = `${phase.slug}/${lesson.slug}`;
             const done = completed.includes(key);
@@ -223,10 +228,10 @@ export function LessonSidebar({ phase, currentLesson, allPhases = [] }: Props) {
                 style={{
                   display: "flex",
                   alignItems: "center",
-                  gap: "0.65rem",
-                  padding: "0.5rem 1.25rem",
+                  gap: "0.75rem",
+                  padding: "0.65rem 1.25rem",
                   backgroundColor: active ? "var(--color-accent-soft)" : "transparent",
-                  borderLeft: active ? "3px solid var(--color-accent)" : "3px solid transparent",
+                  borderLeft: active ? "3.5px solid var(--color-accent)" : "3.5px solid transparent",
                   transition: "background-color 0.12s ease",
                 }}
                 className="hover:bg-surface-2"
@@ -236,19 +241,20 @@ export function LessonSidebar({ phase, currentLesson, allPhases = [] }: Props) {
                   onClick={(e) => toggleLessonDone(e, phase.slug, lesson.slug)}
                   aria-label={`Mark ${lesson.title} as ${done ? "incomplete" : "complete"}`}
                   style={{
-                    width: "14px",
-                    height: "14px",
+                    width: "18px",
+                    height: "18px",
                     border: `1.5px solid ${done ? "var(--color-accent)" : active ? "var(--color-accent)" : "var(--color-border-2)"}`,
                     backgroundColor: done ? "var(--color-accent)" : "transparent",
                     color: "#fff",
                     display: "flex",
                     alignItems: "center",
                     justifyContent: "center",
-                    fontSize: "0.6rem",
+                    fontSize: "0.75rem",
+                    fontWeight: 700,
                     cursor: "pointer",
                     flexShrink: 0,
                     padding: 0,
-                    borderRadius: "1px",
+                    borderRadius: "2px",
                   }}
                 >
                   {done && "✓"}
@@ -259,11 +265,11 @@ export function LessonSidebar({ phase, currentLesson, allPhases = [] }: Props) {
                   href={`/curriculum/${phase.slug}/${lesson.slug}/`}
                   style={{
                     fontFamily: "var(--font-body)",
-                    fontSize: "0.85rem",
+                    fontSize: "0.98rem",
                     fontWeight: active ? 600 : 400,
                     color: active ? "var(--color-ink)" : done ? "var(--color-ink-3)" : "var(--color-ink-2)",
                     textDecoration: "none",
-                    lineHeight: 1.3,
+                    lineHeight: 1.4,
                     flex: 1,
                   }}
                 >
@@ -279,7 +285,7 @@ export function LessonSidebar({ phase, currentLesson, allPhases = [] }: Props) {
       <div
         style={{
           borderTop: "1px solid var(--color-border)",
-          padding: "0.75rem 1rem",
+          padding: "0.85rem 1rem",
           display: "flex",
           justifyContent: "space-between",
           backgroundColor: "var(--color-surface-2)",
@@ -291,7 +297,7 @@ export function LessonSidebar({ phase, currentLesson, allPhases = [] }: Props) {
             href={`/curriculum/${prevPhase.slug}/${prevPhase.lessons[0]?.slug || ""}/`}
             style={{
               fontFamily: "var(--font-mono)",
-              fontSize: "0.58rem",
+              fontSize: "0.75rem",
               textTransform: "uppercase",
               color: "var(--color-accent-text)",
               textDecoration: "none",
@@ -310,7 +316,7 @@ export function LessonSidebar({ phase, currentLesson, allPhases = [] }: Props) {
             href={`/curriculum/${nextPhase.slug}/${nextPhase.lessons[0]?.slug || ""}/`}
             style={{
               fontFamily: "var(--font-mono)",
-              fontSize: "0.58rem",
+              fontSize: "0.75rem",
               textTransform: "uppercase",
               color: "var(--color-accent-text)",
               textDecoration: "none",
