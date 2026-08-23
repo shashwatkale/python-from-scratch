@@ -4,8 +4,20 @@ import Fuse from "fuse.js";
 import { PHASES, EXERCISES, PROJECTS } from "./curriculum";
 import type { SearchResult } from "@/types";
 
+import { GLOSSARY_TERMS } from "@/data/glossary";
+
 function buildIndex(): SearchResult[] {
   const results: SearchResult[] = [];
+
+  for (const term of GLOSSARY_TERMS) {
+    results.push({
+      title: term.term,
+      description: term.definition,
+      category: "glossary",
+      href: `/glossary/${term.slug}/`,
+      tags: [...term.tags, term.categoryLabel, term.difficulty],
+    });
+  }
 
   for (const phase of PHASES) {
     for (const lesson of phase.lessons) {

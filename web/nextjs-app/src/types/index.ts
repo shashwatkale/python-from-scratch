@@ -62,10 +62,12 @@ export interface Progress {
   currentPhase: string;
 }
 
+export * from "./glossary";
+
 export interface SearchResult {
   title: string;
   description: string;
-  category: "lesson" | "exercise" | "project" | "cheatsheet";
+  category: "lesson" | "exercise" | "project" | "cheatsheet" | "glossary";
   href: string;
   tags: string[];
 }

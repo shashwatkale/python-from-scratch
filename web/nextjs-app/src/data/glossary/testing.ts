@@ -1,0 +1,51 @@
+// src/data/glossary/testing.ts
+import type { GlossaryTerm } from "@/types";
+
+export const TESTING_TERMS: GlossaryTerm[] = [
+  {
+    slug: "pytest",
+    term: "pytest",
+    category: "testing",
+    categoryLabel: "Testing",
+    difficulty: "intermediate",
+    definition: "The premier testing framework for Python, featuring simple `assert` statements, powerful fixtures, and rich plugin ecosystems.",
+    explanation: "Replaces verbose `unittest.TestCase` boilerplate with plain functions and expressive introspection-based assertions.",
+    example: "# test_app.py\ndef add(a, b): return a + b\n\ndef test_add():\n    assert add(2, 3) == 5\n\n# Terminal: pytest",
+    output: "1 passed in 0.02s",
+    whyItMatters: "The industry standard testing tool across virtually all production Python organizations.",
+    relatedTerms: ["fixture", "mock", "assertion"],
+    relatedLessons: [{ title: "Testing with pytest", phaseSlug: "13-testing", lessonSlug: "pytest" }],
+    tags: ["testing", "pytest", "qa"],
+  },
+  {
+    slug: "fixture",
+    term: "Fixture (@pytest.fixture)",
+    category: "testing",
+    categoryLabel: "Testing",
+    difficulty: "intermediate",
+    definition: "A function decorated with `@pytest.fixture` that prepares and injects baseline test dependencies, mock data, or database connections into test functions.",
+    explanation: "Supports dependency injection, yield-based teardown, and configurable scopes (`function`, `module`, `session`).",
+    example: "import pytest\n\n@pytest.fixture\ndef sample_user():\n    return {\"id\": 1, \"name\": \"Alex\"}\n\ndef test_user_name(sample_user):\n    assert sample_user[\"name\"] == \"Alex\"",
+    output: "",
+    whyItMatters: "Promotes DRY, modular test architecture with automatic setup and guaranteed cleanup.",
+    relatedTerms: ["pytest", "mock", "tdd"],
+    relatedLessons: [{ title: "pytest Fixtures", phaseSlug: "13-testing", lessonSlug: "fixtures" }],
+    tags: ["testing", "pytest", "fixtures"],
+  },
+  {
+    slug: "mock",
+    term: "Mock (unittest.mock)",
+    category: "testing",
+    categoryLabel: "Testing",
+    difficulty: "intermediate",
+    definition: "A simulated object from `unittest.mock` used in tests to substitute external dependencies (e.g. HTTP APIs, databases, payment gateways) and assert on how they were called.",
+    explanation: "Records all calls, arguments, and return values without making actual network or disk operations.",
+    example: "from unittest.mock import MagicMock\n\napi = MagicMock()\napi.get_user.return_value = {\"id\": 42}\n\nresult = api.get_user(42)\napi.get_user.assert_called_once_with(42)\nprint(result)",
+    output: "{'id': 42}",
+    whyItMatters: "Allows writing fast, isolated, deterministic unit tests that do not rely on flaky external networks or production databases.",
+    relatedTerms: ["fixture", "pytest", "unit-test"],
+    relatedLessons: [{ title: "Mocking & Test Doubles", phaseSlug: "13-testing", lessonSlug: "mocking" }],
+    tags: ["testing", "mocking", "stdlib"],
+  },
+];
+

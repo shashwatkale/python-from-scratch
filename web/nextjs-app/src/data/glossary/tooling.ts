@@ -1,0 +1,51 @@
+// src/data/glossary/tooling.ts
+import type { GlossaryTerm } from "@/types";
+
+export const TOOLING_TERMS: GlossaryTerm[] = [
+  {
+    slug: "repl",
+    term: "REPL (Read-Eval-Print Loop)",
+    category: "tooling",
+    categoryLabel: "Developer Tooling",
+    difficulty: "beginner",
+    definition: "An interactive programming environment that takes single user inputs, executes them immediately, and returns the result to the console.",
+    explanation: "Launched by typing `python` in a terminal. Enhanced alternatives include `IPython` and `bpython`.",
+    example: "# Interactive session:\n# >>> 2 + 2\n# 4\n# >>> 'py'.upper()\n# 'PY'",
+    output: "",
+    whyItMatters: "Provides an instant laboratory for experimenting with syntax, testing APIs, and learning Python interactively.",
+    relatedTerms: ["interpreter", "tooling"],
+    relatedLessons: [{ title: "The Python REPL", phaseSlug: "00-getting-started", lessonSlug: "python-repl" }],
+    tags: ["repl", "tooling", "interactive", "basics"],
+  },
+  {
+    slug: "ruff-black",
+    term: "Ruff & Black",
+    category: "tooling",
+    categoryLabel: "Developer Tooling",
+    difficulty: "intermediate",
+    definition: "Modern code quality tools for Python. Black is an uncompromising code formatter; Ruff is an extremely fast Rust-based linter and formatter that replaces Flake8, isort, and Black.",
+    explanation: "Ruff runs 10x–100x faster than traditional Python linters and can auto-fix formatting and linting errors.",
+    example: "# Terminal:\n# ruff check .\n# ruff format .",
+    output: "All checks passed!",
+    whyItMatters: "Enforces consistent code style, catches unused imports, detects security issues, and cleans syntax automatically across teams.",
+    relatedTerms: ["mypy", "pyproject-toml", "tooling"],
+    relatedLessons: [{ title: "Code Quality & Tooling", phaseSlug: "00-getting-started", lessonSlug: "vscode-setup" }],
+    tags: ["linter", "formatter", "tooling", "rust"],
+  },
+  {
+    slug: "uv",
+    term: "uv",
+    category: "tooling",
+    categoryLabel: "Developer Tooling",
+    difficulty: "intermediate",
+    definition: "An extremely fast Python package and project manager written in Rust, designed as a drop-in replacement for pip, pip-tools, and virtualenv.",
+    explanation: "Installs dependencies 10–100x faster than standard `pip` and manages Python versions and project workspaces seamlessly.",
+    example: "# Terminal:\n# uv venv\n# uv pip install fastapi",
+    output: "",
+    whyItMatters: "The emerging new gold standard for lightning-fast Python package installation and environment management.",
+    relatedTerms: ["pip", "virtual-environment", "pyproject-toml"],
+    relatedLessons: [{ title: "Modern Package Management", phaseSlug: "00-getting-started", lessonSlug: "pip" }],
+    tags: ["packaging", "tooling", "rust", "modern-python"],
+  },
+];
+

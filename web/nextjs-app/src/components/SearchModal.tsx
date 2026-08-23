@@ -14,6 +14,7 @@ const CAT_LABEL: Record<SearchResult["category"], string> = {
   exercise: "EXERCISE",
   project: "PROJECT",
   cheatsheet: "SHEET",
+  glossary: "GLOSSARY",
 };
 
 export function SearchModal({ onClose }: Props) {

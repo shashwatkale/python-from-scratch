@@ -55,8 +55,8 @@
     background-color: var(--color-bg);
     color: var(--color-ink);
     font-family: var(--font-body);
-    font-size: 2rem;
-    line-height: 1.8;
+    font-size: 1rem;
+    line-height: 1.7;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }

@@ -1,0 +1,52 @@
+// src/data/glossary/dataclasses.ts
+import type { GlossaryTerm } from "@/types";
+
+export const DATACLASSES_TERMS: GlossaryTerm[] = [
+  {
+    slug: "dataclass",
+    term: "Dataclass",
+    category: "dataclasses",
+    categoryLabel: "Dataclasses",
+    difficulty: "intermediate",
+    definition: "A decorator (`@dataclass`) from the standard library that automatically generates boilerplate dunder methods like `__init__`, `__repr__`, `__eq__`, and `__hash__` from type-annotated fields.",
+    explanation: "Introduced in Python 3.7 (PEP 557) to provide clean, structured data-holding classes without manual boilerplate.",
+    syntax: "@dataclass\nclass User:\n    name: str\n    age: int",
+    example: "from dataclasses import dataclass\n\n@dataclass\nclass User:\n    name: str\n    age: int = 18\n\nu = User(\"Alex\", 25)\nprint(u)",
+    output: "User(name='Alex', age=25)",
+    whyItMatters: "Eliminates hundreds of lines of repetitive constructor and comparison code while producing clear, readable domain models.",
+    relatedTerms: ["field", "namedtuple", "dunder-method"],
+    relatedLessons: [{ title: "Dataclasses", phaseSlug: "10-advanced-python", lessonSlug: "dataclasses" }],
+    tags: ["dataclasses", "oop", "stdlib"],
+  },
+  {
+    slug: "dataclass-field",
+    term: "field()",
+    category: "dataclasses",
+    categoryLabel: "Dataclasses",
+    difficulty: "intermediate",
+    definition: "A helper function used in dataclasses to customize individual attribute behaviors, such as default factories for mutable objects or excluding fields from representation/comparison.",
+    explanation: "Essential for default mutable values: `items: list = field(default_factory=list)` prevents shared mutable defaults.",
+    example: "from dataclasses import dataclass, field\n\n@dataclass\nclass Order:\n    id: int\n    items: list[str] = field(default_factory=list)\n\no = Order(101)\no.items.append(\"Book\")\nprint(o)",
+    output: "Order(id=101, items=['Book'])",
+    whyItMatters: "Prevents common bugs with mutable default arguments in classes.",
+    relatedTerms: ["dataclass", "mutable", "default-argument"],
+    relatedLessons: [{ title: "Dataclasses in Depth", phaseSlug: "10-advanced-python", lessonSlug: "dataclasses" }],
+    tags: ["dataclasses", "stdlib"],
+  },
+  {
+    slug: "dataclass-frozen",
+    term: "Frozen Dataclass",
+    category: "dataclasses",
+    categoryLabel: "Dataclasses",
+    difficulty: "intermediate",
+    definition: "An immutable dataclass created using `@dataclass(frozen=True)` that prohibits attribute reassignment and automatically generates a `__hash__()` method.",
+    explanation: "Allows instances to be safely stored in sets and used as dictionary keys.",
+    example: "from dataclasses import dataclass\n\n@dataclass(frozen=True)\nclass Config:\n    host: str\n    port: int\n\nc = Config(\"localhost\", 8080)\n# c.port = 9000  # Raises FrozenInstanceError\nprint(hash(c) != 0)",
+    output: "True",
+    whyItMatters: "Provides clean immutable value objects with built-in hashability and thread safety.",
+    relatedTerms: ["dataclass", "immutable", "hashable"],
+    relatedLessons: [{ title: "Dataclasses & Immutability", phaseSlug: "10-advanced-python", lessonSlug: "dataclasses" }],
+    tags: ["dataclasses", "immutability"],
+  },
+];
+

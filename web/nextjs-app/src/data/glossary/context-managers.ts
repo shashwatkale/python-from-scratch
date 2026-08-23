@@ -1,0 +1,52 @@
+// src/data/glossary/context-managers.ts
+import type { GlossaryTerm } from "@/types";
+
+export const CONTEXT_MANAGERS_TERMS: GlossaryTerm[] = [
+  {
+    slug: "context-manager",
+    term: "Context Manager",
+    category: "context-managers",
+    categoryLabel: "Context Managers",
+    difficulty: "intermediate",
+    definition: "An object that defines the runtime context for executing a block of code within a `with` statement, ensuring deterministic setup and teardown.",
+    explanation: "Implements `__enter__()` and `__exit__()`. Common uses include opening files, acquiring locks, database transactions, and temporary state overrides.",
+    syntax: "with context_manager as variable:\n    # code block",
+    example: "class Timer:\n    def __enter__(self):\n        print(\"Started\")\n        return self\n    def __exit__(self, exc_type, exc_val, exc_tb):\n        print(\"Finished\")\n        return False\n\nwith Timer():\n    print(\"Working...\")",
+    output: "Started\nWorking...\nFinished",
+    whyItMatters: "Guarantees resource release (closing sockets, freeing locks, rolling back transactions) even if exceptions occur.",
+    relatedTerms: ["with-statement", "dunder-methods", "contextlib"],
+    relatedLessons: [{ title: "Context Managers & with", phaseSlug: "10-advanced-python", lessonSlug: "context-managers" }],
+    tags: ["context-managers", "resources", "safety", "oop"],
+  },
+  {
+    slug: "with-statement",
+    term: "with Statement",
+    category: "context-managers",
+    categoryLabel: "Context Managers",
+    difficulty: "beginner",
+    definition: "A control-flow construct used to wrap the execution of a block with methods defined by a context manager.",
+    explanation: "Replaces verbose `try...finally` boilerplate when managing external resources.",
+    example: "# Automatically closes file upon exit\nwith open(\"sample.txt\", \"w\") as f:\n    f.write(\"Python From Scratch\")\nprint(f.closed)",
+    output: "True",
+    whyItMatters: "Prevents memory leaks, dangling file handles, uncommitted database sessions, and lock deadlocks.",
+    relatedTerms: ["context-manager", "exception-handling", "files-io"],
+    relatedLessons: [{ title: "Working with Files", phaseSlug: "06-file-handling", lessonSlug: "with-statement" }],
+    tags: ["syntax", "resources", "basics"],
+  },
+  {
+    slug: "contextlib",
+    term: "contextlib",
+    category: "context-managers",
+    categoryLabel: "Context Managers",
+    difficulty: "intermediate",
+    definition: "A standard library module providing utilities and decorators (like `@contextmanager`) for creating and composing context managers without writing boilerplate classes.",
+    explanation: "Allows converting generator functions into full context managers where code before `yield` is setup and code after is teardown.",
+    example: "from contextlib import contextmanager\n\n@contextmanager\ndef tag(name):\n    print(f\"<{name}>\")\n    yield\n    print(f\"</{name}>\")\n\nwith tag(\"h1\"):\n    print(\"Title\")",
+    output: "<h1>\nTitle\n</h1>",
+    whyItMatters: "Reduces a 20-line class-based context manager down to a clean, readable 5-line generator function.",
+    relatedTerms: ["context-manager", "generator", "yield"],
+    relatedLessons: [{ title: "contextlib & Utilities", phaseSlug: "10-advanced-python", lessonSlug: "contextlib" }],
+    tags: ["stdlib", "context-managers", "generators"],
+  },
+];
+

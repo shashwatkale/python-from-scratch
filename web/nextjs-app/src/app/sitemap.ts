@@ -1,5 +1,6 @@
 import { MetadataRoute } from "next";
 import { PHASES } from "@/lib/curriculum";
+import { GLOSSARY_TERMS } from "@/data/glossary";
 
 export const dynamic = "force-static";
 
@@ -9,6 +10,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const routes: MetadataRoute.Sitemap = [
     { url: BASE, lastModified: new Date() },
     { url: `${BASE}/curriculum/`, lastModified: new Date() },
+    { url: `${BASE}/glossary/`, lastModified: new Date() },
     { url: `${BASE}/exercises/`, lastModified: new Date() },
     { url: `${BASE}/projects/`, lastModified: new Date() },
     { url: `${BASE}/cheatsheets/`, lastModified: new Date() },
@@ -24,6 +26,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
         lastModified: new Date(),
       });
     }
+  }
+
+  for (const term of GLOSSARY_TERMS) {
+    routes.push({
+      url: `${BASE}/glossary/${term.slug}/`,
+      lastModified: new Date(),
+    });
   }
 
   return routes;

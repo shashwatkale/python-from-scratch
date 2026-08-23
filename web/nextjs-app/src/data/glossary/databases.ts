@@ -1,0 +1,51 @@
+// src/data/glossary/databases.ts
+import type { GlossaryTerm } from "@/types";
+
+export const DATABASES_TERMS: GlossaryTerm[] = [
+  {
+    slug: "orm",
+    term: "ORM (Object-Relational Mapping)",
+    category: "databases",
+    categoryLabel: "Databases & Backend",
+    difficulty: "intermediate",
+    definition: "A programming technique that maps database tables to Python classes and rows to Python objects, allowing developers to query and manipulate relational data using object-oriented Python code.",
+    explanation: "Libraries like SQLAlchemy, SQLModel, and Tortoise-ORM translate Python operations into optimized SQL queries.",
+    example: "# SQLAlchemy ORM example:\n# user = session.query(User).filter_by(name=\"Ada\").first()\n# user.email = \"ada@example.com\"\n# session.commit()",
+    output: "",
+    whyItMatters: "Abstracts raw SQL syntax, provides type safety, automatically handles database migrations, and prevents SQL injection vulnerabilities.",
+    relatedTerms: ["sqlalchemy", "crud", "model"],
+    relatedLessons: [{ title: "SQLAlchemy & ORM", phaseSlug: "14-databases", lessonSlug: "sqlalchemy" }],
+    tags: ["databases", "orm", "sql", "backend"],
+  },
+  {
+    slug: "sqlalchemy",
+    term: "SQLAlchemy",
+    category: "databases",
+    categoryLabel: "Databases & Backend",
+    difficulty: "intermediate",
+    definition: "The most widely used SQL toolkit and Object-Relational Mapper (ORM) for Python, providing high-performance database abstraction.",
+    explanation: "Offers two architectural layers: Core (SQL expression language & connection pooling) and ORM (declarative domain mapping).",
+    example: "import sqlite3\n\nconn = sqlite3.connect(\":memory:\")\ncursor = conn.cursor()\ncursor.execute(\"CREATE TABLE items (id INT, name TEXT)\")\ncursor.execute(\"INSERT INTO items VALUES (1, 'Book')\")\nconn.commit()\n\nprint(cursor.execute(\"SELECT name FROM items\").fetchone()[0])",
+    output: "Book",
+    whyItMatters: "The standard backend persistence layer across modern Python production services.",
+    relatedTerms: ["orm", "crud", "fastapi"],
+    relatedLessons: [{ title: "Databases & SQLAlchemy", phaseSlug: "14-databases", lessonSlug: "sqlalchemy" }],
+    tags: ["databases", "orm", "backend"],
+  },
+  {
+    slug: "jwt",
+    term: "JWT (JSON Web Token)",
+    category: "databases",
+    categoryLabel: "Databases & Backend",
+    difficulty: "intermediate",
+    definition: "A compact, URL-safe means of securely transmitting claims between parties as a JSON object, digitally signed with a cryptographic secret or public/private key.",
+    explanation: "Consists of three parts: Header, Payload, and Signature. Commonly used for stateless user authentication in REST and FastAPI backends.",
+    example: "# Standard JWT payload:\n# {\"sub\": \"user_123\", \"exp\": 1718000000, \"role\": \"admin\"}",
+    output: "",
+    whyItMatters: "Enables secure, scalable stateless authentication across microservices without centralized session database lookups.",
+    relatedTerms: ["fastapi", "rest-api", "authentication"],
+    relatedLessons: [{ title: "Authentication & JWT", phaseSlug: "15-api-development", lessonSlug: "jwt" }],
+    tags: ["security", "auth", "api"],
+  },
+];
+
