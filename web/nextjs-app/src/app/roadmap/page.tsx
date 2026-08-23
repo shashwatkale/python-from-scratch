@@ -10,7 +10,7 @@ import {
   calculateRoleProgress,
   getNodeDependencyChain,
 } from "@/data/roadmap";
-import { loadProgress, saveProgress, markLessonComplete } from "@/lib/progress";
+import { loadProgress, saveProgress } from "@/lib/progress";
 import { RoadmapHero } from "@/components/roadmap/RoadmapHero";
 import { RoleSelector } from "@/components/roadmap/RoleSelector";
 import { RoadmapControls } from "@/components/roadmap/RoadmapControls";
