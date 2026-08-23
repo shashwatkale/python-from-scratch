@@ -6,9 +6,30 @@ import type { SearchResult } from "@/types";
 
 import { GLOSSARY_TERMS } from "@/data/glossary";
 import { ROADMAP_NODES, CAREER_ROLES } from "@/data/roadmap";
+import { CERTIFICATION_TRACKS } from "@/data/certifications";
 
 function buildIndex(): SearchResult[] {
   const results: SearchResult[] = [];
+
+  for (const track of CERTIFICATION_TRACKS) {
+    results.push({
+      title: `${track.code} · ${track.title}`,
+      description: track.tagline,
+      category: "certification",
+      href: `/certifications/${track.id}/`,
+      tags: ["certification", "claude", "anthropic", track.code, track.levelBadge],
+    });
+
+    for (const lesson of track.lessons) {
+      results.push({
+        title: `${track.code} Lesson ${lesson.order.toString().padStart(2, "0")} · ${lesson.title}`,
+        description: lesson.leadParagraph,
+        category: "certification",
+        href: `/certifications/${track.id}/lessons/${lesson.slug}/`,
+        tags: ["certification", "lesson", track.code, ...lesson.domains],
+      });
+    }
+  }
 
   for (const role of CAREER_ROLES) {
     results.push({

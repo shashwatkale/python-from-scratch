@@ -64,11 +64,12 @@ export interface Progress {
 
 export * from "./glossary";
 export * from "./roadmap";
+export * from "./certifications";
 
 export interface SearchResult {
   title: string;
   description: string;
-  category: "lesson" | "exercise" | "project" | "cheatsheet" | "glossary";
+  category: "lesson" | "exercise" | "project" | "cheatsheet" | "glossary" | "certification";
   href: string;
   tags: string[];
 }
